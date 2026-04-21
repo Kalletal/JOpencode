@@ -1,0 +1,4 @@
+ai/opencode/storage/AppConfig.class
+ai/opencode/storage/ConfigManager.class
+ai/opencode/storage/DatabaseManager.class
+ai/opencode/storage/AppConfig$AgentConfig.class

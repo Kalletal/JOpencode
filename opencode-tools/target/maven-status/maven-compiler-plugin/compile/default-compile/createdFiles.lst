@@ -1,0 +1,8 @@
+ai/opencode/tools/Attachment.class
+ai/opencode/tools/Tool.class
+ai/opencode/tools/ToolRegistry.class
+ai/opencode/tools/ReadTool.class
+ai/opencode/tools/ToolRequest.class
+ai/opencode/tools/ToolResponse.class
+ai/opencode/tools/ToolException.class
+ai/opencode/tools/BashTool.class

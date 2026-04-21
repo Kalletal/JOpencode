@@ -1,0 +1,123 @@
+JOpencode
+├── LICENSE
+├── .git
+│   ├── objects
+│   │   └── 00
+│   ├── refs
+│   │   └── heads
+│   │       └── main
+│   ├── HEAD
+│   ├── index
+│   ├── config
+│   ├── description
+│   ├── hooks
+│   ├── info
+│   └── logs
+│       └── refs
+│           └── heads
+├── .opencode
+│   └── command
+│       └── speckit
+├── .specify
+├── opencode-core
+│   ├── src
+│   │   └── main
+│   │       └── java
+│   │           └── ai
+│   │               └── opencode
+│   │                   └── core
+│   │                       └── context
+│   │                           └── llm
+│   │                           └── orchestrator
+│   │                           └── storage
+│   ├── pom.xml
+│   ├── .classpath
+│   ├── .project
+│   ├── .settings
+│   │   └── org.eclipse.core.resources.prefs
+│   │   └── org.eclipse.jdt.apt.core.prefs
+│   │   └── org.eclipse.jdt.core.prefs
+│   │   └── org.eclipse.m2e.core.prefs
+│   └── target
+│       └── classes
+│           └── ai
+│               └── opencode
+│                   └── core
+│                       └── context
+│                           └── ContextManager.class
+│                       └── llm
+│                           └── LangChain4jLLMClient.class
+│                       └── orchestrator
+│                           └── AgentOrchestrator.class
+│                       └── project
+│                           └── ProjectInitializer.class
+│                       └── session
+│                           └── SessionManager.class
+│                       └── storage
+│                           └── SessionImportService.class
+├── opencode-gui
+│   ├── src
+│   │   └── main
+│   │       └── java
+│   │           └── ai
+│   │               └── opencode
+│   │                   └── gui
+│   │                       └── components
+│   │                           └── WelcomeTitle.class
+│   │                       └── MainController.class
+│   │                       └── OpencodeGuiApp.class
+│   │                       └── SettingsController.class
+│   │       └── resources
+│   │           └── css
+│   │           └── fxml
+│   │           └── sounds
+│   ├── pom.xml
+│   ├── .classpath
+│   ├── .project
+│   ├── .settings
+│   │   └── org.eclipse.core.resources.prefs
+│   │   └── org.eclipse.jdt.apt.core.prefs
+│   │   └── org.eclipse.jdt.core.prefs
+│   │   └── org.eclipse.m2e.core.prefs
+│   ├── target
+│   │   └── classes
+│   │       └── ai
+│   │           └── opencode
+│   │               └── gui
+│   │                   └── components
+│   │                       └── WelcomeTitle.class
+│   │                   └── MainController.class
+│   │                   └── OpencodeGuiApp.class
+│   │                   └── SettingsController.class
+│   │       └── resources
+│   │           └── css
+│   │           └── fxml
+│   │           └── sounds
+│   ├── .gitignore
+│   └── .opencode
+│       └── command
+│           └── speckit
+└── opencode-storage
+    ├── src
+    │   └── main
+    │       └── java
+    │           └── ai
+    │               └── opencode
+    │                   └── storage
+    │                       └── ConfigManager.java
+    │                       └── DatabaseManager.java
+    ├── pom.xml
+    ├── .classpath
+    ├── .project
+    ├── .settings
+    │   └── org.eclipse.core.resources.prefs
+    │   └── org.eclipse.jdt.apt.core.prefs
+    │   └── org.eclipse.jdt.core.prefs
+    │   └── org.eclipse.m2e.core.prefs
+    └── target
+        └── classes
+            └── ai
+                └── opencode
+                    └── storage
+                        └── ConfigManager.class
+                        └── DatabaseManager.class

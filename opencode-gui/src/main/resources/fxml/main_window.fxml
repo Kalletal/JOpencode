@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+ 
+<BorderPane fx:id="rootPane" fx:controller="ai.opencode.gui.MainController" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+             prefHeight="800.0" prefWidth="1200.0" 
+             styleClass="main-window">
+
+    <center>
+        <StackPane fx:id="mainContentStack">
+            <VBox fx:id="chatView" spacing="10" styleClass="chat-area">
+                <ScrollPane fx:id="chatScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+                    <VBox fx:id="chatMessages" spacing="15" style="-fx-padding: 20;"/>
+                </ScrollPane>
+                
+<VBox spacing="5" style="-fx-padding: 0 20 20 20;">
+                    <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 0 0 5 0;">
+                        <HBox spacing="15" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                            <Label fx:id="agentLabel" text="BUILD" style="-fx-font-size: 11; -fx-font-weight: bold;"/>
+                            <Label text="|" style="-fx-text-fill: #444; -fx-font-size: 11;"/>
+                            <Label fx:id="modelLabel" text="gpt-4o" style="-fx-text-fill: #aaa; -fx-font-size: 11;"/>
+                            <Label text="|" style="-fx-text-fill: #444; -fx-font-size: 11;"/>
+                            <Label fx:id="serverLabel" text="OpenAI" style="-fx-text-fill: #666; -fx-font-size: 11;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 0 0 0 0;">
+                            <Button fx:id="settingsToggleButton" text="⚙" onAction="#toggleSettings" styleClass="settings-toggle-btn"/>
+                        </HBox>
+                    </HBox>
+                    <HBox spacing="10" style="-fx-padding: 0; -fx-alignment: center;">
+                        <TextArea fx:id="userInput" 
+                                  promptText="Ask something..." 
+                                  HBox.hgrow="ALWAYS" 
+                                  styleClass="input-field" 
+                                  prefHeight="120.0" 
+                                  wrapText="true"/>
+                        <Button text="Init" onAction="#initProject" style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-padding: 10 20; -fx-cursor: hand;">
+                            <tooltip>
+                                <Tooltip text="Analyse le projet et synchronise le contexte des agents via AGENTS.md"/>
+                            </tooltip>
+                        </Button>
+                        <Button text="Send" onAction="#sendRequest" style="-fx-background-color: #007acc; -fx-text-fill: white; -fx-padding: 10 20;"/>
+                    </HBox>
+          </VBox>
+            </VBox>
+            <StackPane fx:id="welcomeLabel" alignment="CENTER" mouseTransparent="true" />
+            <StackPane fx:id="settingsViewContainer" visible="false" />
+        </StackPane>
+    </center>
+
+<right>
+    <VBox styleClass="sidebar" prefWidth="300.0" spacing="20" style="-fx-padding: 20;">
+        <VBox spacing="10">
+            <Label text="PROJECT" style="-fx-font-size: 11; -fx-text-fill: #666; -fx-font-weight: bold; -fx-letter-spacing: 1.5;"/>
+            <Label fx:id="projectNameLabel" text="No project open" style="-fx-font-size: 15; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <VBox spacing="10">
+            <Label text="CONTEXT" style="-fx-font-size: 11; -fx-text-fill: #666; -fx-font-weight: bold; -fx-letter-spacing: 1.5;"/>
+            <VBox spacing="10" styleClass="context-metrics">
+                <GridPane hgap="10" vgap="5">
+                    <Label text="Tokens:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-text-fill: #ccc;"/>
+                    <Label fx:id="tokensLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-text-fill: white;"/>
+                    
+                    <Label text="Usage:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-text-fill: #ccc;"/>
+                    <Label fx:id="usageLabel" text="0%" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-text-fill: white;"/>
+                    
+                    <Label text="Cost:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-text-fill: #ccc;"/>
+                    <Label fx:id="costLabel" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-text-fill: white;"/>
+                </GridPane>
+            </VBox>
+        </VBox>
+
+        <VBox spacing="10">
+            <Label text="SERVERS" style="-fx-font-size: 11; -fx-text-fill: #666; -fx-font-weight: bold; -fx-letter-spacing: 1.5;"/>
+            <VBox spacing="5">
+                <Label text="MCP" style="-fx-font-size: 10; -fx-text-fill: #888;"/>
+                <VBox fx:id="mcpServersList" spacing="5" style="-fx-padding: 0 0 10 5;"/>
+            </VBox>
+            <VBox spacing="5">
+                <Label text="LSP" style="-fx-font-size: 10; -fx-text-fill: #888;"/>
+                <VBox fx:id="lspServersList" spacing="5" style="-fx-padding: 0 0 10 5;"/>
+            </VBox>
+        </VBox>
+
+        <VBox spacing="10" VBox.vgrow="ALWAYS">
+            <Label text="NAVIGATION" style="-fx-font-size: 11; -fx-text-fill: #666; -fx-font-weight: bold; -fx-letter-spacing: 1.5;"/>
+            <VBox spacing="5">
+                <Button text="+ New Chat" onAction="#startNewSession" styleClass="button-primary" prefWidth="280" />
+            </VBox>
+            <VBox spacing="5" VBox.vgrow="ALWAYS">
+                <Label text="HISTORY" style="-fx-font-size: 10; -fx-text-fill: #888;"/>
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-background: transparent;">
+                    <VBox fx:id="sessionHistoryList" spacing="5" style="-fx-padding: 0 0 0 5;"/>
+                </ScrollPane>
+            </VBox>
+            <VBox spacing="5" VBox.vgrow="ALWAYS">
+                <Label text="FILES IN CONTEXT" style="-fx-font-size: 10; -fx-text-fill: #888;"/>
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-background: transparent;">
+                    <VBox fx:id="contextList" spacing="5" style="-fx-padding: 0 0 0 5;"/>
+                </ScrollPane>
+            </VBox>
+        </VBox>
+    </VBox>
+</right>
+
+</BorderPane>

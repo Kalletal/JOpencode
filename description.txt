@@ -1,0 +1,44 @@
+Layout général :
+
+Fond noir/gris très foncé (#1a1a1a environ)
+Deux colonnes : sidebar gauche fixe (~220px) + zone de contenu principale à droite
+
+Sidebar gauche :
+
+En-tête avec logo "OPENCODE" (identique au welcome title mais en plus petit)
+menu entier entouré d'un liseré gris clair, largeur 263 pixels
+Label "PARAMÈTRES DE L'INSTANCE" en petites majuscules gris clair
+menu accordéon avec sections pliables
+Items de menu avec icône à gauche + texte + flèche chevron droite pour les sections pliables (items de menu sans bordure visible) 
+Item actif surligné avec fond légèrement plus clair et texte blanc (items de menu sans bordure visible) bouton de 239 x 35 pixels, coins arrondi
+Sous-items sans icône, texte gris (sous-items de menu sans bordure visible) bouton de 239 x 35 pixels, coins arrondi
+
+Menu :
+    (Items)         (sous-items)
+Fournisseurs LLM _
+                  |
+		    Préférence LLM
+		    Voix et parole
+Admin 		 _
+       		  |
+		    Historique des chats
+		    Default system prompt
+
+Compétences de l'agent 
+Apparence 	 _
+	   	  |
+	   	    Interface
+
+18 pixels de marge entre la sidebar de gauche et la zone de contenu
+
+Zone de contenu :
+
+Titre de page en blanc bold (h2)
+Sous-titre descriptif en gris clair, petite taille
+Séparateur horizontal fin
+Section "Fournisseur LLM" avec label bold
+Carte de sélection : fond gris foncé, bords arrondis, icône + titre + description + flèche dropdown à droite
+Ligne de 3 champs côte à côte : label au-dessus + input/dropdown en dessous
+Dropdown avec petite flèche, fond légèrement plus clair que le fond
+Section "advanced settings" pliable avec chevron
+Champ URL simple en dessous

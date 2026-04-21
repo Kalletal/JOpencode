@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="ai.opencode.gui.LocalOptionsController" 
+      prefHeight="450.0" prefWidth="500.0" 
+      styleClass="main-window" 
+      style="-fx-padding: 30; -fx-background-color: #1e1e1e;">
+    
+    <Label text="Options Avancées du Modèle Local" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ffffff;"/>
+    
+    <VBox spacing="20" VBox.vgrow="ALWAYS">
+        <!-- Section Optimisation -->
+        <VBox spacing="10">
+            <Label text="Optimisation" style="-fx-text-fill: #007acc; -fx-font-weight: bold;"/>
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Niveau de compaction :" textFill="#cccccc"/>
+                <ComboBox fx:id="compactionCombo" prefWidth="150.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Section Accès -->
+        <VBox spacing="10">
+            <Label text="Droits d'accès" style="-fx-text-fill: #007acc; -fx-font-weight: bold;"/>
+            <HBox spacing="20">
+                <CheckBox fx:id="readAccessCheck" text="Lecture" style="-fx-text-fill: #cccccc;"/>
+                <CheckBox fx:id="writeAccessCheck" text="Écriture" style="-fx-text-fill: #cccccc;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Section MCP -->
+        <VBox spacing="10">
+            <Label text="Serveurs MCP" style="-fx-text-fill: #007acc; -fx-font-weight: bold;"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Configuration :" textFill="#cccccc"/>
+                <TextField fx:id="mcpConfigField" prefWidth="300.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Section Capacités -->
+        <VBox spacing="10">
+            <Label text="Capacités" style="-fx-text-fill: #007acc; -fx-font-weight: bold;"/>
+            <CheckBox fx:id="toolsActivationCheck" text="Activer l'utilisation des outils (Tools)" style="-fx-text-fill: #cccccc;"/>
+        </VBox>
+    </VBox>
+    
+    <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+        <Button text="Annuler" onAction="#cancel" style="-fx-background-color: #3d3d3d; -fx-text-fill: #ffffff; -fx-padding: 8 20; -fx-border-radius: 5;"/>
+        <Button text="Sauvegarder" onAction="#save" style="-fx-background-color: #007acc; -fx-text-fill: #ffffff; -fx-padding: 8 20; -fx-border-radius: 5; -fx-font-weight: bold;"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,10 @@
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/storage/SessionImportService.java
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/llm/ChatMessage.java
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/project/ProjectInitializer.java
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/llm/LangChain4jLLMClient.java
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/orchestrator/ReasoningLoop.java
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/llm/LLMClient.java
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/llm/Role.java
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/context/ContextManager.java
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/session/SessionManager.java
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-core/src/main/java/ai/opencode/core/orchestrator/AgentOrchestrator.java

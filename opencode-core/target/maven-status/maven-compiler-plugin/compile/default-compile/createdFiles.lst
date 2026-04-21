@@ -1,0 +1,12 @@
+ai/opencode/core/project/ProjectInitializer.class
+ai/opencode/core/llm/LLMClient.class
+ai/opencode/core/llm/Role.class
+ai/opencode/core/session/SessionManager$MessageRecord.class
+ai/opencode/core/context/ContextManager.class
+ai/opencode/core/llm/ChatMessage.class
+ai/opencode/core/session/SessionManager.class
+ai/opencode/core/storage/SessionImportService.class
+ai/opencode/core/orchestrator/ReasoningLoop.class
+ai/opencode/core/llm/LangChain4jLLMClient.class
+ai/opencode/core/orchestrator/AgentOrchestrator.class
+ai/opencode/core/session/SessionManager$SessionRecord.class

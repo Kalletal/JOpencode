@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="ai.opencode.gui.SettingsController" 
+      prefHeight="600.0" prefWidth="700.0" 
+      styleClass="main-window" 
+      style="-fx-padding: 30; -fx-background-color: #1e1e1e;">
+    
+    <Label text="Configuration de l'Agent" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #ffffff; -fx-padding: 0 0 10 0;"/>
+    
+    <VBox spacing="25" VBox.vgrow="ALWAYS">
+        <GridPane vgap="20" hgap="15">
+            <Label text="Clé API OpenAI :" textFill="#cccccc" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-size: 14px;"/>
+            <PasswordField fx:id="apiKeyField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="400.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5; -fx-padding: 5;"/>
+            
+            <Label text="Modèle LLM :" textFill="#cccccc" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size: 14px;"/>
+            <ComboBox fx:id="modelComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="400.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5;"/>
+            
+            <Label text="Nom d'utilisateur :" textFill="#cccccc" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-size: 14px;"/>
+            <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="400.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5; -fx-padding: 5;"/>
+            
+            <Label text="Raccourci Thinking :" textFill="#cccccc" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-size: 14px;"/>
+            <TextField fx:id="thinkingShortcutField" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="400.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5; -fx-padding: 5;"/>
+        </GridPane>
+
+        <VBox fx:id="localModelContainer" spacing="15" visible="false" managed="false" style="-fx-padding: 0 0 0 10;">
+            <Label text="Sélection du modèle local :" textFill="#cccccc" style="-fx-font-size: 14px;"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <ComboBox fx:id="localModelComboBox" prefWidth="300.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5;"/>
+                <Button text="⚙ Options" onAction="#openLocalOptions" style="-fx-background-color: #3d3d3d; -fx-text-fill: #cccccc; -fx-border-color: #555555; -fx-border-radius: 5; -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    
+    <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0;">
+        <Button text="Importer des sessions" onAction="#openImportSessions" style="-fx-background-color: #3d3d3d; -fx-text-fill: #ffffff; -fx-padding: 10 20; -fx-border-radius: 5; -fx-cursor: hand;"/>
+        <Button text="Annuler" onAction="#cancel" style="-fx-background-color: #3d3d3d; -fx-text-fill: #ffffff; -fx-padding: 10 30; -fx-border-radius: 5; -fx-cursor: hand;"/>
+        <Button text="Sauvegarder" onAction="#save" style="-fx-background-color: #007acc; -fx-text-fill: #ffffff; -fx-padding: 10 30; -fx-border-radius: 5; -fx-font-weight: bold; -fx-cursor: hand;"/>
+    </HBox>
+</VBox>
