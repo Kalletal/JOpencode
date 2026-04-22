@@ -55,9 +55,8 @@ public class SettingsController {
     @FXML private Label chevronLLM;
     @FXML private Label chevronAdmin;
     @FXML private Label chevronAppearance;
-    @FXML private Region bgLLM;
-    @FXML private Region bgAdmin;
-    @FXML private Region bgAppearance;
+    @FXML private Region bgLLM, bgAdmin, bgAppearance;
+    @FXML private Region bgFullLLM, bgFullAdmin, bgFullAppearance;
     @FXML private Node submenuLLM;
     @FXML private Node submenuAdmin;
     @FXML private Node submenuAppearance;
@@ -375,6 +374,36 @@ private void highlightMenuItem(Node activeButton) {
             Region region = (Region) source;
             region.setBackground(Background.EMPTY);
         }
+    }
+
+    @FXML
+    public void handleSubmenuHoverLLM() {
+        bgFullLLM.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    @FXML
+    public void handleSubmenuHoverAdmin() {
+        bgFullAdmin.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    @FXML
+    public void handleSubmenuHoverAppearance() {
+        bgFullAppearance.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    @FXML
+    public void handleSubmenuHoverExitLLM() {
+        if (bgFullLLM != activeMenuItem) bgFullLLM.setBackground(Background.EMPTY);
+    }
+
+    @FXML
+    public void handleSubmenuHoverExitAdmin() {
+        if (bgFullAdmin != activeMenuItem) bgFullAdmin.setBackground(Background.EMPTY);
+    }
+
+    @FXML
+    public void handleSubmenuHoverExitAppearance() {
+        if (bgFullAppearance != activeMenuItem) bgFullAppearance.setBackground(Background.EMPTY);
     }
 
     @FXML
