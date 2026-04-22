@@ -55,6 +55,9 @@ public class SettingsController {
     @FXML private Label chevronLLM;
     @FXML private Label chevronAdmin;
     @FXML private Label chevronAppearance;
+    @FXML private Region bgLLM;
+    @FXML private Region bgAdmin;
+    @FXML private Region bgAppearance;
     @FXML private Node submenuLLM;
     @FXML private Node submenuAdmin;
     @FXML private Node submenuAppearance;
@@ -112,10 +115,13 @@ public class SettingsController {
             regionAppearance.setClip(clipAppearance);
             regionAppearance.setMaxHeight(0);
             
-            // Lier la largeur des submenus au conteneur parent pour hover pleine largeur
+            // Lier la largeur des submenus et spacers au conteneur parent pour hover pleine largeur
             regionLLM.prefWidthProperty().bind(menuContainer.widthProperty());
             regionAdmin.prefWidthProperty().bind(menuContainer.widthProperty());
             regionAppearance.prefWidthProperty().bind(menuContainer.widthProperty());
+            bgLLM.prefWidthProperty().bind(menuContainer.widthProperty());
+            bgAdmin.prefWidthProperty().bind(menuContainer.widthProperty());
+            bgAppearance.prefWidthProperty().bind(menuContainer.widthProperty());
             
              // Sauvegarder les styles originaux des sous-items menu
             if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
@@ -380,31 +386,13 @@ private void highlightMenuItem(Node activeButton) {
     }
 
     @FXML
-    public void handleSubmenuHover(MouseEvent event) {
-        HBox submenu = (HBox) event.getSource();
-        if (submenu == activeMenuItem) return;
-        submenu.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-    }
-
-    @FXML
-    public void handleSubmenuHoverExit(MouseEvent event) {
-        HBox submenu = (HBox) event.getSource();
-        if (submenu == activeMenuItem) return;
-        submenu.setBackground(Background.EMPTY);
-    }
-
-    @FXML
     public void handleSubItemHover(MouseEvent event) {
-        Region region = (Region) event.getSource();
-        if (region == activeMenuItem) return;
-        region.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+        event.consume();
     }
 
     @FXML
     public void handleSubItemHoverExit(MouseEvent event) {
-        Region region = (Region) event.getSource();
-        if (region == activeMenuItem) return;
-        region.setBackground(Background.EMPTY);
+        event.consume();
     }
 
     private String getOriginalTextColor(Node node) {

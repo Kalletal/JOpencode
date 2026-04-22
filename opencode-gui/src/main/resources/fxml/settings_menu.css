@@ -1,5 +1,11 @@
-/* Sous-items : pas de contrainte de largeur spécifique */
+/* Sous-item : fond transparent par défaut */
 .subitem {
+    -fx-background-color: transparent;
+}
+
+/* Hover sur les sous-items — fond gris clair pleine largeur via padding */
+.subitem:hover {
+    -fx-background-color: #2a2a2a !important;
 }
 
 /* Sous-item actif (sélectionné) */
