@@ -108,8 +108,18 @@ public class SettingsController {
             ((javafx.scene.layout.Region) submenuAppearance).setMaxHeight(0);
             
             // Sauvegarder les styles originaux des sous-items menu
-            if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
-            if (btnVoixParole instanceof Label lbl) originalStyleVoixParole = lbl.getStyle();
+            if (btnLLMPreference instanceof Label lbl) {
+                originalStyleLLMPreference = lbl.getStyle();
+                LOGGER.info("SAVE btnLLMPreference style: " + originalStyleLLMPreference);
+            } else {
+                LOGGER.warning("btnLLMPreference is NOT a Label at init time");
+            }
+            if (btnVoixParole instanceof Label lbl) {
+                originalStyleVoixParole = lbl.getStyle();
+                LOGGER.info("SAVE btnVoixParole style: " + originalStyleVoixParole);
+            } else {
+                LOGGER.warning("btnVoixParole is NOT a Label at init time");
+            }
             if (btnHistoriqueChats instanceof Label lbl) originalStyleHistoriqueChats = lbl.getStyle();
             if (btnDefaultPrompt instanceof Label lbl) originalStyleDefaultPrompt = lbl.getStyle();
             if (btnInterface instanceof Label lbl) originalStyleInterface = lbl.getStyle();
@@ -312,14 +322,18 @@ public class SettingsController {
     }
 
     private void highlightMenuItem(Node activeButton) {
+        LOGGER.info("highlightMenuItem called for: " + (activeButton != null ? activeButton.getClass() : "null"));
+        
         // Retirer gras de TOUS les sous-items en restaurant leurs styles originaux
         if (btnLLMPreference instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
             lbl.setStyle(originalStyleLLMPreference);
+            LOGGER.info("RESTORE btnLLMPreference -> " + originalStyleLLMPreference);
         }
         if (btnVoixParole instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
             lbl.setStyle(originalStyleVoixParole);
+            LOGGER.info("RESTORE btnVoixParole -> " + originalStyleVoixParole);
         }
         if (btnHistoriqueChats instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
@@ -337,7 +351,9 @@ public class SettingsController {
         // Appliquer gras au bouton cliqué via style inline
         if (activeButton instanceof Label label) {
             String currentStyle = label.getStyle();
-            label.setStyle(currentStyle + "; -fx-font-weight: bold; -fx-text-fill: white;");
+            String newStyle = currentStyle + "; -fx-font-weight: bold; -fx-text-fill: white;";
+            label.setStyle(newStyle);
+            LOGGER.info("SET active button -> " + newStyle);
             activeMenuItem = activeButton;
         } else if (activeButton != null) {
             activeMenuItem = activeButton;
