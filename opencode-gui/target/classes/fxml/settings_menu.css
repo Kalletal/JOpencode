@@ -1,6 +1,22 @@
-/* ===== TreeView Sidebar ===== */
+/* Hover sur headers VBox */
+.sidebar-menu > VBox:hover {
+    -fx-background-color: #2a2a2a !important;
+}
 
-.settings-tree-view {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+/* Sous-items : même largeur que headers (~237px) */
+.subitem {
+    -fx-min-width: 230 !important;
+    -fx-pref-width: 230 !important;
+    -fx-max-width: 230 !important;
+}
+
+/* Hover sur tous les sous-items (actif ou non) */
+.subitem:hover {
+    -fx-background-color: #2a2a2a !important;
+}
+
+/* Sous-item actif (sélectionné) */
+.subitem.menu-item-active {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
