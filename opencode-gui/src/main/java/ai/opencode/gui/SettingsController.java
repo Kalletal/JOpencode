@@ -405,10 +405,18 @@ private void highlightMenuItem(Node activeButton) {
 
    @FXML
     public void handleSubItemHover(MouseEvent event) {
+        Region region = (Region) event.getSource();
+        if (region == activeMenuItem) return;
+        region.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+        event.consume();
     }
 
     @FXML
     public void handleSubItemHoverExit(MouseEvent event) {
+        Region region = (Region) event.getSource();
+        if (region == activeMenuItem) return;
+        region.setBackground(Background.EMPTY);
+        event.consume();
     }
 
     private String getOriginalTextColor(Node node) {
