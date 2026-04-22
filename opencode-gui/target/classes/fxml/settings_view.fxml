@@ -49,12 +49,12 @@
         <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent;">
                 <children>
                     <Region fx:id="bgLLM" prefWidth="24"/>
-                    <VBox fx:id="vboxLLMChildren" spacing="2">
+                    <VBox fx:id="vboxLLMChildren" spacing="2" fillWidth="true"
                         <children>
-                            <Label fx:id="btnLLMPreference" prefHeight="35" maxWidth="Infinity" minWidth="-1" text="Préférence LLM"
+                            <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                                    onMouseClicked="#showLLMPreference"/>
-                            <Label fx:id="btnVoixParole" prefHeight="35" maxWidth="Infinity" minWidth="-1" text="Voix et parole"
+                            <Label fx:id="btnVoixParole" prefHeight="35" text="Voix et parole"
                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                                    onMouseClicked="#showVoixParole"/>
                         </children>
@@ -78,12 +78,12 @@
             <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent;">
                 <children>
                     <Region fx:id="bgAdmin" prefWidth="24"/>
-                    <VBox fx:id="vboxAdminChildren" spacing="2">
+                    <VBox fx:id="vboxAdminChildren" spacing="2" fillWidth="true"
                         <children>
-                            <Label fx:id="btnHistoriqueChats" prefHeight="35" maxWidth="Infinity" minWidth="-1" text="Historique des chats"
+                            <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                                    onMouseClicked="#showHistoriqueChats"/>
-                            <Label fx:id="btnDefaultPrompt" prefHeight="35" maxWidth="Infinity" minWidth="-1" text="Default system prompt"
+                            <Label fx:id="btnDefaultPrompt" prefHeight="35" text="Default system prompt"
                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                                    onMouseClicked="#showDefaultPrompt"/>
                         </children>
@@ -118,9 +118,9 @@
       <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent;">
                   <children>
                       <Region fx:id="bgAppearance" prefWidth="24"/>
-                      <VBox fx:id="vboxAppearanceChildren" spacing="2">
+                      <VBox fx:id="vboxAppearanceChildren" spacing="2" fillWidth="true"
                           <children>
-                              <Label fx:id="btnInterface" prefHeight="35" maxWidth="Infinity" minWidth="-1" text="Interface"
+                              <Label fx:id="btnInterface" prefHeight="35" text="Interface"
                                      styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                                      onMouseClicked="#showInterfaceSettings"/>
                           </children>
