@@ -75,6 +75,7 @@ public class SettingsController {
     private String originalStyleHistoriqueChats;
     private String originalStyleDefaultPrompt;
     private String originalStyleInterface;
+    private boolean hoveringSubItem = false;
 
     public SettingsController(ConfigManager configManager) {
         this.configManager = configManager;
@@ -383,55 +384,52 @@ private void highlightMenuItem(Node activeButton) {
     }
 
     @FXML
-    public void handleSubmenuHoverLLM(javafx.scene.input.MouseEvent event) {
-        if (isSubItem(event.getPickResult().getIntersectedNode())) return;
+public void handleSubmenuHoverLLM(javafx.scene.input.MouseEvent event) {
+        if (hoveringSubItem) return;
         submenuLLM.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @FXML
     public void handleSubmenuHoverAdmin(javafx.scene.input.MouseEvent event) {
-        if (isSubItem(event.getPickResult().getIntersectedNode())) return;
+        if (hoveringSubItem) return;
         submenuAdmin.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @FXML
     public void handleSubmenuHoverAppearance(javafx.scene.input.MouseEvent event) {
-        if (isSubItem(event.getPickResult().getIntersectedNode())) return;
+        if (hoveringSubItem) return;
         submenuAppearance.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @FXML
-    public void handleSubmenuHoverExitLLM(javafx.scene.input.MouseEvent event) {
-        if (isSubItem(event.getPickResult().getIntersectedNode())) return;
+    public void handleSubmenuHoverExitLLM() {
         submenuLLM.setBackground(Background.EMPTY);
     }
 
     @FXML
-    public void handleSubmenuHoverExitAdmin(javafx.scene.input.MouseEvent event) {
-        if (isSubItem(event.getPickResult().getIntersectedNode())) return;
+    public void handleSubmenuHoverExitAdmin() {
         submenuAdmin.setBackground(Background.EMPTY);
     }
 
     @FXML
-    public void handleSubmenuHoverExitAppearance(javafx.scene.input.MouseEvent event) {
-        if (isSubItem(event.getPickResult().getIntersectedNode())) return;
+    public void handleSubmenuHoverExitAppearance() {
         submenuAppearance.setBackground(Background.EMPTY);
     }
 
     @FXML
     public void handleSubItemHover(MouseEvent event) {
+        hoveringSubItem = true;
         Region region = (Region) event.getSource();
         if (region == activeMenuItem) return;
         region.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-        event.consume();
     }
 
     @FXML
     public void handleSubItemHoverExit(MouseEvent event) {
+        hoveringSubItem = false;
         Region region = (Region) event.getSource();
         if (region == activeMenuItem) return;
         region.setBackground(Background.EMPTY);
-        event.consume();
     }
 
     private String getOriginalTextColor(Node node) {
