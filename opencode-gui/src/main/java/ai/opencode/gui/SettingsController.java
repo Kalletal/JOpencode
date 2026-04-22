@@ -70,6 +70,11 @@ public class SettingsController {
     private boolean adminSubmenuVisible = false;
     private boolean appearanceSubmenuVisible = false;
     private javafx.animation.Animation activeAnimation;
+    private String originalStyleLLMPreference;
+    private String originalStyleVoixParole;
+    private String originalStyleHistoriqueChats;
+    private String originalStyleDefaultPrompt;
+    private String originalStyleInterface;
 
     public SettingsController(ConfigManager configManager) {
         this.configManager = configManager;
@@ -101,6 +106,13 @@ public class SettingsController {
             clipAppearance.heightProperty().bind(((javafx.scene.layout.Region) submenuAppearance).heightProperty());
             ((javafx.scene.layout.Region) submenuAppearance).setClip(clipAppearance);
             ((javafx.scene.layout.Region) submenuAppearance).setMaxHeight(0);
+            
+            // Sauvegarder les styles originaux des sous-items menu
+            if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
+            if (btnVoixParole instanceof Label lbl) originalStyleVoixParole = lbl.getStyle();
+            if (btnHistoriqueChats instanceof Label lbl) originalStyleHistoriqueChats = lbl.getStyle();
+            if (btnDefaultPrompt instanceof Label lbl) originalStyleDefaultPrompt = lbl.getStyle();
+            if (btnInterface instanceof Label lbl) originalStyleInterface = lbl.getStyle();
         });
         
         LOGGER.info("=== SettingsController initialize() done ===");
@@ -300,26 +312,26 @@ public class SettingsController {
     }
 
     private void highlightMenuItem(Node activeButton) {
-        // Retirer gras de TOUS les sous-items
+        // Retirer gras de TOUS les sous-items en restaurant leurs styles originaux
         if (btnLLMPreference instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
-            lbl.setFont(null);
+            lbl.setStyle(originalStyleLLMPreference);
         }
         if (btnVoixParole instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
-            lbl.setFont(null);
+            lbl.setStyle(originalStyleVoixParole);
         }
         if (btnHistoriqueChats instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
-            lbl.setFont(null);
+            lbl.setStyle(originalStyleHistoriqueChats);
         }
         if (btnDefaultPrompt instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
-            lbl.setFont(null);
+            lbl.setStyle(originalStyleDefaultPrompt);
         }
         if (btnInterface instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
-            lbl.setFont(null);
+            lbl.setStyle(originalStyleInterface);
         }
 
         // Appliquer gras au bouton cliqué via style inline
