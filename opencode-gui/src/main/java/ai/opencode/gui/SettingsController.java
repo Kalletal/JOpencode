@@ -107,19 +107,9 @@ public class SettingsController {
             ((javafx.scene.layout.Region) submenuAppearance).setClip(clipAppearance);
             ((javafx.scene.layout.Region) submenuAppearance).setMaxHeight(0);
             
-            // Sauvegarder les styles originaux des sous-items menu
-            if (btnLLMPreference instanceof Label lbl) {
-                originalStyleLLMPreference = lbl.getStyle();
-                LOGGER.info("SAVE btnLLMPreference style: " + originalStyleLLMPreference);
-            } else {
-                LOGGER.warning("btnLLMPreference is NOT a Label at init time");
-            }
-            if (btnVoixParole instanceof Label lbl) {
-                originalStyleVoixParole = lbl.getStyle();
-                LOGGER.info("SAVE btnVoixParole style: " + originalStyleVoixParole);
-            } else {
-                LOGGER.warning("btnVoixParole is NOT a Label at init time");
-            }
+             // Sauvegarder les styles originaux des sous-items menu
+            if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
+            if (btnVoixParole instanceof Label lbl) originalStyleVoixParole = lbl.getStyle();
             if (btnHistoriqueChats instanceof Label lbl) originalStyleHistoriqueChats = lbl.getStyle();
             if (btnDefaultPrompt instanceof Label lbl) originalStyleDefaultPrompt = lbl.getStyle();
             if (btnInterface instanceof Label lbl) originalStyleInterface = lbl.getStyle();
@@ -246,9 +236,8 @@ public class SettingsController {
 
     // ===== NAVIGATION PANNEAUX =====
 
-    @FXML
+   @FXML
     public void showLLMPreference() {
-        LOGGER.info("showLLMPreference called, btnLLMPreference=" + btnLLMPreference + " class=" + (btnLLMPreference != null ? btnLLMPreference.getClass() : "null"));
         showPanel(panelLLMPreference);
         highlightMenuItem(btnLLMPreference);
         if (!llmSubmenuVisible) {
@@ -258,7 +247,6 @@ public class SettingsController {
 
     @FXML
     public void showHistoriqueChats() {
-        LOGGER.info("showHistoriqueChats called, btnHistoriqueChats=" + btnHistoriqueChats);
         showPanel(panelHistoriqueChats);
         highlightMenuItem(btnHistoriqueChats);
         if (!adminSubmenuVisible) {
@@ -268,7 +256,6 @@ public class SettingsController {
 
     @FXML
     public void showDefaultPrompt() {
-        LOGGER.info("showDefaultPrompt called");
         showPanel(panelDefaultPrompt);
         highlightMenuItem(btnDefaultPrompt);
         if (!adminSubmenuVisible) {
@@ -278,14 +265,12 @@ public class SettingsController {
 
     @FXML
     public void showAgentSkills() {
-        LOGGER.info("showAgentSkills called");
         showPanel(panelAgentSkills);
         highlightMenuItem(btnAgentSkills);
     }
 
     @FXML
     public void showInterfaceSettings() {
-        LOGGER.info("showInterfaceSettings called");
         showPanel(panelInterface);
         highlightMenuItem(btnInterface);
         if (!appearanceSubmenuVisible) {
@@ -295,7 +280,6 @@ public class SettingsController {
 
     @FXML
     public void showVoixParole() {
-        LOGGER.info("showVoixParole called, btnVoixParole=" + btnVoixParole + " class=" + (btnVoixParole != null ? btnVoixParole.getClass() : "null"));
         showPanel(panelVoixParole);
         highlightMenuItem(btnVoixParole);
     }
@@ -328,19 +312,15 @@ public class SettingsController {
         activePanel.setManaged(true);
     }
 
-    private void highlightMenuItem(Node activeButton) {
-        LOGGER.info("highlightMenuItem called for: " + (activeButton != null ? activeButton.getClass() : "null"));
-        
+private void highlightMenuItem(Node activeButton) {
         // Retirer gras de TOUS les sous-items en restaurant leurs styles originaux
         if (btnLLMPreference instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
             lbl.setStyle(originalStyleLLMPreference);
-            LOGGER.info("RESTORE btnLLMPreference -> " + originalStyleLLMPreference);
         }
         if (btnVoixParole instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
             lbl.setStyle(originalStyleVoixParole);
-            LOGGER.info("RESTORE btnVoixParole -> " + originalStyleVoixParole);
         }
         if (btnHistoriqueChats instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
@@ -358,9 +338,7 @@ public class SettingsController {
         // Appliquer gras au bouton cliqué via style inline
         if (activeButton instanceof Label label) {
             String currentStyle = label.getStyle();
-            String newStyle = currentStyle + "; -fx-font-weight: bold; -fx-text-fill: white;";
-            label.setStyle(newStyle);
-            LOGGER.info("SET active button -> " + newStyle);
+            label.setStyle(currentStyle + "; -fx-font-weight: bold; -fx-text-fill: white;");
             activeMenuItem = activeButton;
         } else if (activeButton != null) {
             activeMenuItem = activeButton;

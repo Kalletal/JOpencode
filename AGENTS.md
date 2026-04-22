@@ -57,17 +57,15 @@ L'`HBox.alignment="CENTER_LEFT"` assure automatiquement le centrage vertical (di
 
 ### Directive 4 : Alignement horizontal items/sous-items (même distance du bord)
 **Calcul d'alignement :**
-- Header : VBox padding(8) + ImageView width(16) + label padding gauche(4) = **28px** du bord interne du menuContainer.
-- Total depuis bord externe menuContainer (padding=4) : 4+8+16+4 = **32px**.
-- Subitem : VBox padding(8) + spacer Region(16) + label padding gauche(4) = **28px** du bord interne.
-- Total depuis bord externe menuContainer : 4+8+16+4 = **32px** → parfaitement aligné avec header.
-- Le spacer `<Region prefWidth="16" style="-fx-background-color: transparent;"/>` compense exactement la largeur de l'ImageView (16px) présente dans les headers. Les subitems n'ont PAS d'ImageView mais ont ce spacer pour aligner leur texte au même niveau X que les textes des headers.
-- Dans FXML, ajouter `<Region prefWidth="16" style="-fx-background-color: transparent;"/>` en première position des enfants du submenu HBox, AVANT le VBox contenant les Labels des sous-items.
+- Header : VBox padding(8) + inner HBox padding(8) + ImageView width(16) + label padding gauche(4) = **36px** du bord interne du menuContainer.
+- Subitem : HBox padding(8) + spacer Region(24) + label padding gauche(4) = **36px** du bord interne.
+- Le spacer `<Region prefWidth="24" style="-fx-background-color: transparent;"/>` compense exactement la double couche de padding du header (VBox + HBox imbriqué = 16px) moins l'image (16px). Les subitems n'ont PAS d'ImageView mais ont ce spacer pour aligner leur texte au même niveau X que les textes des headers.
+- Dans FXML, chaque submenu HBox contient en première position un `<Region prefWidth="24">`, suivi d'un VBox qui empile verticalement les Labels des sous-items.
 
 ### Directive 8 (complément CSS) : Largeur hover background identique
-- `.subitem` a `-fx-max-width: 223 !important` dans `settings_menu.css`.
-- Calcul : menuContainer maxWidth=263 - padding(4+4) - submenu HBox padding(8+8) - spacer(16) = **223px**.
-- Cette contrainte garantit que tous les subitems ont la même largeur visuelle et que le fond gris clair (`#2a2a2a`) s'étend sur toute la largeur disponible, cohérent avec les headers VBox qui occupent ~255px effective.
+- `.subitem` n'a pas de contrainte de largeur fixe dans `settings_menu.css`.
+- La largeur du fond gris clair (`#2a2a2a`) est déterminée par le HBox parent du submenu qui s'étend sur toute la largeur disponible du menuContainer.
+- Le spacer de 24px garantit que le hover background commence au même niveau X que celui des headers.
 
 ### Directive 5 : Pas d'icône pour les sous-items
 Les Labels `.subitem` n'ont pas d'ImageView. C'est déjà le cas actuellement.
