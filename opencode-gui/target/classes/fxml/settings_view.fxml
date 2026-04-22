@@ -33,78 +33,93 @@
                 </font>
             </Label>
 
-          <!-- Section: Fournisseurs LLM (expandable) -->
+         <!-- Section: Fournisseurs LLM (expandable) -->
              <VBox prefHeight="35" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
-                   onMouseClicked="#toggleSectionLLM" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
-                 <HBox alignment="CENTER_LEFT">
-                     <Label text="Fournisseurs LLM" fx:id="headerTextLLM"
-                            style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
-                     <Region HBox.hgrow="ALWAYS"/>
-                     <Label text=">" fx:id="chevronLLM" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
-                 </HBox>
-             </VBox>
-             <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
-                 <children>
-                     <VBox spacing="2">
-                         <children>
-                             <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
-                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                    onMouseClicked="#showLLMPreference"/>
-                             <Label fx:id="btnVoixParole" prefHeight="35" text="Voix et parole"
-                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                    onMouseClicked="#showVoixParole"/>
-                         </children>
-                     </VBox>
-                 </children>
-             </HBox>
+                    onMouseClicked="#toggleSectionLLM" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
+                <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
+                    <ImageView fitWidth="16" fitHeight="16" pickOnBounds="true" preserveRatio="true">
+                        <image><Image url="@icons/llm.png"/></image>
+                    </ImageView>
+                    <Label text="Fournisseurs LLM" fx:id="headerTextLLM"
+                           style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text=">" fx:id="chevronLLM" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
+                </HBox>
+            </VBox>
+            <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
+                <children>
+                    <Region prefWidth="16" style="-fx-background-color: transparent;"/>
+                    <VBox spacing="2">
+                        <children>
+                            <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
+                                   styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                                   onMouseClicked="#showLLMPreference"/>
+                            <Label fx:id="btnVoixParole" prefHeight="35" text="Voix et parole"
+                                   styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                                   onMouseClicked="#showVoixParole"/>
+                        </children>
+                    </VBox>
+                </children>
+            </HBox>
 
             <!-- Section: Admin (expandable) -->
         <VBox prefHeight="35" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                onMouseClicked="#toggleSectionAdmin" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
-                 <HBox alignment="CENTER_LEFT">
-                     <Label text="Admin" fx:id="headerTextAdmin"
-                            style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
-                     <Region HBox.hgrow="ALWAYS"/>
-                     <Label text=">" fx:id="chevronAdmin" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
-                 </HBox>
-             </VBox>
-             <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
-              <children>
-                     <VBox spacing="2">
-                    <children>
-                             <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
-                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                    onMouseClicked="#showHistoriqueChats"/>
-                             <Label fx:id="btnDefaultPrompt" prefHeight="35" text="Default system prompt"
-                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                    onMouseClicked="#showDefaultPrompt"/>
-                       </children>
-                     </VBox>
-                 </children>
-             </HBox>
+                <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
+                    <ImageView fitWidth="16" fitHeight="16" pickOnBounds="true" preserveRatio="true">
+                        <image><Image url="@icons/admin.png"/></image>
+                    </ImageView>
+                    <Label text="Admin" fx:id="headerTextAdmin"
+                           style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text=">" fx:id="chevronAdmin" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
+                </HBox>
+            </VBox>
+            <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
+                <children>
+                    <Region prefWidth="16" style="-fx-background-color: transparent;"/>
+                    <VBox spacing="2">
+                        <children>
+                            <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
+                                   styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                                   onMouseClicked="#showHistoriqueChats"/>
+                            <Label fx:id="btnDefaultPrompt" prefHeight="35" text="Default system prompt"
+                                   styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                                   onMouseClicked="#showDefaultPrompt"/>
+                        </children>
+                    </VBox>
+                </children>
+            </HBox>
 
-            <!-- Section: Compétences de l'agent -->
+           <!-- Section: Compétences de l'agent -->
      <VBox prefHeight="35" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
-             onMouseClicked="#showAgentSkills" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
-                 <HBox alignment="CENTER_LEFT">
-                     <Label text="Compétences de l'agent" style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
-                 </HBox>
-             </VBox>
+              onMouseClicked="#showAgentSkills" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
+                <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
+                    <ImageView fitWidth="16" fitHeight="16" pickOnBounds="true" preserveRatio="true">
+                        <image><Image url="@icons/agent_skills.png"/></image>
+                    </ImageView>
+                    <Label text="Compétences de l'agent" style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
+                </HBox>
+            </VBox>
 
-           <!-- Section: Apparence (expandable) -->
+          <!-- Section: Apparence (expandable) -->
              <VBox prefHeight="35" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
-                   onMouseClicked="#toggleSectionAppearance" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
-                 <HBox alignment="CENTER_LEFT">
-                     <Label text="Apparence" fx:id="headerTextAppearance"
-                            style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
-                     <Region HBox.hgrow="ALWAYS"/>
-                     <Label text=">" fx:id="chevronAppearance" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
-                 </HBox>
-             </VBox>
-        <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
+                    onMouseClicked="#toggleSectionAppearance" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
+                <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
+                    <ImageView fitWidth="16" fitHeight="16" pickOnBounds="true" preserveRatio="true">
+                        <image><Image url="@icons/appearance.png"/></image>
+                    </ImageView>
+                    <Label text="Apparence" fx:id="headerTextAppearance"
+                           style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text=">" fx:id="chevronAppearance" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
+                </HBox>
+            </VBox>
+         <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
                  <children>
+                     <Region prefWidth="16" style="-fx-background-color: transparent;"/>
                      <VBox spacing="2">
-                  <children>
+                         <children>
                              <Label fx:id="btnInterface" prefHeight="35" text="Interface"
                                     styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                                     onMouseClicked="#showInterfaceSettings"/>

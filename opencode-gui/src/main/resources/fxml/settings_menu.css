@@ -3,11 +3,11 @@
     -fx-background-color: #2a2a2a !important;
 }
 
-/* Sous-items : même largeur que headers (~237px) */
+/* Sous-items : largeur compensée par spacer 16px dans submenu HBox */
 .subitem {
-    -fx-min-width: 230 !important;
-    -fx-pref-width: 230 !important;
-    -fx-max-width: 230 !important;
+    -fx-min-width: 223 !important;
+    -fx-pref-width: 223 !important;
+    -fx-max-width: 223 !important;
 }
 
 /* Hover sur tous les sous-items (actif ou non) */
