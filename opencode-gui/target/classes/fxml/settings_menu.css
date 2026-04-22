@@ -4,7 +4,10 @@
     -fx-font-weight: bold;
 }
 
-/* Hover individuel sur chaque sous-item — CSS pur, aucun conflit parent */
-.subitem:hover {
+/* Hover plein largeur sur chaque ligne de sous-item */
+.submenu-row {
+    -fx-background-color: transparent;
+}
+.submenu-row:hover {
     -fx-background-color: #2a2a2a !important;
 }

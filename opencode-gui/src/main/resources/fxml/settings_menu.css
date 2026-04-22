@@ -3,3 +3,11 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+/* Hover plein largeur sur chaque ligne de sous-item */
+.submenu-row {
+    -fx-background-color: transparent;
+}
+.submenu-row:hover {
+    -fx-background-color: #2a2a2a !important;
+}
