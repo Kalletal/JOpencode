@@ -53,10 +53,10 @@
                     <VBox spacing="2">
                     <children>
                           <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
-                                  style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                                  styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                                   onMouseClicked="#showLLMPreference"/>
                            <Label fx:id="btnVoixParole" prefHeight="35" text="Voix et parole"
-                                 style="-fx-text-fill: #999999; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                                 styleClass="subitem" style="-fx-text-fill: #999999; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                                  onMouseClicked="#showVoixParole"/>
                          </children>
                     </VBox>
@@ -82,12 +82,12 @@
                     <Region prefWidth="20" HBox.hgrow="NEVER"/>
                     <VBox spacing="2">
                    <children>
-                          <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
-                                style="-fx-background-color: transparent; -fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                onMouseClicked="#showHistoriqueChats" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit"/>
-                       <Label fx:id="btnDefaultPrompt" prefHeight="35" text="Default system prompt"
-                             style="-fx-background-color: transparent; -fx-text-fill: #999999; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                             onMouseClicked="#showDefaultPrompt" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit"/>
+                   <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
+                          styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                          onMouseClicked="#showHistoriqueChats"/>
+                   <Label fx:id="btnDefaultPrompt" prefHeight="35" text="Default system prompt"
+                         styleClass="subitem" style="-fx-text-fill: #999999; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                         onMouseClicked="#showDefaultPrompt"/>
                       </children>
 
                     </VBox>
@@ -124,9 +124,9 @@
                     <Region prefWidth="20" HBox.hgrow="NEVER"/>
                     <VBox spacing="2">
                  <children>
-                       <Label fx:id="btnInterface" prefHeight="35" text="Interface"
-                             style="-fx-background-color: transparent; -fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                             onMouseClicked="#showInterfaceSettings" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit"/>
+                  <Label fx:id="btnInterface" prefHeight="35" text="Interface"
+                          styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                          onMouseClicked="#showInterfaceSettings"/>
                      </children>
 
                     </VBox>

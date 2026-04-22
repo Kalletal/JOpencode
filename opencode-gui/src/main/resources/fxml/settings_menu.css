@@ -3,20 +3,18 @@
     -fx-background-color: #2a2a2a !important;
 }
 
-/* Sous-items : même largeur que headers (~237px) + hover uniquement sur le label survolé */
-.sidebar-menu > HBox[id^="submenu"] > VBox > Label {
+/* Sous-items : même largeur que headers (~237px) */
+.subitem {
     -fx-min-width: 237 !important;
 }
 
-/* Hover sur Labels de sous-items */
-.sidebar-menu > HBox[id^="submenu"] > VBox > Label:hover,
-.sidebar-menu > HBox[id^="submenu"] > VBox > Label.menu-item-active:hover {
+/* Hover sur tous les sous-items (actif ou non) */
+.subitem:hover {
     -fx-background-color: #2a2a2a !important;
 }
 
 /* Sous-item actif (sélectionné) */
-.sidebar-menu > HBox[id^="submenu"] > VBox > Label.menu-item-active {
+.subitem.menu-item-active {
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-color: transparent;
 }
