@@ -3,9 +3,9 @@
     -fx-background-color: #2a2a2a !important;
 }
 
-/* Sous-items : même largeur que headers (~237px) */
+/* Sous-items : remplissent toute la largeur disponible */
 .subitem {
-    -fx-min-width: 237 !important;
+    -fx-max-width: 100% !important;
 }
 
 /* Hover sur tous les sous-items (actif ou non) */
