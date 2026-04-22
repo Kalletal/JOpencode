@@ -25,6 +25,19 @@ La taille de la police ne doit pas changer.
 La taille de la police des items doit faire 14px et celles des sous-items 11px
 L'icône devant chacun des items doit être centré verticalement sur chaque lignes d'item.
 
+## Solution implémentée : TreeView avec icônes colonne séparée
+Structure actuelle du menu sidebar : utiliser une `TreeView` JavaFX (fx:id="settingsTree") dans settings_view.fxml.
+- Les icônes sont dans une **colonne séparée à gauche** (comme VS Code / Windows Explorer), pas inline avec le texte.
+- Les items parents (profondeur 0) ont une icône + texte 14px, padding-left 28px pour texte.
+- Les sous-items (profondeur 1) n'ont PAS d'icône, texte 11px, padding-left 8px.
+- Items et sous-items commencent au même niveau X depuis la bordure gauche.
+- Le hover background (`#2a2a2a`) est appliqué sur `.tree-cell:hover` en CSS → pleine largeur identique pour tous.
+- La sélection active met le texte en gras via `:selected .text { -fx-font-weight: bold }`.
+- Les sections se déplient/replient automatiquement via TreeView expand/collapse natif.
+Fichiers clés : `opencode-gui/src/main/resources/fxml/settings_view.fxml` (TreeView fx:id=settingsTree), 
+`opencode-gui/src/main/java/ai/opencode/gui/SettingsController.java` (méthode buildSettingsTree() + SettingsTreeCell), 
+`opencode-gui/src/main/resources/fxml/settings_menu.css` (styles tree-cell).
+
 ## Tech Stack
 - **Java:** 21
 - **Build Tool:** Maven
