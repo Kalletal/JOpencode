@@ -31,6 +31,12 @@ Java refactor of OpenCode. Multi-module Maven project.
 - **Run tests:** `mvn test`
 - **Run GUI:** `mvn javafx:run` (from `opencode-gui` directory)
 
+## Version Control
+Après chaque modification du code, commiter et pousser le code sur GitHub :
+```bash
+git add . && git commit -m "votre message de commit" && git push origin main
+```
+
 ## Development Gotchas
 - Ensure Java 21 is installed and configured.
 - When adding new tools, they must be registered in `opencode-tools` via `ToolRegistry`.
