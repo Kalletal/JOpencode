@@ -248,6 +248,7 @@ public class SettingsController {
 
     @FXML
     public void showLLMPreference() {
+        LOGGER.info("showLLMPreference called, btnLLMPreference=" + btnLLMPreference + " class=" + (btnLLMPreference != null ? btnLLMPreference.getClass() : "null"));
         showPanel(panelLLMPreference);
         highlightMenuItem(btnLLMPreference);
         if (!llmSubmenuVisible) {
@@ -257,6 +258,7 @@ public class SettingsController {
 
     @FXML
     public void showHistoriqueChats() {
+        LOGGER.info("showHistoriqueChats called, btnHistoriqueChats=" + btnHistoriqueChats);
         showPanel(panelHistoriqueChats);
         highlightMenuItem(btnHistoriqueChats);
         if (!adminSubmenuVisible) {
@@ -266,6 +268,7 @@ public class SettingsController {
 
     @FXML
     public void showDefaultPrompt() {
+        LOGGER.info("showDefaultPrompt called");
         showPanel(panelDefaultPrompt);
         highlightMenuItem(btnDefaultPrompt);
         if (!adminSubmenuVisible) {
@@ -275,12 +278,14 @@ public class SettingsController {
 
     @FXML
     public void showAgentSkills() {
+        LOGGER.info("showAgentSkills called");
         showPanel(panelAgentSkills);
         highlightMenuItem(btnAgentSkills);
     }
 
     @FXML
     public void showInterfaceSettings() {
+        LOGGER.info("showInterfaceSettings called");
         showPanel(panelInterface);
         highlightMenuItem(btnInterface);
         if (!appearanceSubmenuVisible) {
@@ -290,7 +295,9 @@ public class SettingsController {
 
     @FXML
     public void showVoixParole() {
+        LOGGER.info("showVoixParole called, btnVoixParole=" + btnVoixParole + " class=" + (btnVoixParole != null ? btnVoixParole.getClass() : "null"));
         showPanel(panelVoixParole);
+        highlightMenuItem(btnVoixParole);
     }
 
     @FXML
