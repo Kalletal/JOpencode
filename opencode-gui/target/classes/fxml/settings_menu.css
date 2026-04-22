@@ -4,7 +4,7 @@
     -fx-font-weight: bold;
 }
 
-/* Hover individuel sur chaque sous-item — CSS pur, aucun conflit parent */
-.subitem:hover {
-    -fx-background-color: #2a2a2a !important;
+/* Hover plein largeur sur chaque sous-item via StackPane wrapper */
+.subitem-stack:hover .sub-bg {
+    -fx-opacity: 1 !important;
 }
