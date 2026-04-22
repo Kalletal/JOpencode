@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -55,8 +56,9 @@ public class SettingsController {
     @FXML private Label chevronLLM;
     @FXML private Label chevronAdmin;
     @FXML private Label chevronAppearance;
-    @FXML private Region bgLLM, bgAdmin, bgAppearance;
+     @FXML private Region bgLLM, bgAdmin, bgAppearance;
     @FXML private HBox submenuLLM, submenuAdmin, submenuAppearance;
+    @FXML private VBox vboxLLMChildren, vboxAdminChildren, vboxAppearanceChildren;
     @FXML private HBox headerLLM;
     @FXML private HBox headerAdmin;
     @FXML private HBox headerAgentSkills;
@@ -91,7 +93,10 @@ public class SettingsController {
         setupFontSizeSlider();
       showPanel(panelLLMPreference);
         
-        // Cacher les submenus au démarrage avec clip
+        AtomicInteger llmCount = new AtomicInteger(0);
+        AtomicInteger adminCount = new AtomicInteger(0);
+        AtomicInteger appearanceCount = new AtomicInteger(0);
+        
         Platform.runLater(() -> {
             javafx.scene.layout.Region regionLLM = (javafx.scene.layout.Region) submenuLLM;
             javafx.scene.layout.Region regionAdmin = (javafx.scene.layout.Region) submenuAdmin;
@@ -112,7 +117,20 @@ public class SettingsController {
             regionAppearance.setClip(clipAppearance);
             regionAppearance.setMaxHeight(0);
             
-            // Sauvegarder les styles originaux des sous-items menu
+            vboxLLMChildren.setOnMouseEntered(e -> { llmCount.incrementAndGet(); submenuLLM.setBackground(Background.EMPTY); });
+            vboxLLMChildren.setOnMouseExited(e -> { if (llmCount.decrementAndGet() <= 0) applyHBoxBg(submenuLLM, true); });
+            vboxAdminChildren.setOnMouseEntered(e -> { adminCount.incrementAndGet(); submenuAdmin.setBackground(Background.EMPTY); });
+            vboxAdminChildren.setOnMouseExited(e -> { if (adminCount.decrementAndGet() <= 0) applyHBoxBg(submenuAdmin, true); });
+            vboxAppearanceChildren.setOnMouseEntered(e -> { appearanceCount.incrementAndGet(); submenuAppearance.setBackground(Background.EMPTY); });
+            vboxAppearanceChildren.setOnMouseExited(e -> { if (appearanceCount.decrementAndGet() <= 0) applyHBoxBg(submenuAppearance, true); });
+            
+            setupSubItemHover(btnLLMPreference);
+            setupSubItemHover(btnVoixParole);
+            setupSubItemHover(btnHistoriqueChats);
+            setupSubItemHover(btnDefaultPrompt);
+            setupSubItemHover(btnInterface);
+            
+             // Sauvegarder les styles originaux des sous-items menu
             if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
             if (btnVoixParole instanceof Label lbl) originalStyleVoixParole = lbl.getStyle();
             if (btnHistoriqueChats instanceof Label lbl) originalStyleHistoriqueChats = lbl.getStyle();
@@ -121,6 +139,54 @@ public class SettingsController {
         });
         
         LOGGER.info("=== SettingsController initialize() done ===");
+    }
+
+    private void applyHBoxBg(HBox hbox, boolean enter) {
+        if (enter) {
+            hbox.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+        } else {
+            hbox.setBackground(Background.EMPTY);
+        }
+    }
+
+    private void setupSubItemHover(Node node) {
+        if (!(node instanceof Label label)) return;
+        label.setOnMouseEntered(e -> {
+            label.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+        });
+        label.setOnMouseExited(e -> {
+            if (!label.getStyleClass().contains("menu-item-active")) {
+                label.setBackground(Background.EMPTY);
+            }
+        });
+    }
+
+    private void setupLabelHover(Label label) {
+        label.setOnMouseEntered(e -> {
+            String s = label.getStyle();
+            label.setStyle(s + "; -fx-background-color: #2a2a2a;");
+        });
+        label.setOnMouseExited(e -> {
+            String orig = null;
+            if (label == btnLLMPreference) orig = originalStyleLLMPreference;
+            else if (label == btnVoixParole) orig = originalStyleVoixParole;
+            else if (label == btnHistoriqueChats) orig = originalStyleHistoriqueChats;
+            else if (label == btnDefaultPrompt) orig = originalStyleDefaultPrompt;
+            else if (label == btnInterface) orig = originalStyleInterface;
+            if (orig != null && !label.getStyleClass().contains("menu-item-active")) {
+                label.setStyle(orig);
+            } else if (label.getStyleClass().contains("menu-item-active")) {
+                // keep bold style but remove hover bg
+                String bold = "-fx-text-fill: white; -fx-font-weight: bold;";
+                String base = "";
+                if (label == btnLLMPreference) base = originalStyleLLMPreference;
+                else if (label == btnVoixParole) base = originalStyleVoixParole;
+                else if (label == btnHistoriqueChats) base = originalStyleHistoriqueChats;
+                else if (label == btnDefaultPrompt) base = originalStyleDefaultPrompt;
+                else if (label == btnInterface) base = originalStyleInterface;
+                label.setStyle(base + "; " + bold);
+            }
+        });
     }
 
     private void loadLLMSettings() {
@@ -374,42 +440,6 @@ private void highlightMenuItem(Node activeButton) {
         }
     }
 
-  private boolean isSubItem(Node node) {
-        while (node != null) {
-            if (node.getStyleClass().contains("subitem")) return true;
-            if (node instanceof Label) break;
-            node = node.getParent();
-        }
-        return false;
-    }
-
-    @FXML
-public void handleSubmenuHoverLLM(javafx.scene.input.MouseEvent event) {
-        if (hoveringSubItem) return;
-        submenuLLM.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-    }
-
-    @FXML
-    public void handleSubmenuHoverAdmin(javafx.scene.input.MouseEvent event) {
-        if (hoveringSubItem) return;
-        submenuAdmin.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-    }
-
-    @FXML
-    public void handleSubmenuHoverAppearance(javafx.scene.input.MouseEvent event) {
-        if (hoveringSubItem) return;
-        submenuAppearance.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-    }
-
-    @FXML
-    public void handleSubmenuHoverExitLLM() {
-        submenuLLM.setBackground(Background.EMPTY);
-    }
-
-    @FXML
-    public void handleSubmenuHoverExitAdmin() {
-        submenuAdmin.setBackground(Background.EMPTY);
-    }
 
     @FXML
     public void handleSubmenuHoverExitAppearance() {
@@ -418,7 +448,6 @@ public void handleSubmenuHoverLLM(javafx.scene.input.MouseEvent event) {
 
     @FXML
     public void handleSubItemHover(MouseEvent event) {
-        hoveringSubItem = true;
         Region region = (Region) event.getSource();
         if (region == activeMenuItem) return;
         region.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -426,7 +455,6 @@ public void handleSubmenuHoverLLM(javafx.scene.input.MouseEvent event) {
 
     @FXML
     public void handleSubItemHoverExit(MouseEvent event) {
-        hoveringSubItem = false;
         Region region = (Region) event.getSource();
         if (region == activeMenuItem) return;
         region.setBackground(Background.EMPTY);
