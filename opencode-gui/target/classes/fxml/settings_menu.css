@@ -5,46 +5,20 @@
     -fx-border-color: transparent;
 }
 
-/* ===== Cellules racine (profondeur 0) ===== */
+/* Cellules TreeView */
 .settings-tree-view .tree-cell {
-    -fx-padding: 0;
-    -fx-background-radius: 6;
-    -fx-background-insets: 0;
+    -fx-padding: 2px 8px 2px 4px;
     -fx-min-height: 35px;
     -fx-max-height: 35px;
     -fx-background-color: transparent;
 }
 
-/* Police 14px pour les parents */
-.settings-tree-view .tree-cell .text {
-    -fx-font-size: 14px;
-}
-
-/* Police 11px pour sous-items profonds */
-.settings-tree-view .tree-cell:depth-1 .text {
-    -fx-font-size: 11px !important;
-}
-
-/* Padding texte : icône 28px à gauche + espacement */
-.settings-tree-view .tree-cell .label {
-    -fx-text-fill: #cccccc;
-    -fx-cursor: hand;
-}
-
-.settings-tree-view .tree-cell:depth-0 .label {
-    -fx-padding: 7 8 7 28;
-}
-
-.settings-tree-view .tree-cell:depth-1 .label {
-    -fx-padding: 7 8 7 8;
-}
-
-/* ===== Hover pleine largeur sur la cellule elle-même ===== */
+/* Hover pleine largeur sur la cellule */
 .settings-tree-view .tree-cell:hover {
     -fx-background-color: #2a2a2a !important;
 }
 
-/* ===== Sélection active ===== */
+/* Sélection active */
 .settings-tree-view .tree-cell:selected {
     -fx-background-color: #2a2a2a !important;
 }
@@ -53,9 +27,4 @@
 .settings-tree-view .tree-cell:selected .label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
-}
-
-/* Masquer les lignes d'arbre */
-.settings-tree-view .tree-line {
-    -fx-opacity: 0;
 }

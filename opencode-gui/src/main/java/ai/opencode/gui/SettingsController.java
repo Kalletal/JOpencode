@@ -8,9 +8,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -302,7 +304,7 @@ public class SettingsController {
             // Ici on gère uniquement l'icône pour les parents
         }
 
-        @Override
+      @Override
         protected void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
             if (empty) {
@@ -312,15 +314,24 @@ public class SettingsController {
             } else {
                 setText(item);
 
-              if (isParent()) {
-                    // Parent item : icône dans colonne séparée à gauche
+               if (isParent()) {
+                    // Parent item : icône + texte 14px
                     setGraphic(getImageForItem(item));
-                    setBackground(defaultBg);
+                    setTextFill(javafx.scene.paint.Color.web("#cccccc"));
+                    setStyle("-fx-font-size: 14;");
+                    getStyleClass().remove("subitem");
                 } else {
-                    // Sous-item : pas d'icône, texte aligné au même niveau X
-                    setGraphic(null);
-                    setBackground(defaultBg);
+                    // Sous-item : spacer invisible + texte 11px
+                    HBox spacer = new HBox();
+                    spacer.setPrefWidth(28);
+                    spacer.setMinWidth(28);
+                    spacer.setMaxWidth(28);
+                    setGraphic(spacer);
+                    setTextFill(javafx.scene.paint.Color.web("#cccccc"));
+                    setStyle("-fx-font-size: 11;");
+                    getStyleClass().add("subitem");
                 }
+                setBackground(defaultBg);
             }
         }
 
