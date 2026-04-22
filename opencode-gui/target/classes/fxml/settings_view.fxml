@@ -46,19 +46,15 @@
                     <Label text=">" fx:id="chevronLLM" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
             </VBox>
-            <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
+        <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="6" style="-fx-padding: 5 8 5 8;">
                 <children>
-                    <Region prefWidth="0" style="-fx-background-color: transparent;"/>
-                    <VBox HBox.hgrow="ALWAYS" spacing="2">
-                        <children>
-                            <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
-                                   styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                   onMouseClicked="#showLLMPreference"/>
-                            <Label fx:id="btnVoixParole" prefHeight="35" text="Voix et parole"
-                                   styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                   onMouseClicked="#showVoixParole"/>
-                        </children>
-                    </VBox>
+                    <Region prefWidth="16" style="-fx-background-color: transparent;"/>
+                    <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
+                           styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                           onMouseClicked="#showLLMPreference"/>
+                    <Label fx:id="btnVoixParole" prefHeight="35" text="Voix et parole"
+                           styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                           onMouseClicked="#showVoixParole"/>
                 </children>
             </HBox>
 
@@ -75,19 +71,15 @@
                     <Label text=">" fx:id="chevronAdmin" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
             </VBox>
-            <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
+            <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="6" style="-fx-padding: 5 8 5 8;">
                 <children>
-                    <Region prefWidth="0" style="-fx-background-color: transparent;"/>
-                    <VBox spacing="2">
-                        <children>
-                            <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
-                                   styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                   onMouseClicked="#showHistoriqueChats"/>
-                            <Label fx:id="btnDefaultPrompt" prefHeight="35" text="Default system prompt"
-                                   styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                   onMouseClicked="#showDefaultPrompt"/>
-                        </children>
-                    </VBox>
+                    <Region prefWidth="16" style="-fx-background-color: transparent;"/>
+                    <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
+                           styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                           onMouseClicked="#showHistoriqueChats"/>
+                    <Label fx:id="btnDefaultPrompt" prefHeight="35" text="Default system prompt"
+                           styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                           onMouseClicked="#showDefaultPrompt"/>
                 </children>
             </HBox>
 
@@ -115,16 +107,12 @@
                     <Label text=">" fx:id="chevronAppearance" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
             </VBox>
-         <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
+       <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="6" style="-fx-padding: 5 8 5 8;">
                  <children>
-                     <Region prefWidth="0" style="-fx-background-color: transparent;"/>
-                     <VBox HBox.hgrow="ALWAYS" spacing="2">
-                         <children>
-                             <Label fx:id="btnInterface" prefHeight="35" text="Interface"
-                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                    onMouseClicked="#showInterfaceSettings"/>
-                         </children>
-                     </VBox>
+                     <Region prefWidth="16" style="-fx-background-color: transparent;"/>
+                     <Label fx:id="btnInterface" prefHeight="35" text="Interface"
+                            styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                            onMouseClicked="#showInterfaceSettings"/>
                  </children>
              </HBox>
 
