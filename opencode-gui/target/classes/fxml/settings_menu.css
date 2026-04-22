@@ -4,7 +4,7 @@
     -fx-font-weight: bold;
 }
 
-/* Hover plein largeur sur le StackPane — affiche la Region derrière */
-.subitem-stack:hover .sub-bg {
-    -fx-opacity: 1 !important;
+/* Hover plein largeur — le Label a maxWidth=Infinity donc couvre toute la zone */
+.subitem:hover {
+    -fx-background-color: #2a2a2a !important;
 }
