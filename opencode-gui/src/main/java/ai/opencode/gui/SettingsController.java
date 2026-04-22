@@ -62,6 +62,7 @@ public class SettingsController {
     @FXML private HBox headerAdmin;
     @FXML private HBox headerAgentSkills;
     @FXML private HBox headerAppearance;
+    @FXML private VBox menuContainer;
 
     private final ConfigManager configManager;
     private Node activeMenuItem;
@@ -92,20 +93,29 @@ public class SettingsController {
         
         // Cacher les submenus au démarrage avec clip
         Platform.runLater(() -> {
-            Rectangle clipLLM = new Rectangle(263, 0);
-            clipLLM.heightProperty().bind(((javafx.scene.layout.Region) submenuLLM).heightProperty());
-            ((javafx.scene.layout.Region) submenuLLM).setClip(clipLLM);
-            ((javafx.scene.layout.Region) submenuLLM).setMaxHeight(0);
+            javafx.scene.layout.Region regionLLM = (javafx.scene.layout.Region) submenuLLM;
+            javafx.scene.layout.Region regionAdmin = (javafx.scene.layout.Region) submenuAdmin;
+            javafx.scene.layout.Region regionAppearance = (javafx.scene.layout.Region) submenuAppearance;
             
-            Rectangle clipAdmin = new Rectangle(263, 0);
-            clipAdmin.heightProperty().bind(((javafx.scene.layout.Region) submenuAdmin).heightProperty());
-            ((javafx.scene.layout.Region) submenuAdmin).setClip(clipAdmin);
-            ((javafx.scene.layout.Region) submenuAdmin).setMaxHeight(0);
+            Rectangle clipLLM = new Rectangle(menuContainer.getWidth(), 0);
+            clipLLM.heightProperty().bind(regionLLM.heightProperty());
+            regionLLM.setClip(clipLLM);
+            regionLLM.setMaxHeight(0);
             
-            Rectangle clipAppearance = new Rectangle(263, 0);
-            clipAppearance.heightProperty().bind(((javafx.scene.layout.Region) submenuAppearance).heightProperty());
-            ((javafx.scene.layout.Region) submenuAppearance).setClip(clipAppearance);
-            ((javafx.scene.layout.Region) submenuAppearance).setMaxHeight(0);
+            Rectangle clipAdmin = new Rectangle(menuContainer.getWidth(), 0);
+            clipAdmin.heightProperty().bind(regionAdmin.heightProperty());
+            regionAdmin.setClip(clipAdmin);
+            regionAdmin.setMaxHeight(0);
+            
+            Rectangle clipAppearance = new Rectangle(menuContainer.getWidth(), 0);
+            clipAppearance.heightProperty().bind(regionAppearance.heightProperty());
+            regionAppearance.setClip(clipAppearance);
+            regionAppearance.setMaxHeight(0);
+            
+            // Lier la largeur des submenus au conteneur parent pour hover pleine largeur
+            regionLLM.prefWidthProperty().bind(menuContainer.widthProperty());
+            regionAdmin.prefWidthProperty().bind(menuContainer.widthProperty());
+            regionAppearance.prefWidthProperty().bind(menuContainer.widthProperty());
             
              // Sauvegarder les styles originaux des sous-items menu
             if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
@@ -204,10 +214,16 @@ public class SettingsController {
         if (activeAnimation != null) {
             activeAnimation.stop();
         }
-        double width = region.getWidth();
+        double width = menuContainer.getWidth();
         if (width <= 0) {
             width = 263;
         }
+        
+        // Mettre à jour le clip avec la largeur courante du menuContainer
+        if (region.getClip() != null) {
+            ((javafx.scene.shape.Rectangle) region.getClip()).setWidth(width);
+        }
+        
         double targetHeight;
         if (expand) {
             targetHeight = region.prefHeight(width);
@@ -361,6 +377,34 @@ private void highlightMenuItem(Node activeButton) {
             Region region = (Region) source;
             region.setBackground(Background.EMPTY);
         }
+    }
+
+    @FXML
+    public void handleSubmenuHover(MouseEvent event) {
+        HBox submenu = (HBox) event.getSource();
+        if (submenu == activeMenuItem) return;
+        submenu.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    @FXML
+    public void handleSubmenuHoverExit(MouseEvent event) {
+        HBox submenu = (HBox) event.getSource();
+        if (submenu == activeMenuItem) return;
+        submenu.setBackground(Background.EMPTY);
+    }
+
+    @FXML
+    public void handleSubItemHover(MouseEvent event) {
+        Region region = (Region) event.getSource();
+        if (region == activeMenuItem) return;
+        region.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    @FXML
+    public void handleSubItemHoverExit(MouseEvent event) {
+        Region region = (Region) event.getSource();
+        if (region == activeMenuItem) return;
+        region.setBackground(Background.EMPTY);
     }
 
     private String getOriginalTextColor(Node node) {
