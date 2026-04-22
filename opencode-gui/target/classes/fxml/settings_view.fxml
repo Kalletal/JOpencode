@@ -53,11 +53,11 @@
                     <VBox spacing="2">
                     <children>
                           <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
-                                  style="-fx-background-color: transparent; -fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                  onMouseClicked="#showLLMPreference" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit"/>
+                                  style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                                  onMouseClicked="#showLLMPreference"/>
                            <Label fx:id="btnVoixParole" prefHeight="35" text="Voix et parole"
-                                 style="-fx-background-color: transparent; -fx-text-fill: #999999; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
-                                 onMouseClicked="#showVoixParole" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit"/>
+                                 style="-fx-text-fill: #999999; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
+                                 onMouseClicked="#showVoixParole"/>
                          </children>
                     </VBox>
                 </children>
