@@ -37,7 +37,7 @@
              <VBox prefHeight="35" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                     onMouseClicked="#toggleSectionLLM" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
-                    <ImageView fitWidth="20" fitHeight="20" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
                         <image><Image url="@icons/llm.png"/></image>
                     </ImageView>
                     <Label text="Fournisseurs LLM" fx:id="headerTextLLM"
@@ -71,7 +71,7 @@
         <VBox prefHeight="35" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                onMouseClicked="#toggleSectionAdmin" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
-                    <ImageView fitWidth="20" fitHeight="20" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
                         <image><Image url="@icons/admin.png"/></image>
                     </ImageView>
                     <Label text="Admin" fx:id="headerTextAdmin"
@@ -105,7 +105,7 @@
      <VBox prefHeight="35" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
               onMouseClicked="#showAgentSkills" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
-                    <ImageView fitWidth="20" fitHeight="20" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
                         <image><Image url="@icons/agent_skills.png"/></image>
                     </ImageView>
                     <Label text="Compétences de l'agent" style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
@@ -116,7 +116,7 @@
              <VBox prefHeight="35" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                     onMouseClicked="#toggleSectionAppearance" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
-                    <ImageView fitWidth="20" fitHeight="20" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
                         <image><Image url="@icons/appearance.png"/></image>
                     </ImageView>
                     <Label text="Apparence" fx:id="headerTextAppearance"
@@ -219,7 +219,7 @@
                     <VBox spacing="5">
                         <HBox alignment="CENTER_LEFT" style="-fx-cursor: hand;" onMouseClicked="#toggleAdvancedSettings">
                          <children>
-                                   <ImageView fitWidth="20" fitHeight="20" pickOnBounds="true" preserveRatio="false">
+                                   <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="false">
                                        <image><Image url="@icons/llm.png"/></image>
                                    </ImageView>
                                    <Label text="Advanced settings" style="-fx-text-fill: #cccccc; -fx-font-size: 13; -fx-font-weight: bold; -fx-cursor: hand;">
