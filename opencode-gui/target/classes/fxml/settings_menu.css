@@ -1,6 +1,13 @@
-/* Hover sur headers VBox */
-.sidebar-menu > VBox:hover {
+/* Hover sur headers VBox et submenus HBox — pleine largeur identique */
+.sidebar-menu > VBox:hover,
+.sidebar-menu > HBox[id^="submenu"]:hover {
     -fx-background-color: #2a2a2a !important;
+}
+
+/* Submenu HBox s'étire sur toute la largeur du menuContainer */
+.sidebar-menu > HBox[id^="submenu"] {
+    -fx-pref-width: 100%;
+    -fx-max-width: 100%;
 }
 
 /* Sous-items : pas de contrainte de largeur pour laisser layout déterminer la position X */

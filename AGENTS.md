@@ -63,9 +63,14 @@ L'`HBox.alignment="CENTER_LEFT"` assure automatiquement le centrage vertical (di
 - Dans FXML, chaque submenu HBox contient en première position un `<Region prefWidth="24">`, suivi d'un VBox qui empile verticalement les Labels des sous-items.
 
 ### Directive 8 (complément CSS) : Largeur hover background identique
-- `.subitem` n'a pas de contrainte de largeur fixe dans `settings_menu.css`.
-- La largeur du fond gris clair (`#2a2a2a`) est déterminée par le HBox parent du submenu qui s'étend sur toute la largeur disponible du menuContainer.
-- Le spacer de 24px garantit que le hover background commence au même niveau X que celui des headers.
+**Problème initial :** les headers VBox reçoivent le hover via `.sidebar-menu > VBox:hover` et s'étirent sur toute la largeur, mais les submenus HBox n'avaient pas de règle CSS correspondante et leur largeur était limitée à leur contenu.
+
+**Solution implémentée :**
+- CSS : ajout de `.sidebar-menu > HBox[id^="submenu"]:hover { -fx-background-color: #2a2a2a !important; }` pour appliquer le hover sur tous les submenus.
+- CSS : règle `.sidebar-menu > HBox[id^="submenu"] { -fx-pref-width: 100%; -fx-max-width: 100%; }` force chaque submenu HBox à occuper toute la largeur du menuContainer.
+- FXML : chaque `<Region prefWidth="24">` dans un submenu reçoit `HBox.hgrow="ALWAYS"` pour remplir l'espace restant après le VBox enfants.
+- `.subitem` n'a **aucune contrainte de largeur fixe** — la largeur est entièrement gérée par le parent HBox qui s'étire.
+- Résultat : le fond gris clair (`#2a2a2a`) couvre exactement la même largeur visuelle pour les headers ET les sous-items.
 
 ### Directive 5 : Pas d'icône pour les sous-items
 Les Labels `.subitem` n'ont pas d'ImageView. C'est déjà le cas actuellement.
