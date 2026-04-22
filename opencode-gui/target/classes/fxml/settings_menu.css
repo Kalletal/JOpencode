@@ -9,6 +9,14 @@
 }
 
 /* Hover sur Labels de sous-items */
-.sidebar-menu > HBox[id^="submenu"] > VBox > Label:hover {
+.sidebar-menu > HBox[id^="submenu"] > VBox > Label:hover,
+.sidebar-menu > HBox[id^="submenu"] > VBox > Label.menu-item-active:hover {
     -fx-background-color: #2a2a2a !important;
+}
+
+/* Sous-item actif (sélectionné) */
+.sidebar-menu > HBox[id^="submenu"] > VBox > Label.menu-item-active {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
 }

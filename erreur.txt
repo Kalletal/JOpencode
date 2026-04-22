@@ -1,113 +1,27 @@
-[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ opencode-gui ---
-[INFO] Nothing to compile - all classes are up to date
+[INFO] opencode-gui                                                       [jar]
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml (21 kB at 29 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml (14 kB at 9.5 kB/s)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for opencode-java 1.0-SNAPSHOT:
 [INFO] 
-[INFO] <<< javafx-maven-plugin:0.0.8:run (default-cli) < process-classes @ opencode-gui <<<
-[INFO] 
-[INFO] 
-[INFO] --- javafx-maven-plugin:0.0.8:run (default-cli) @ opencode-gui ---
-avr. 21, 2026 3:38:14 PM ai.opencode.storage.ConfigManager loadConfig
-INFOS: Configuration chargée avec succès depuis /home/gilles/.opencode/config.json
-SLF4J: No SLF4J providers were found.
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
-avr. 21, 2026 3:38:14 PM ai.opencode.storage.DatabaseManager initDatabase
-INFOS: Connexion établie à la base de données : /home/gilles/.opencode/opencode-java.db
-avr. 21, 2026 3:38:14 PM ai.opencode.storage.DatabaseManager createTables
-INFOS: Tables de la base de données initialisées.
-avr. 21, 2026 3:38:14 PM ai.opencode.gui.MainController initialize
-INFOS: === MAIN CONTROLLER INITIALIZED ===
-avr. 21, 2026 3:38:14 PM ai.opencode.gui.MainController initialize
-INFOS: settingsToggleButton is null: false
-avr. 21, 2026 3:38:14 PM ai.opencode.gui.MainController initialize
-INFOS: chatView is null: false
-avr. 21, 2026 3:38:14 PM ai.opencode.gui.MainController initialize
-INFOS: settingsViewContainer is null: false
-avr. 21, 2026 3:38:14 PM ai.opencode.gui.MainController initialize
-INFOS: settingsToggleButton visible: true
-avr. 21, 2026 3:38:14 PM ai.opencode.gui.MainController initialize
-INFOS: settingsToggleButton text: ⚙
-avr. 21, 2026 3:38:17 PM ai.opencode.gui.MainController toggleSettings
-INFOS: === toggleSettings() called ===
-avr. 21, 2026 3:38:17 PM ai.opencode.gui.MainController toggleSettings
-INFOS: chatView visible=true
-avr. 21, 2026 3:38:17 PM ai.opencode.gui.MainController toggleSettings
-INFOS: settingsViewContainer visible=false
-avr. 21, 2026 3:38:17 PM ai.opencode.gui.MainController loadSettingsView
-INFOS: loadSettingsView() called
-avr. 21, 2026 3:38:17 PM ai.opencode.storage.ConfigManager loadConfig
-INFOS: Configuration chargée avec succès depuis /home/gilles/.opencode/config.json
-avr. 21, 2026 3:38:17 PM ai.opencode.gui.MainController loadSettingsView
-GRAVE: Erreur lors du chargement de la vue paramètres: URL is not a valid type.
-/home/gilles/Documents/ProjetJava/JOpencode/opencode-gui/target/classes/fxml/settings_view.fxml:29
-
-javafx.fxml.LoadException: URL is not a valid type.
-/home/gilles/Documents/ProjetJava/JOpencode/opencode-gui/target/classes/fxml/settings_view.fxml:29
-
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2718)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.createElement(FXMLLoader.java:2920)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2850)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2649)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2563)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2531)
-	at ai.opencode.gui.MainController.loadSettingsView(MainController.java:653)
-	at ai.opencode.gui.MainController.toggleSettings(MainController.java:610)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at javafx.base@21/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
-	at javafx.fxml@21/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1855)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1726)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21/com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
-	at javafx.graphics@21/com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:263)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-avr. 21, 2026 3:38:17 PM ai.opencode.gui.MainController toggleSettings
+[INFO] opencode-java ...................................... SKIPPED
+[INFO] opencode-storage ................................... SKIPPED
+[INFO] opencode-tools ..................................... SKIPPED
+[INFO] opencode-core ...................................... SKIPPED
+[INFO] opencode-gui ....................................... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.868 s
+[INFO] Finished at: 2026-04-21T22:00:39+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] No plugin found for prefix 'javafx' in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (/home/gilles/.m2/repository), central (https://repo.maven.apache.org/maven2)] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/NoPluginFoundForPrefixException
 

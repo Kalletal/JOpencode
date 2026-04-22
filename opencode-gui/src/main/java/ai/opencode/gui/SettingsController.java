@@ -11,10 +11,15 @@ import javafx.fxml.FXML;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.*;
 import javafx.scene.Node;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -295,17 +300,16 @@ public class SettingsController {
     }
 
      private void highlightMenuItem(Node activeButton) {
-        String normalText = "-fx-text-fill: #999999; -fx-font-weight: normal;";
-        String activeText = "-fx-text-fill: white; -fx-font-weight: bold;";
+        if (btnLLMPreference instanceof Label) ((Label) btnLLMPreference).getStyleClass().remove("menu-item-active");
+        if (btnVoixParole instanceof Label) ((Label) btnVoixParole).getStyleClass().remove("menu-item-active");
+        if (btnHistoriqueChats instanceof Label) ((Label) btnHistoriqueChats).getStyleClass().remove("menu-item-active");
+        if (btnDefaultPrompt instanceof Label) ((Label) btnDefaultPrompt).getStyleClass().remove("menu-item-active");
+        if (btnInterface instanceof Label) ((Label) btnInterface).getStyleClass().remove("menu-item-active");
 
-        if (btnLLMPreference != null) btnLLMPreference.setStyle(normalText);
-        if (btnVoixParole != null) btnVoixParole.setStyle(normalText);
-        if (btnHistoriqueChats != null) btnHistoriqueChats.setStyle(normalText);
-        if (btnDefaultPrompt != null) btnDefaultPrompt.setStyle(normalText);
-        if (btnInterface != null) btnInterface.setStyle(normalText);
-
-        if (activeButton != null) {
-            activeButton.setStyle(activeText);
+        if (activeButton instanceof Label) {
+            ((Label) activeButton).getStyleClass().add("menu-item-active");
+            activeMenuItem = activeButton;
+        } else if (activeButton != null) {
             activeMenuItem = activeButton;
         }
     }
@@ -313,23 +317,18 @@ public class SettingsController {
    @FXML
     public void handleMenuHover(MouseEvent event) {
         Node source = (Node) event.getSource();
-        if (source != null && source != activeMenuItem) {
-            String currentStyle = source.getStyle();
-            if (!currentStyle.contains("-fx-background-color")) {
-                source.setStyle(currentStyle + " -fx-background-color: #2a2a2a !important;");
-            }
+        if (source != activeMenuItem && source instanceof Region) {
+            Region region = (Region) source;
+            region.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
         }
     }
 
     @FXML
     public void handleMenuHoverExit(MouseEvent event) {
         Node source = (Node) event.getSource();
-        if (source != null && source != activeMenuItem) {
-            String currentStyle = source.getStyle();
-            if (currentStyle.contains("-fx-background-color: #2a2a2a")) {
-                currentStyle = currentStyle.replace(" -fx-background-color: #2a2a2a !important;", "");
-                source.setStyle(currentStyle);
-            }
+        if (source != activeMenuItem && source instanceof Region) {
+            Region region = (Region) source;
+            region.setBackground(Background.EMPTY);
         }
     }
 
