@@ -381,6 +381,22 @@ private void highlightMenuItem(Node activeButton) {
     }
 
 
+    @FXML
+    public void onSubItemEnter(javafx.scene.input.MouseEvent event) {
+        Node source = (Node) event.getSource();
+        if (source instanceof Region region && region != activeMenuItem) {
+            region.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+        }
+    }
+
+    @FXML
+    public void onSubItemExit(javafx.scene.input.MouseEvent event) {
+        Node source = (Node) event.getSource();
+        if (source instanceof Region region && region != activeMenuItem) {
+            region.setBackground(Background.EMPTY);
+        }
+    }
+
     // ===== ADVANCED SETTINGS =====
 
     @FXML
