@@ -70,11 +70,13 @@ public class SettingsController {
     }
 
     private void buildSettingsTree() {
-        TreeItem<String> root = new TreeItem<>();
+        LOGGER.info("buildSettingsTree called");
+
+        TreeItem<String> root = new TreeItem<>("Paramètres");
         root.setExpanded(true);
 
         // Section: Fournisseurs LLM
-        TreeItem<String> llmSection = createSection("Fournisseurs LLM", IMG_LLM, true);
+        TreeItem<String> llmSection = createSection("Fournisseurs LLM", IMG_LLM);
         llmSection.getChildren().addAll(
             createLeaf("Préférences LLM"),
             createLeaf("Voix et parole")
@@ -82,7 +84,7 @@ public class SettingsController {
         root.getChildren().add(llmSection);
 
         // Section: Admin
-        TreeItem<String> adminSection = createSection("Admin", IMG_ADMIN, true);
+        TreeItem<String> adminSection = createSection("Admin", IMG_ADMIN);
         adminSection.getChildren().addAll(
             createLeaf("Historique des discussions"),
             createLeaf("Invite système par défaut")
@@ -90,15 +92,16 @@ public class SettingsController {
         root.getChildren().add(adminSection);
 
         // Section: Compétences de l'agent (pas de sous-item)
-        TreeItem<String> agentSection = createSection("Compétences de l'agent", IMG_AGENT, false);
+        TreeItem<String> agentSection = createSection("Compétences de l'agent", IMG_AGENT);
         root.getChildren().add(agentSection);
 
         // Section: Apparence
-        TreeItem<String> appearanceSection = createSection("Apparence", IMG_APPEARANCE, true);
+        TreeItem<String> appearanceSection = createSection("Apparence", IMG_APPEARANCE);
         appearanceSection.getChildren().add(createLeaf("Interface"));
         root.getChildren().add(appearanceSection);
 
         settingsTree.setRoot(root);
+        LOGGER.info("TreeView root set with " + root.getChildren().size() + " sections");
         // showTreeLines non disponible sur cette version de JavaFX
         settingsTree.setCellFactory(tree -> new SettingsTreeCell());
 
@@ -109,7 +112,7 @@ public class SettingsController {
         });
     }
 
-    private TreeItem<String> createSection(String text, Image icon, boolean hasChildren) {
+   private TreeItem<String> createSection(String text, Image icon) {
         ImageView imageView = new ImageView(icon);
         imageView.setFitWidth(16);
         imageView.setFitHeight(16);
@@ -117,6 +120,8 @@ public class SettingsController {
 
         TreeItem<String> section = new TreeItem<>(text);
         section.setGraphic(imageView);
+
+        LOGGER.info("Created section: " + text);
 
         return section;
     }
@@ -296,43 +301,61 @@ public class SettingsController {
 
     // ===== Custom TreeCell =====
 
-    private class SettingsTreeCell extends TreeCell<String> {
+private class SettingsTreeCell extends TreeCell<String> {
         private final Background defaultBg = Background.EMPTY;
+        private final Background hoverBg = new Background(new BackgroundFill(
+            Color.web("#2a2a2a"), javafx.scene.layout.CornerRadii.EMPTY, null));
+        private static final Font FONT_PARENT = Font.font(14);
+        private static final Font FONT_CHILD = Font.font(11);
+        private static final Font FONT_BOLD = Font.font("System Bold", 14);
+        private static final Font FONT_BOLD_CHILD = Font.font("System Bold", 11);
 
         public SettingsTreeCell() {
-            // La taille de police et le style sont gérés par CSS via :expanded/:collapsed/:child
-            // Ici on gère uniquement l'icône pour les parents
+            this.setMinHeight(35);
+            this.setMaxHeight(35);
+            this.setPadding(new Insets(0, 8, 0, 4));
         }
 
-      @Override
+       @Override
         protected void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
             if (empty) {
                 setText(null);
                 setGraphic(null);
                 setBackground(defaultBg);
+                setFont(FONT_PARENT);
             } else {
                 setText(item);
 
-               if (isParent()) {
-                    // Parent item : icône + texte 14px
+                if (isParent()) {
                     setGraphic(getImageForItem(item));
-                    setTextFill(javafx.scene.paint.Color.web("#cccccc"));
-                    setStyle("-fx-font-size: 14;");
-                    getStyleClass().remove("subitem");
+                    setFont(isSelected() ? FONT_BOLD : FONT_PARENT);
+                    setTextFill(Color.web("#cccccc"));
+                    getStyleClass().removeAll("subitem");
                 } else {
-                    // Sous-item : spacer invisible + texte 11px
                     HBox spacer = new HBox();
                     spacer.setPrefWidth(28);
                     spacer.setMinWidth(28);
                     spacer.setMaxWidth(28);
+                    spacer.setBackground(defaultBg);
                     setGraphic(spacer);
-                    setTextFill(javafx.scene.paint.Color.web("#cccccc"));
-                    setStyle("-fx-font-size: 11;");
+                    setFont(isSelected() ? FONT_BOLD_CHILD : FONT_CHILD);
+                    setTextFill(Color.web("#cccccc"));
                     getStyleClass().add("subitem");
                 }
-                setBackground(defaultBg);
+                setBackground(isSelected() ? hoverBg : defaultBg);
             }
+
+            this.setOnMouseEntered(e -> {
+                if (!isSelected()) {
+                    setBackground(hoverBg);
+                }
+            });
+            this.setOnMouseExited(e -> {
+                if (!isSelected()) {
+                    setBackground(defaultBg);
+                }
+            });
         }
 
         private ImageView getImageForItem(String value) {
