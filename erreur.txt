@@ -1,115 +1,50 @@
-[INFO] 
 [INFO] <<< javafx-maven-plugin:0.0.8:run (default-cli) < process-classes @ opencode-gui <<<
 [INFO] 
 [INFO] 
 [INFO] --- javafx-maven-plugin:0.0.8:run (default-cli) @ opencode-gui ---
-avr. 22, 2026 1:08:20 PM ai.opencode.storage.ConfigManager loadConfig
+avr. 22, 2026 5:22:39 PM ai.opencode.storage.ConfigManager loadConfig
 INFOS: Configuration chargée avec succès depuis /home/gilles/.opencode/config.json
 SLF4J: No SLF4J providers were found.
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
-avr. 22, 2026 1:08:20 PM ai.opencode.storage.DatabaseManager initDatabase
+avr. 22, 2026 5:22:39 PM ai.opencode.storage.DatabaseManager initDatabase
 INFOS: Connexion établie à la base de données : /home/gilles/.opencode/opencode-java.db
-avr. 22, 2026 1:08:20 PM ai.opencode.storage.DatabaseManager createTables
+avr. 22, 2026 5:22:39 PM ai.opencode.storage.DatabaseManager createTables
 INFOS: Tables de la base de données initialisées.
-avr. 22, 2026 1:08:20 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 5:22:39 PM ai.opencode.gui.MainController initialize
 INFOS: === MAIN CONTROLLER INITIALIZED ===
-avr. 22, 2026 1:08:20 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 5:22:39 PM ai.opencode.gui.MainController initialize
 INFOS: settingsToggleButton is null: false
-avr. 22, 2026 1:08:20 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 5:22:39 PM ai.opencode.gui.MainController initialize
 INFOS: chatView is null: false
-avr. 22, 2026 1:08:20 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 5:22:39 PM ai.opencode.gui.MainController initialize
 INFOS: settingsViewContainer is null: false
-avr. 22, 2026 1:08:20 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 5:22:39 PM ai.opencode.gui.MainController initialize
 INFOS: settingsToggleButton visible: true
-avr. 22, 2026 1:08:20 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 5:22:39 PM ai.opencode.gui.MainController initialize
 INFOS: settingsToggleButton text: ⚙
-avr. 22, 2026 1:08:22 PM ai.opencode.gui.MainController toggleSettings
+avr. 22, 2026 5:22:41 PM ai.opencode.gui.MainController toggleSettings
 INFOS: === toggleSettings() called ===
-avr. 22, 2026 1:08:22 PM ai.opencode.gui.MainController toggleSettings
+avr. 22, 2026 5:22:41 PM ai.opencode.gui.MainController toggleSettings
 INFOS: chatView visible=true
-avr. 22, 2026 1:08:22 PM ai.opencode.gui.MainController toggleSettings
+avr. 22, 2026 5:22:41 PM ai.opencode.gui.MainController toggleSettings
 INFOS: settingsViewContainer visible=false
-avr. 22, 2026 1:08:22 PM ai.opencode.gui.MainController loadSettingsView
+avr. 22, 2026 5:22:41 PM ai.opencode.gui.MainController loadSettingsView
 INFOS: loadSettingsView() called
-avr. 22, 2026 1:08:22 PM ai.opencode.storage.ConfigManager loadConfig
+avr. 22, 2026 5:22:41 PM ai.opencode.storage.ConfigManager loadConfig
 INFOS: Configuration chargée avec succès depuis /home/gilles/.opencode/config.json
-avr. 22, 2026 1:08:22 PM ai.opencode.gui.MainController loadSettingsView
-GRAVE: Erreur lors du chargement de la vue paramètres: 
-/home/gilles/Documents/ProjetJava/JOpencode/opencode-gui/target/classes/fxml/settings_view.fxml:217
-
-javafx.fxml.LoadException: 
-/home/gilles/Documents/ProjetJava/JOpencode/opencode-gui/target/classes/fxml/settings_view.fxml:217
-
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2722)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2665)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2563)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2531)
-	at ai.opencode.gui.MainController.loadSettingsView(MainController.java:653)
-	at ai.opencode.gui.MainController.toggleSettings(MainController.java:610)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at javafx.base@21/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
-	at javafx.fxml@21/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1855)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1726)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21/com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
-	at javafx.graphics@21/com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:263)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[217,7]
-Message: Le type d'élément "HBox" doit se terminer par la balise de fin correspondante "</HBox>".
-	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
-	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2635)
-	... 62 more
-avr. 22, 2026 1:08:22 PM ai.opencode.gui.MainController toggleSettings
+avr. 22, 2026 5:22:41 PM ai.opencode.gui.SettingsController initialize
+INFOS: === SettingsController initialize() called ===
+avr. 22, 2026 5:22:41 PM ai.opencode.gui.SettingsController initialize
+INFOS: === SettingsController initialize() done ===
+avr. 22, 2026 5:22:41 PM ai.opencode.gui.MainController toggleSettings
+INFOS: Settings view activated
+avr. 22, 2026 5:22:41 PM ai.opencode.gui.MainController lambda$loadSettingsView$13
+INFOS: Vue paramètres chargée avec succès. Taille conteneur: 900.0x800.0
+avr. 22, 2026 5:22:43 PM ai.opencode.gui.SettingsController animateSubmenu
+INFOS: animateSubmenu: expand=true, width=262.0, targetHeight=1.7976931348623155E308, currentMaxHeight=0.0
+avr. 22, 2026 5:22:46 PM ai.opencode.gui.SettingsController animateSubmenu
+INFOS: animateSubmenu: expand=true, width=262.0, targetHeight=1.7976931348623155E308, currentMaxHeight=0.0
+avr. 22, 2026 5:22:48 PM ai.opencode.gui.SettingsController animateSubmenu
+INFOS: animateSubmenu: expand=true, width=262.0, targetHeight=1.7976931348623155E308, currentMaxHeight=0.0
 

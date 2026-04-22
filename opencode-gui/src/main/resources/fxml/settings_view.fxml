@@ -49,7 +49,7 @@
         <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;"
               onMouseEntered="#handleSubmenuHoverLLM" onMouseExited="#handleSubmenuHoverExitLLM">
                 <children>
-                    <Region fx:id="bgFullLLM" style="-fx-background-color: transparent; -fx-pref-height: Infinity;" HBox.hgrow="ALWAYS"/>
+                    <Region fx:id="bgFullLLM" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS"/>
                     <Region fx:id="bgLLM" prefWidth="24"/>
                     <VBox spacing="2">
                         <children>
@@ -80,7 +80,7 @@
             <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;"
                   onMouseEntered="#handleSubmenuHoverAdmin" onMouseExited="#handleSubmenuHoverExitAdmin">
                 <children>
-                    <Region fx:id="bgFullAdmin" style="-fx-background-color: transparent; -fx-pref-height: Infinity;" HBox.hgrow="ALWAYS"/>
+                    <Region fx:id="bgFullAdmin" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS"/>
                     <Region fx:id="bgAdmin" prefWidth="24"/>
                     <VBox spacing="2">
                         <children>
@@ -122,7 +122,7 @@
       <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;"
               onMouseEntered="#handleSubmenuHoverAppearance" onMouseExited="#handleSubmenuHoverExitAppearance">
                   <children>
-                      <Region fx:id="bgFullAppearance" style="-fx-background-color: transparent; -fx-pref-height: Infinity;" HBox.hgrow="ALWAYS"/>
+                      <Region fx:id="bgFullAppearance" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS"/>
                       <Region fx:id="bgAppearance" prefWidth="24"/>
                       <VBox spacing="2">
                           <children>
