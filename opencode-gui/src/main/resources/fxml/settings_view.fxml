@@ -42,7 +42,7 @@
                     </ImageView>
                     <Label text="Fournisseurs LLM" fx:id="headerTextLLM"
                            style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
-                    <Region />
+                    <Region HBox.hgrow="ALWAYS"/>
                     <Label text=">" fx:id="chevronLLM" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
             </VBox>
@@ -79,7 +79,7 @@
                     </ImageView>
                     <Label text="Admin" fx:id="headerTextAdmin"
                            style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
-                    <Region />
+                    <Region HBox.hgrow="ALWAYS"/>
                     <Label text=">" fx:id="chevronAdmin" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
             </VBox>
@@ -127,7 +127,7 @@
                     </ImageView>
                     <Label text="Apparence" fx:id="headerTextAppearance"
                            style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
-                    <Region />
+                    <Region HBox.hgrow="ALWAYS"/>
                     <Label text=">" fx:id="chevronAppearance" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
             </VBox>
@@ -235,7 +235,7 @@
                                           <Font name="System Bold" size="13.0"/>
                                       </font>
                                   </Label>
-                                  <Region />
+<Region HBox.hgrow="ALWAYS"/>
                  <Label text=">" fx:id="chevronAdvanced" style="-fx-text-fill: #999999; -fx-font-size: 13; -fx-padding: 0 0 0 8;"/>
                              </children>
                         </HBox>
