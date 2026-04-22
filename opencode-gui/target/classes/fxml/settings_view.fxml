@@ -49,7 +49,7 @@
         <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent;"
               onMouseEntered="#handleSubmenuHover" onMouseExited="#handleSubmenuHoverExit">
                 <children>
-                    <Region prefWidth="24" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;"/>
+                    <Region prefWidth="24" style="-fx-background-color: transparent;"/>
                     <VBox spacing="2">
                         <children>
                             <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
@@ -79,7 +79,7 @@
             <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent;"
                   onMouseEntered="#handleSubmenuHover" onMouseExited="#handleSubmenuHoverExit">
                 <children>
-                    <Region prefWidth="24" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;"/>
+                    <Region prefWidth="24" style="-fx-background-color: transparent;"/>
                     <VBox spacing="2">
                         <children>
                             <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
@@ -120,7 +120,7 @@
       <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent;"
               onMouseEntered="#handleSubmenuHover" onMouseExited="#handleSubmenuHoverExit">
                   <children>
-                      <Region prefWidth="24" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;"/>
+                      <Region prefWidth="24" style="-fx-background-color: transparent;"/>
                       <VBox spacing="2">
                           <children>
                               <Label fx:id="btnInterface" prefHeight="35" text="Interface"
