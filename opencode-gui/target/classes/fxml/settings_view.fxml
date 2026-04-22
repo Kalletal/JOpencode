@@ -34,7 +34,7 @@
             </Label>
 
         <!-- Section: Fournisseurs LLM (expandable) -->
-              <VBox prefHeight="35" style="-fx-padding: 0 8 0 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
+              <VBox prefHeight="35" style="-fx-padding: 14 8 2 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                      onMouseClicked="#toggleSectionLLM" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
                     <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
@@ -68,7 +68,7 @@
             </HBox>
 
             <!-- Section: Admin (expandable) -->
-        <VBox prefHeight="35" style="-fx-padding: 0 8 0 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
+        <VBox prefHeight="35" style="-fx-padding: 14 8 2 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                onMouseClicked="#toggleSectionAdmin" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
                     <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
@@ -102,7 +102,7 @@
             </HBox>
 
            <!-- Section: Compétences de l'agent -->
-     <VBox prefHeight="35" style="-fx-padding: 0 8 0 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
+     <VBox prefHeight="35" style="-fx-padding: 14 8 2 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
               onMouseClicked="#showAgentSkills" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
                     <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
@@ -113,7 +113,7 @@
             </VBox>
 
           <!-- Section: Apparence (expandable) -->
-             <VBox prefHeight="35" style="-fx-padding: 0 8 0 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
+             <VBox prefHeight="35" style="-fx-padding: 14 8 2 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                     onMouseClicked="#toggleSectionAppearance" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
                     <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
