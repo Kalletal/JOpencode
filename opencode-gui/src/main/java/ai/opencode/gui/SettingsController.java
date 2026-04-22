@@ -115,15 +115,7 @@ public class SettingsController {
             regionAppearance.setClip(clipAppearance);
             regionAppearance.setMaxHeight(0);
             
-            // Lier la largeur des submenus et spacers au conteneur parent pour hover pleine largeur
-            regionLLM.prefWidthProperty().bind(menuContainer.widthProperty());
-            regionAdmin.prefWidthProperty().bind(menuContainer.widthProperty());
-            regionAppearance.prefWidthProperty().bind(menuContainer.widthProperty());
-            bgLLM.prefWidthProperty().bind(menuContainer.widthProperty());
-            bgAdmin.prefWidthProperty().bind(menuContainer.widthProperty());
-            bgAppearance.prefWidthProperty().bind(menuContainer.widthProperty());
-            
-             // Sauvegarder les styles originaux des sous-items menu
+            // Sauvegarder les styles originaux des sous-items menu
             if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
             if (btnVoixParole instanceof Label lbl) originalStyleVoixParole = lbl.getStyle();
             if (btnHistoriqueChats instanceof Label lbl) originalStyleHistoriqueChats = lbl.getStyle();

@@ -48,7 +48,7 @@
             </VBox>
         <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
                 <children>
-                    <Region fx:id="bgLLM" prefWidth="24" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;"/>
+                    <Region fx:id="bgLLM" prefWidth="24"/>
                     <VBox spacing="2">
                         <children>
                             <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
@@ -77,7 +77,7 @@
             </VBox>
             <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
                 <children>
-                    <Region fx:id="bgAdmin" prefWidth="24" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;"/>
+                    <Region fx:id="bgAdmin" prefWidth="24"/>
                     <VBox spacing="2">
                         <children>
                             <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
@@ -117,7 +117,7 @@
             </VBox>
      <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
                   <children>
-                      <Region fx:id="bgAppearance" prefWidth="24" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;"/>
+                      <Region fx:id="bgAppearance" prefWidth="24"/>
                       <VBox spacing="2">
                           <children>
                               <Label fx:id="btnInterface" prefHeight="35" text="Interface"
