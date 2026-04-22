@@ -5,7 +5,9 @@
 
 /* Sous-items : même largeur que headers (~237px) */
 .subitem {
-    -fx-min-width: 237 !important;
+    -fx-min-width: 230 !important;
+    -fx-pref-width: 230 !important;
+    -fx-max-width: 230 !important;
 }
 
 /* Hover sur tous les sous-items (actif ou non) */
