@@ -4,10 +4,18 @@
     -fx-font-weight: bold;
 }
 
-/* Hover plein largeur sur chaque ligne de sous-item */
+/* Hover plein largeur sur chaque ligne de sous-item — coins arrondis */
 .submenu-row {
     -fx-background-color: transparent;
+    -fx-background-radius: 6;
 }
 .submenu-row:hover {
     -fx-background-color: #2a2a2a !important;
+    -fx-background-radius: 6;
+}
+
+/* Header sections hover — coins arrondis */
+.sidebar-menu > VBox:hover {
+    -fx-background-color: #2a2a2a !important;
+    -fx-background-radius: 6;
 }
