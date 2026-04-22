@@ -117,20 +117,7 @@ public class SettingsController {
             regionAppearance.setClip(clipAppearance);
             regionAppearance.setMaxHeight(0);
             
-            vboxLLMChildren.setOnMouseEntered(e -> { llmCount.incrementAndGet(); submenuLLM.setBackground(Background.EMPTY); });
-            vboxLLMChildren.setOnMouseExited(e -> { if (llmCount.decrementAndGet() <= 0) applyHBoxBg(submenuLLM, true); });
-            vboxAdminChildren.setOnMouseEntered(e -> { adminCount.incrementAndGet(); submenuAdmin.setBackground(Background.EMPTY); });
-            vboxAdminChildren.setOnMouseExited(e -> { if (adminCount.decrementAndGet() <= 0) applyHBoxBg(submenuAdmin, true); });
-            vboxAppearanceChildren.setOnMouseEntered(e -> { appearanceCount.incrementAndGet(); submenuAppearance.setBackground(Background.EMPTY); });
-            vboxAppearanceChildren.setOnMouseExited(e -> { if (appearanceCount.decrementAndGet() <= 0) applyHBoxBg(submenuAppearance, true); });
-            
-            setupSubItemHover(btnLLMPreference);
-            setupSubItemHover(btnVoixParole);
-            setupSubItemHover(btnHistoriqueChats);
-            setupSubItemHover(btnDefaultPrompt);
-            setupSubItemHover(btnInterface);
-            
-             // Sauvegarder les styles originaux des sous-items menu
+          // Sauvegarder les styles originaux des sous-items menu
             if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
             if (btnVoixParole instanceof Label lbl) originalStyleVoixParole = lbl.getStyle();
             if (btnHistoriqueChats instanceof Label lbl) originalStyleHistoriqueChats = lbl.getStyle();
@@ -141,54 +128,7 @@ public class SettingsController {
         LOGGER.info("=== SettingsController initialize() done ===");
     }
 
-    private void applyHBoxBg(HBox hbox, boolean enter) {
-        if (enter) {
-            hbox.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-        } else {
-            hbox.setBackground(Background.EMPTY);
-        }
-    }
-
-    private void setupSubItemHover(Node node) {
-        if (!(node instanceof Label label)) return;
-        label.setOnMouseEntered(e -> {
-            label.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-        });
-        label.setOnMouseExited(e -> {
-            if (!label.getStyleClass().contains("menu-item-active")) {
-                label.setBackground(Background.EMPTY);
-            }
-        });
-    }
-
-    private void setupLabelHover(Label label) {
-        label.setOnMouseEntered(e -> {
-            String s = label.getStyle();
-            label.setStyle(s + "; -fx-background-color: #2a2a2a;");
-        });
-        label.setOnMouseExited(e -> {
-            String orig = null;
-            if (label == btnLLMPreference) orig = originalStyleLLMPreference;
-            else if (label == btnVoixParole) orig = originalStyleVoixParole;
-            else if (label == btnHistoriqueChats) orig = originalStyleHistoriqueChats;
-            else if (label == btnDefaultPrompt) orig = originalStyleDefaultPrompt;
-            else if (label == btnInterface) orig = originalStyleInterface;
-            if (orig != null && !label.getStyleClass().contains("menu-item-active")) {
-                label.setStyle(orig);
-            } else if (label.getStyleClass().contains("menu-item-active")) {
-                // keep bold style but remove hover bg
-                String bold = "-fx-text-fill: white; -fx-font-weight: bold;";
-                String base = "";
-                if (label == btnLLMPreference) base = originalStyleLLMPreference;
-                else if (label == btnVoixParole) base = originalStyleVoixParole;
-                else if (label == btnHistoriqueChats) base = originalStyleHistoriqueChats;
-                else if (label == btnDefaultPrompt) base = originalStyleDefaultPrompt;
-                else if (label == btnInterface) base = originalStyleInterface;
-                label.setStyle(base + "; " + bold);
-            }
-        });
-    }
-
+ 
     private void loadLLMSettings() {
         AppConfig config = configManager.getConfig();
         String apiKey = config.apiKeys() != null ? config.apiKeys().getOrDefault("openai", "") : "";
@@ -440,30 +380,6 @@ private void highlightMenuItem(Node activeButton) {
         }
     }
 
-
-    @FXML
-    public void handleSubmenuHoverExitAppearance() {
-        submenuAppearance.setBackground(Background.EMPTY);
-    }
-
-    @FXML
-    public void handleSubItemHover(MouseEvent event) {
-        Region region = (Region) event.getSource();
-        if (region == activeMenuItem) return;
-        region.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-    }
-
-    @FXML
-    public void handleSubItemHoverExit(MouseEvent event) {
-        Region region = (Region) event.getSource();
-        if (region == activeMenuItem) return;
-        region.setBackground(Background.EMPTY);
-    }
-
-    private String getOriginalTextColor(Node node) {
-        if (node == btnVoixParole || node == btnDefaultPrompt || node == btnInterface) return "#999999";
-        return "#cccccc";
-    }
 
     // ===== ADVANCED SETTINGS =====
 
