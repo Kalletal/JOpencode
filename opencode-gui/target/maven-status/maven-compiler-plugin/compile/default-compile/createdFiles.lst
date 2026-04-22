@@ -5,3 +5,4 @@ ai/opencode/gui/MainController.class
 ai/opencode/gui/ImportSessionsController.class
 ai/opencode/gui/OpencodeGuiApp.class
 ai/opencode/gui/LocalOptionsController.class
+ai/opencode/gui/SettingsController$SettingsTreeCell.class

@@ -8,6 +8,23 @@ Si une compilation échoue 2 fois de suite avec la même erreur, analyse le mess
 ## Project Overview
 Java refactor of OpenCode. Multi-module Maven project.
 
+## Settings interface
+Le menu de gauche, dans la sidebar, doit contenir 4 sections (Fournisseurs LLM, Admin, Compétences de l'agent, et Apparence). 
+L'item "Fournisseurs LLM" doit avoir les sous-items "Préférences LLM" et "Voix et parole". 
+L'item "Admin" doit avoir les sous items "Historique des discussions" et "Invite système par défaut". 
+"Compétences de l'agent" n'a pas de sous-item pour l'instant. 
+Et l'item "Apparence" a le sous-item "Interface" 
+La couleur de l'arrière plan des items doit passer au gris clair quand on passe la souris dessus et revenir à sa couleur d'origine quand on sort de son champs. 
+Il en est de même pour les sous items de chaque item. 
+La largeur de la couleur d'arrière plan doit être précisément la même entre les items et les sous-items.
+Une icône représentative de chacun des items doit être affiché devant eux, sur la même ligne.
+Pas d'icône pour les sous-items.
+Les items et les sous-items doivent être à la même distance du bord de l'interface.
+Quand on clique sur un sous-item le texte doit passer en gras.
+La taille de la police ne doit pas changer.
+La taille de la police des items doit faire 14px et celles des sous-items 11px
+L'icône devant chacun des items doit être centré verticalement sur chaque lignes d'item.
+
 ## Tech Stack
 - **Java:** 21
 - **Build Tool:** Maven

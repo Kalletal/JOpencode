@@ -2,23 +2,14 @@ package ai.opencode.gui;
 
 import ai.opencode.storage.AppConfig;
 import ai.opencode.storage.ConfigManager;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.control.*;
-import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import java.util.*;
 import java.util.logging.Logger;
@@ -36,13 +27,8 @@ public class SettingsController {
     @FXML private ComboBox<String> themeSelector;
     @FXML private Slider fontSizeSlider;
     @FXML private Label fontSizeLabel;
+    @FXML private TreeView<String> settingsTree;
 
-    @FXML private Node btnLLMPreference;
-    @FXML private Node btnVoixParole;
-    @FXML private Node btnHistoriqueChats;
-    @FXML private Node btnDefaultPrompt;
-    @FXML private Node btnAgentSkills;
-    @FXML private Node btnInterface;
     @FXML private VBox panelLLMPreference;
     @FXML private VBox panelHistoriqueChats;
     @FXML private VBox panelDefaultPrompt;
@@ -52,58 +38,110 @@ public class SettingsController {
     @FXML private VBox panelGeneric;
     @FXML private Label genericPanelTitle;
 
-    @FXML private Label chevronLLM;
-    @FXML private Label chevronAdmin;
-    @FXML private Label chevronAppearance;
-    @FXML private Node submenuLLM;
-    @FXML private Node submenuAdmin;
-    @FXML private Node submenuAppearance;
-    @FXML private HBox headerLLM;
-    @FXML private HBox headerAdmin;
-    @FXML private HBox headerAgentSkills;
-    @FXML private HBox headerAppearance;
-
     private final ConfigManager configManager;
-    private Node activeMenuItem;
     private boolean advancedSettingsVisible = false;
-    private boolean llmSubmenuVisible = false;
-    private boolean adminSubmenuVisible = false;
-    private boolean appearanceSubmenuVisible = false;
-    private javafx.animation.Animation activeAnimation;
+
+    // Icônes chargées une seule fois
+    private static final Image IMG_LLM = new Image("/fxml/icons/llm.png");
+    private static final Image IMG_ADMIN = new Image("/fxml/icons/admin.png");
+    private static final Image IMG_AGENT = new Image("/fxml/icons/agent_skills.png");
+    private static final Image IMG_APPEARANCE = new Image("/fxml/icons/appearance.png");
 
     public SettingsController(ConfigManager configManager) {
         this.configManager = configManager;
     }
 
-   @FXML
+    @FXML
     public void initialize() {
         LOGGER.info("=== SettingsController initialize() called ===");
-        
+
         loadLLMSettings();
         setupModelSelectors();
         setupThemeSelector();
         setupFontSizeSlider();
-      showPanel(panelLLMPreference);
-        
-        // Cacher les submenus au démarrage avec clip
-        Platform.runLater(() -> {
-            Rectangle clipLLM = new Rectangle(263, 0);
-            clipLLM.heightProperty().bind(((javafx.scene.layout.Region) submenuLLM).heightProperty());
-            ((javafx.scene.layout.Region) submenuLLM).setClip(clipLLM);
-            ((javafx.scene.layout.Region) submenuLLM).setMaxHeight(0);
-            
-            Rectangle clipAdmin = new Rectangle(263, 0);
-            clipAdmin.heightProperty().bind(((javafx.scene.layout.Region) submenuAdmin).heightProperty());
-            ((javafx.scene.layout.Region) submenuAdmin).setClip(clipAdmin);
-            ((javafx.scene.layout.Region) submenuAdmin).setMaxHeight(0);
-            
-            Rectangle clipAppearance = new Rectangle(263, 0);
-            clipAppearance.heightProperty().bind(((javafx.scene.layout.Region) submenuAppearance).heightProperty());
-            ((javafx.scene.layout.Region) submenuAppearance).setClip(clipAppearance);
-            ((javafx.scene.layout.Region) submenuAppearance).setMaxHeight(0);
-        });
-        
+
+        buildSettingsTree();
+
+        showPanel(panelLLMPreference);
+
         LOGGER.info("=== SettingsController initialize() done ===");
+    }
+
+    private void buildSettingsTree() {
+        TreeItem<String> root = new TreeItem<>();
+        root.setExpanded(true);
+
+        // Section: Fournisseurs LLM
+        TreeItem<String> llmSection = createSection("Fournisseurs LLM", IMG_LLM, true);
+        llmSection.getChildren().addAll(
+            createLeaf("Préférences LLM"),
+            createLeaf("Voix et parole")
+        );
+        root.getChildren().add(llmSection);
+
+        // Section: Admin
+        TreeItem<String> adminSection = createSection("Admin", IMG_ADMIN, true);
+        adminSection.getChildren().addAll(
+            createLeaf("Historique des discussions"),
+            createLeaf("Invite système par défaut")
+        );
+        root.getChildren().add(adminSection);
+
+        // Section: Compétences de l'agent (pas de sous-item)
+        TreeItem<String> agentSection = createSection("Compétences de l'agent", IMG_AGENT, false);
+        root.getChildren().add(agentSection);
+
+        // Section: Apparence
+        TreeItem<String> appearanceSection = createSection("Apparence", IMG_APPEARANCE, true);
+        appearanceSection.getChildren().add(createLeaf("Interface"));
+        root.getChildren().add(appearanceSection);
+
+        settingsTree.setRoot(root);
+        // showTreeLines non disponible sur cette version de JavaFX
+        settingsTree.setCellFactory(tree -> new SettingsTreeCell());
+
+        settingsTree.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null && newSelection.getValue() != null) {
+                handleTreeSelection(newSelection);
+            }
+        });
+    }
+
+    private TreeItem<String> createSection(String text, Image icon, boolean hasChildren) {
+        ImageView imageView = new ImageView(icon);
+        imageView.setFitWidth(16);
+        imageView.setFitHeight(16);
+        imageView.setPreserveRatio(true);
+
+        TreeItem<String> section = new TreeItem<>(text);
+        section.setGraphic(imageView);
+
+        return section;
+    }
+
+    private TreeItem<String> createLeaf(String text) {
+        TreeItem<String> leaf = new TreeItem<>(text);
+        leaf.setGraphic(null);
+        return leaf;
+    }
+
+    private void handleTreeSelection(TreeItem<String> selection) {
+        String value = selection.getValue();
+        LOGGER.info("Sélection treeview: " + value);
+
+        switch (value) {
+            case "Préférences LLM" -> showPanel(panelLLMPreference);
+            case "Voix et parole" -> showPanel(panelVoixParole);
+            case "Historique des discussions" -> showPanel(panelHistoriqueChats);
+            case "Invite système par défaut" -> showPanel(panelDefaultPrompt);
+            case "Compétences de l'agent" -> showPanel(panelAgentSkills);
+            case "Interface" -> showPanel(panelInterface);
+        }
+
+        // Développer la section parente si nécessaire
+        if (selection.getParent() != null && !selection.getParent().isExpanded()) {
+            selection.getParent().setExpanded(true);
+        }
     }
 
     private void loadLLMSettings() {
@@ -131,7 +169,7 @@ public class SettingsController {
 
         List<String> contextWindows = Arrays.asList("8K", "16K", "32K", "64K", "128K", "200K");
         modelContextWindow.getItems().addAll(contextWindows);
-        if (modelContextWindow.getItems().size() > 0) {
+        if (!modelContextWindow.getItems().isEmpty()) {
             modelContextWindow.setValue("8K");
         }
     }
@@ -147,136 +185,6 @@ public class SettingsController {
                 fontSizeLabel.setText(String.valueOf(newVal.intValue()));
             }
         });
-    }
-
-    // ===== ACCORDION SIDEBAR =====
-
-    @FXML
-    public void toggleSectionLLM() {
-        llmSubmenuVisible = !llmSubmenuVisible;
-        String chevronStyle = "-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;";
-        if (llmSubmenuVisible) {
-            chevronLLM.setStyle(chevronStyle + "-fx-rotate: 90;");
-        } else {
-            chevronLLM.setStyle(chevronStyle);
-        }
-        animateSubmenu(submenuLLM, llmSubmenuVisible);
-    }
-
-    @FXML
-    public void toggleSectionAdmin() {
-        adminSubmenuVisible = !adminSubmenuVisible;
-        String chevronStyle = "-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;";
-        if (adminSubmenuVisible) {
-            chevronAdmin.setStyle(chevronStyle + "-fx-rotate: 90;");
-        } else {
-            chevronAdmin.setStyle(chevronStyle);
-        }
-        animateSubmenu(submenuAdmin, adminSubmenuVisible);
-    }
-
-    @FXML
-    public void toggleSectionAppearance() {
-        appearanceSubmenuVisible = !appearanceSubmenuVisible;
-        String chevronStyle = "-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;";
-        if (appearanceSubmenuVisible) {
-            chevronAppearance.setStyle(chevronStyle + "-fx-rotate: 90;");
-        } else {
-            chevronAppearance.setStyle(chevronStyle);
-        }
-        animateSubmenu(submenuAppearance, appearanceSubmenuVisible);
-    }
-
-    private void animateSubmenu(Node submenu, boolean expand) {
-        javafx.scene.layout.Region region = (javafx.scene.layout.Region) submenu;
-        if (activeAnimation != null) {
-            activeAnimation.stop();
-        }
-        double width = region.getWidth();
-        if (width <= 0) {
-            width = 263;
-        }
-        double targetHeight;
-        if (expand) {
-            targetHeight = region.prefHeight(width);
-            if (targetHeight <= 0) {
-                return;
-            }
-        } else {
-            region.setMaxHeight(region.prefHeight(width));
-            targetHeight = 0;
-        }
-        LOGGER.info("animateSubmenu: expand=" + expand + ", width=" + width + ", targetHeight=" + targetHeight + ", currentMaxHeight=" + region.getMaxHeight());
-        Timeline timeline = new Timeline(new KeyFrame(
-            javafx.util.Duration.millis(250),
-            new KeyValue(region.maxHeightProperty(), targetHeight, Interpolator.EASE_OUT)
-        ));
-        timeline.setOnFinished(e -> {
-            if (expand) {
-                region.setMaxHeight(Double.POSITIVE_INFINITY);
-            } else {
-                region.setMaxHeight(0);
-            }
-        });
-        activeAnimation = timeline;
-        activeAnimation.play();
-    }
-
-    // ===== NAVIGATION PANNEAUX =====
-
-    @FXML
-    public void showLLMPreference() {
-        showPanel(panelLLMPreference);
-        highlightMenuItem(btnLLMPreference);
-        if (!llmSubmenuVisible) {
-            toggleSectionLLM();
-        }
-    }
-
-    @FXML
-    public void showHistoriqueChats() {
-        showPanel(panelHistoriqueChats);
-        highlightMenuItem(btnHistoriqueChats);
-        if (!adminSubmenuVisible) {
-            toggleSectionAdmin();
-        }
-    }
-
-    @FXML
-    public void showDefaultPrompt() {
-        showPanel(panelDefaultPrompt);
-        highlightMenuItem(btnDefaultPrompt);
-        if (!adminSubmenuVisible) {
-            toggleSectionAdmin();
-        }
-    }
-
-    @FXML
-    public void showAgentSkills() {
-        showPanel(panelAgentSkills);
-        highlightMenuItem(btnAgentSkills);
-    }
-
-    @FXML
-    public void showInterfaceSettings() {
-        showPanel(panelInterface);
-        highlightMenuItem(btnInterface);
-        if (!appearanceSubmenuVisible) {
-            toggleSectionAppearance();
-        }
-    }
-
-    @FXML
-    public void showVoixParole() {
-        showPanel(panelVoixParole);
-    }
-
-    @FXML
-    public void showGenericPanel(javafx.event.Event event) {
-        Button clickedButton = (Button) event.getSource();
-        String title = clickedButton.getText();
-        genericPanelTitle.setText(title);
-        showPanel(panelGeneric);
     }
 
     private void showPanel(VBox activePanel) {
@@ -299,50 +207,12 @@ public class SettingsController {
         activePanel.setManaged(true);
     }
 
-     private void highlightMenuItem(Node activeButton) {
-        if (btnLLMPreference instanceof Label) ((Label) btnLLMPreference).getStyleClass().remove("menu-item-active");
-        if (btnVoixParole instanceof Label) ((Label) btnVoixParole).getStyleClass().remove("menu-item-active");
-        if (btnHistoriqueChats instanceof Label) ((Label) btnHistoriqueChats).getStyleClass().remove("menu-item-active");
-        if (btnDefaultPrompt instanceof Label) ((Label) btnDefaultPrompt).getStyleClass().remove("menu-item-active");
-        if (btnInterface instanceof Label) ((Label) btnInterface).getStyleClass().remove("menu-item-active");
-
-        if (activeButton instanceof Label) {
-            ((Label) activeButton).getStyleClass().add("menu-item-active");
-            activeMenuItem = activeButton;
-        } else if (activeButton != null) {
-            activeMenuItem = activeButton;
-        }
-    }
-
-   @FXML
-    public void handleMenuHover(MouseEvent event) {
-        Node source = (Node) event.getSource();
-        if (source != activeMenuItem && source instanceof Region) {
-            Region region = (Region) source;
-            region.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-        }
-    }
-
-    @FXML
-    public void handleMenuHoverExit(MouseEvent event) {
-        Node source = (Node) event.getSource();
-        if (source != activeMenuItem && source instanceof Region) {
-            Region region = (Region) source;
-            region.setBackground(Background.EMPTY);
-        }
-    }
-
-    private String getOriginalTextColor(Node node) {
-        if (node == btnVoixParole || node == btnDefaultPrompt || node == btnInterface) return "#999999";
-        return "#cccccc";
-    }
-
     // ===== ADVANCED SETTINGS =====
 
     @FXML
     public void toggleAdvancedSettings() {
+        advancedSettingsPanel.setVisible(!advancedSettingsVisible);
         advancedSettingsVisible = !advancedSettingsVisible;
-        advancedSettingsPanel.setVisible(advancedSettingsVisible);
         String chevronStyle = "-fx-text-fill: #999999; -fx-font-size: 13; -fx-padding: 0 0 0 8;";
         if (advancedSettingsVisible) {
             chevronAdvanced.setStyle(chevronStyle + "-fx-rotate: 90;");
@@ -367,20 +237,16 @@ public class SettingsController {
 
         String selectedModel = modelSelector.getValue();
         AppConfig.AgentConfig agentConfig = new AppConfig.AgentConfig(
-            "build",
-            "build",
+            "build", "build",
             selectedModel != null ? selectedModel : "gpt-4o",
             new HashMap<>()
         );
         newAgents.put("build", agentConfig);
 
         AppConfig newConfig = new AppConfig(
-            oldConfig.username(),
-            oldConfig.defaultAgent(),
-            newAgents,
-            newApiKeys,
-            oldConfig.experimental(),
-            oldConfig.thinkingShortcut()
+            oldConfig.username(), oldConfig.defaultAgent(),
+            newAgents, newApiKeys,
+            oldConfig.experimental(), oldConfig.thinkingShortcut()
         );
 
         configManager.setConfig(newConfig);
@@ -424,5 +290,76 @@ public class SettingsController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    // ===== Custom TreeCell =====
+
+    private class SettingsTreeCell extends TreeCell<String> {
+        private final Background defaultBg = Background.EMPTY;
+
+        public SettingsTreeCell() {
+            // La taille de police et le style sont gérés par CSS via :expanded/:collapsed/:child
+            // Ici on gère uniquement l'icône pour les parents
+        }
+
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+                setBackground(defaultBg);
+            } else {
+                setText(item);
+
+              if (isParent()) {
+                    // Parent item : icône dans colonne séparée à gauche
+                    setGraphic(getImageForItem(item));
+                    setBackground(defaultBg);
+                } else {
+                    // Sous-item : pas d'icône, texte aligné au même niveau X
+                    setGraphic(null);
+                    setBackground(defaultBg);
+                }
+            }
+        }
+
+        private ImageView getImageForItem(String value) {
+            switch (value) {
+                case "Fournisseurs LLM" -> {
+                    ImageView iv = new ImageView(IMG_LLM);
+                    iv.setFitWidth(16); iv.setFitHeight(16);
+                    iv.setPreserveRatio(true);
+                    return iv;
+                }
+                case "Admin" -> {
+                    ImageView iv = new ImageView(IMG_ADMIN);
+                    iv.setFitWidth(16); iv.setFitHeight(16);
+                    iv.setPreserveRatio(true);
+                    return iv;
+                }
+                case "Compétences de l'agent" -> {
+                    ImageView iv = new ImageView(IMG_AGENT);
+                    iv.setFitWidth(16); iv.setFitHeight(16);
+                    iv.setPreserveRatio(true);
+                    return iv;
+                }
+                case "Apparence" -> {
+                    ImageView iv = new ImageView(IMG_APPEARANCE);
+                    iv.setFitWidth(16); iv.setFitHeight(16);
+                    iv.setPreserveRatio(true);
+                    return iv;
+                }
+                default -> {
+                    ImageView iv = new ImageView();
+                    iv.setFitWidth(0); iv.setFitHeight(0);
+                    return iv;
+                }
+            }
+        }
+
+        private boolean isParent() {
+            return !getTreeItem().getChildren().isEmpty();
+        }
     }
 }

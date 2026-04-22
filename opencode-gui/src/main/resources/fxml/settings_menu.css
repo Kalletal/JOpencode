@@ -1,22 +1,61 @@
-/* Hover sur headers VBox */
-.sidebar-menu > VBox:hover {
+/* ===== TreeView Sidebar ===== */
+
+.settings-tree-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* ===== Cellules racine (profondeur 0) ===== */
+.settings-tree-view .tree-cell {
+    -fx-padding: 0;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+    -fx-min-height: 35px;
+    -fx-max-height: 35px;
+    -fx-background-color: transparent;
+}
+
+/* Police 14px pour les parents */
+.settings-tree-view .tree-cell .text {
+    -fx-font-size: 14px;
+}
+
+/* Police 11px pour sous-items profonds */
+.settings-tree-view .tree-cell:depth-1 .text {
+    -fx-font-size: 11px !important;
+}
+
+/* Padding texte : icône 28px à gauche + espacement */
+.settings-tree-view .tree-cell .label {
+    -fx-text-fill: #cccccc;
+    -fx-cursor: hand;
+}
+
+.settings-tree-view .tree-cell:depth-0 .label {
+    -fx-padding: 7 8 7 28;
+}
+
+.settings-tree-view .tree-cell:depth-1 .label {
+    -fx-padding: 7 8 7 8;
+}
+
+/* ===== Hover pleine largeur sur la cellule elle-même ===== */
+.settings-tree-view .tree-cell:hover {
     -fx-background-color: #2a2a2a !important;
 }
 
-/* Sous-items : même largeur que headers (~237px) */
-.subitem {
-    -fx-min-width: 230 !important;
-    -fx-pref-width: 230 !important;
-    -fx-max-width: 230 !important;
-}
-
-/* Hover sur tous les sous-items (actif ou non) */
-.subitem:hover {
+/* ===== Sélection active ===== */
+.settings-tree-view .tree-cell:selected {
     -fx-background-color: #2a2a2a !important;
 }
 
-/* Sous-item actif (sélectionné) */
-.subitem.menu-item-active {
+.settings-tree-view .tree-cell:selected .text,
+.settings-tree-view .tree-cell:selected .label {
     -fx-text-fill: white;
     -fx-font-weight: bold;
+}
+
+/* Masquer les lignes d'arbre */
+.settings-tree-view .tree-line {
+    -fx-opacity: 0;
 }
