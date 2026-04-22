@@ -300,21 +300,37 @@ public class SettingsController {
     }
 
     private void highlightMenuItem(Node activeButton) {
-         for (Node item : javafx.collections.FXCollections.observableArrayList(
-                 btnLLMPreference, btnVoixParole, btnHistoriqueChats,
-                 btnDefaultPrompt, btnInterface)) {
-             if (item instanceof Label label) {
-                 label.getStyleClass().remove("menu-item-active");
-             }
-         }
+        // Retirer gras de TOUS les sous-items
+        if (btnLLMPreference instanceof Label lbl) {
+            lbl.getStyleClass().remove("menu-item-active");
+            lbl.setFont(null);
+        }
+        if (btnVoixParole instanceof Label lbl) {
+            lbl.getStyleClass().remove("menu-item-active");
+            lbl.setFont(null);
+        }
+        if (btnHistoriqueChats instanceof Label lbl) {
+            lbl.getStyleClass().remove("menu-item-active");
+            lbl.setFont(null);
+        }
+        if (btnDefaultPrompt instanceof Label lbl) {
+            lbl.getStyleClass().remove("menu-item-active");
+            lbl.setFont(null);
+        }
+        if (btnInterface instanceof Label lbl) {
+            lbl.getStyleClass().remove("menu-item-active");
+            lbl.setFont(null);
+        }
 
-         if (activeButton instanceof Label label) {
-             label.getStyleClass().add("menu-item-active");
-             activeMenuItem = activeButton;
-         } else if (activeButton != null) {
-             activeMenuItem = activeButton;
-         }
-     }
+        // Appliquer gras au bouton cliqué via style inline
+        if (activeButton instanceof Label label) {
+            String currentStyle = label.getStyle();
+            label.setStyle(currentStyle + "; -fx-font-weight: bold; -fx-text-fill: white;");
+            activeMenuItem = activeButton;
+        } else if (activeButton != null) {
+            activeMenuItem = activeButton;
+        }
+    }
 
    @FXML
     public void handleMenuHover(MouseEvent event) {
