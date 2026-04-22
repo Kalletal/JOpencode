@@ -56,10 +56,7 @@ public class SettingsController {
     @FXML private Label chevronAdmin;
     @FXML private Label chevronAppearance;
     @FXML private Region bgLLM, bgAdmin, bgAppearance;
-    @FXML private Region bgFullLLM, bgFullAdmin, bgFullAppearance;
-    @FXML private Node submenuLLM;
-    @FXML private Node submenuAdmin;
-    @FXML private Node submenuAppearance;
+    @FXML private HBox submenuLLM, submenuAdmin, submenuAppearance;
     @FXML private HBox headerLLM;
     @FXML private HBox headerAdmin;
     @FXML private HBox headerAgentSkills;
@@ -378,42 +375,40 @@ private void highlightMenuItem(Node activeButton) {
 
     @FXML
     public void handleSubmenuHoverLLM() {
-        bgFullLLM.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+        submenuLLM.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @FXML
     public void handleSubmenuHoverAdmin() {
-        bgFullAdmin.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+        submenuAdmin.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @FXML
     public void handleSubmenuHoverAppearance() {
-        bgFullAppearance.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
+        submenuAppearance.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @FXML
     public void handleSubmenuHoverExitLLM() {
-        if (bgFullLLM != activeMenuItem) bgFullLLM.setBackground(Background.EMPTY);
+        submenuLLM.setBackground(Background.EMPTY);
     }
 
     @FXML
     public void handleSubmenuHoverExitAdmin() {
-        if (bgFullAdmin != activeMenuItem) bgFullAdmin.setBackground(Background.EMPTY);
+        submenuAdmin.setBackground(Background.EMPTY);
     }
 
     @FXML
     public void handleSubmenuHoverExitAppearance() {
-        if (bgFullAppearance != activeMenuItem) bgFullAppearance.setBackground(Background.EMPTY);
+        submenuAppearance.setBackground(Background.EMPTY);
     }
 
-    @FXML
+   @FXML
     public void handleSubItemHover(MouseEvent event) {
-        event.consume();
     }
 
     @FXML
     public void handleSubItemHoverExit(MouseEvent event) {
-        event.consume();
     }
 
     private String getOriginalTextColor(Node node) {

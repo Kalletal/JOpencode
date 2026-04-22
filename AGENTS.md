@@ -9,21 +9,21 @@ Si une compilation échoue 2 fois de suite avec la même erreur, analyse le mess
 Java refactor of OpenCode. Multi-module Maven project.
 
 ## Settings interface
-1. Le menu de gauche, dans la sidebar, doit contenir 4 sections (Fournisseurs LLM, Admin, Compétences de l'agent, et Apparence). 
-2. L'item "Fournisseurs LLM" doit avoir les sous-items "Préférences LLM" et "Voix et parole". 
-3. L'item "Admin" doit avoir les sous items "Historique des discussions" et "Invite système par défaut". 
-4. "Compétences de l'agent" n'a pas de sous-item pour l'instant. 
-5. Et l'item "Apparence" a le sous-item "Interface" 
+1. Le menu de gauche, dans la sidebar, doit contenir 4 sections (Fournisseurs LLM, Admin, Compétences de l'agent, et Apparence). > OK
+2. L'item "Fournisseurs LLM" doit avoir les sous-items "Préférences LLM" et "Voix et parole". > OK
+3. L'item "Admin" doit avoir les sous items "Historique des discussions" et "Invite système par défaut". > OK 
+4. "Compétences de l'agent" n'a pas de sous-item pour l'instant.  > OK
+5. Et l'item "Apparence" a le sous-item "Interface"  > OK
 6. La couleur de l'arrière plan des items doit passer au gris clair quand on passe la souris dessus et revenir à sa couleur d'origine quand on sort de son champs. 
 7. Il en est de même pour les sous items de chaque item. 
 8. La largeur de la couleur d'arrière plan doit être précisément la même entre les items et les sous-items.
 9. Une icône représentative de chacun des items doit être affiché devant eux, sur la même ligne.
-10. Pas d'icône pour les sous-items.
-11. Les items et les sous-items doivent être à la même distance du bord de l'interface.
-12. Quand on clique sur un sous-item le texte doit passer en gras.
-13. Et quand on clique sur un autre sous-items, celui que l'ont sélectionne passe en gras et celui d'avant revient en caractère fin.
-14. La taille de la police ne doit pas changer.
-15. La taille de la police des items doit faire 14px et celles des sous-items 11px
+10. Pas d'icône pour les sous-items. > OK
+11. Les items et les sous-items doivent être à la même distance du bord gauche de l'interface et donc être aligné verticalement.
+12. Quand on clique sur un sous-item le texte doit passer en gras. > OK
+13. Et quand on clique sur un autre sous-items, celui que l'ont sélectionne passe en gras et celui d'avant revient en caractère fin. > OK
+14. La taille de la police ne doit pas changer. > OK
+15. La taille de la police des items doit faire 14px et celles des sous-items 11px > OK
 16. L'icône devant chacun des items doit être centré verticalement sur chaque lignes d'item.
 
 ## Solution implémentée : VBox accordion avec icônes inline
