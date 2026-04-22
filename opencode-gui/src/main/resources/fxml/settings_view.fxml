@@ -34,14 +34,16 @@
             </Label>
 
         <!-- Section: Fournisseurs LLM (expandable) -->
-              <VBox prefHeight="35" style="-fx-padding: 0 8 0 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
+              <VBox prefHeight="35" style="-fx-padding: 8 8 8 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                      onMouseClicked="#toggleSectionLLM" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
-                <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
-                    <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
-                        <image><Image url="@icons/llm.png"/></image>
-                    </ImageView>
-                    <Label text="Fournisseurs LLM" fx:id="headerTextLLM"
-                           style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
+          <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
+                <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
+                    <VBox.margin><Insets top="6"></Insets></VBox.margin>
+                    <VBox.margin><Insets top="6"/></VBox.margin>
+                    <image><Image url="@icons/llm.png"/></image>
+                </ImageView>
+                <Label text="Fournisseurs LLM" fx:id="headerTextLLM"
+                       style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
                     <Region HBox.hgrow="ALWAYS"/>
                     <Label text=">" fx:id="chevronLLM" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
@@ -68,10 +70,11 @@
             </HBox>
 
             <!-- Section: Admin (expandable) -->
-        <VBox prefHeight="35" style="-fx-padding: 0 8 0 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
+        <VBox prefHeight="35" style="-fx-padding: 8 8 8 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                onMouseClicked="#toggleSectionAdmin" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
                     <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
+                    <VBox.margin><Insets top="6"></Insets></VBox.margin>
                         <image><Image url="@icons/admin.png"/></image>
                     </ImageView>
                     <Label text="Admin" fx:id="headerTextAdmin"
@@ -102,10 +105,11 @@
             </HBox>
 
            <!-- Section: Compétences de l'agent -->
-     <VBox prefHeight="35" style="-fx-padding: 0 8 0 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
+     <VBox prefHeight="35" style="-fx-padding: 8 8 8 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
               onMouseClicked="#showAgentSkills" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
                     <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
+                    <VBox.margin><Insets top="6"></Insets></VBox.margin>
                         <image><Image url="@icons/agent_skills.png"/></image>
                     </ImageView>
                     <Label text="Compétences de l'agent" style="-fx-text-fill: #cccccc; -fx-font-size: 14; -fx-padding: 0 0 0 4;"/>
@@ -113,10 +117,11 @@
             </VBox>
 
           <!-- Section: Apparence (expandable) -->
-             <VBox prefHeight="35" style="-fx-padding: 0 8 0 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
+             <VBox prefHeight="35" style="-fx-padding: 8 8 8 8; -fx-background-color: transparent; -fx-background-radius: 6; -fx-cursor: hand;"
                     onMouseClicked="#toggleSectionAppearance" onMouseEntered="#handleMenuHover" onMouseExited="#handleMenuHoverExit">
                 <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 4 0 8;">
                     <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="true">
+                    <VBox.margin><Insets top="6"></Insets></VBox.margin>
                         <image><Image url="@icons/appearance.png"/></image>
                     </ImageView>
                     <Label text="Apparence" fx:id="headerTextAppearance"
