@@ -4,7 +4,10 @@
     -fx-font-weight: bold;
 }
 
-/* Hover plein largeur — le Label a maxWidth=Infinity donc couvre toute la zone */
-.subitem:hover {
+/* Hover plein largeur — le fond gris couvre tout l'HBox étirable */
+.subitem-stack {
+    -fx-background-color: transparent;
+}
+.subitem-stack:hover {
     -fx-background-color: #2a2a2a !important;
 }
