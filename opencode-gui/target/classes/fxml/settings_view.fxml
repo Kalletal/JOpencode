@@ -48,7 +48,7 @@
             </VBox>
         <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="6" style="-fx-padding: 5 8 5 8;">
                 <children>
-                    <Region prefWidth="16" style="-fx-background-color: transparent;"/>
+                    <Region prefWidth="28" style="-fx-background-color: transparent;"/>
                     <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
                            styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                            onMouseClicked="#showLLMPreference"/>
@@ -73,7 +73,7 @@
             </VBox>
             <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="6" style="-fx-padding: 5 8 5 8;">
                 <children>
-                    <Region prefWidth="16" style="-fx-background-color: transparent;"/>
+                    <Region prefWidth="28" style="-fx-background-color: transparent;"/>
                     <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
                            styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
                            onMouseClicked="#showHistoriqueChats"/>
