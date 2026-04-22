@@ -38,12 +38,12 @@ public class SettingsController {
     @FXML private Slider fontSizeSlider;
     @FXML private Label fontSizeLabel;
 
-    @FXML private Node btnLLMPreference;
-    @FXML private Node btnVoixParole;
-    @FXML private Node btnHistoriqueChats;
-    @FXML private Node btnDefaultPrompt;
+    @FXML private Button btnLLMPreference;
+    @FXML private Button btnVoixParole;
+    @FXML private Button btnHistoriqueChats;
+    @FXML private Button btnDefaultPrompt;
     @FXML private Node btnAgentSkills;
-    @FXML private Node btnInterface;
+    @FXML private Button btnInterface;
     @FXML private VBox panelLLMPreference;
     @FXML private VBox panelHistoriqueChats;
     @FXML private VBox panelDefaultPrompt;
@@ -118,11 +118,11 @@ public class SettingsController {
             regionAppearance.setMaxHeight(0);
             
           // Sauvegarder les styles originaux des sous-items menu
-            if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
-            if (btnVoixParole instanceof Label lbl) originalStyleVoixParole = lbl.getStyle();
-            if (btnHistoriqueChats instanceof Label lbl) originalStyleHistoriqueChats = lbl.getStyle();
-            if (btnDefaultPrompt instanceof Label lbl) originalStyleDefaultPrompt = lbl.getStyle();
-            if (btnInterface instanceof Label lbl) originalStyleInterface = lbl.getStyle();
+            originalStyleLLMPreference = btnLLMPreference.getStyle();
+            originalStyleVoixParole = btnVoixParole.getStyle();
+            originalStyleHistoriqueChats = btnHistoriqueChats.getStyle();
+            originalStyleDefaultPrompt = btnDefaultPrompt.getStyle();
+            originalStyleInterface = btnInterface.getStyle();
         });
         
         LOGGER.info("=== SettingsController initialize() done ===");
@@ -283,7 +283,6 @@ public class SettingsController {
     @FXML
     public void showAgentSkills() {
         showPanel(panelAgentSkills);
-        highlightMenuItem(btnAgentSkills);
     }
 
     @FXML
@@ -329,37 +328,16 @@ public class SettingsController {
         activePanel.setManaged(true);
     }
 
-private void highlightMenuItem(Node activeButton) {
-        // Retirer gras de TOUS les sous-items en restaurant leurs styles originaux
-        if (btnLLMPreference instanceof Label lbl) {
-            lbl.getStyleClass().remove("menu-item-active");
-            lbl.setStyle(originalStyleLLMPreference);
+private void highlightMenuItem(Button activeButton) {
+        for (Button btn : new Button[]{btnLLMPreference, btnVoixParole, btnHistoriqueChats, btnDefaultPrompt, btnInterface}) {
+            btn.getStyleClass().remove("menu-item-active");
+            btn.setStyle(btn == activeButton ? "" : "");
         }
-        if (btnVoixParole instanceof Label lbl) {
-            lbl.getStyleClass().remove("menu-item-active");
-            lbl.setStyle(originalStyleVoixParole);
-        }
-        if (btnHistoriqueChats instanceof Label lbl) {
-            lbl.getStyleClass().remove("menu-item-active");
-            lbl.setStyle(originalStyleHistoriqueChats);
-        }
-        if (btnDefaultPrompt instanceof Label lbl) {
-            lbl.getStyleClass().remove("menu-item-active");
-            lbl.setStyle(originalStyleDefaultPrompt);
-        }
-        if (btnInterface instanceof Label lbl) {
-            lbl.getStyleClass().remove("menu-item-active");
-            lbl.setStyle(originalStyleInterface);
-        }
-
-        // Appliquer gras au bouton cliqué via style inline
-        if (activeButton instanceof Label label) {
-            String currentStyle = label.getStyle();
-            label.setStyle(currentStyle + "; -fx-font-weight: bold; -fx-text-fill: white;");
-            activeMenuItem = activeButton;
-        } else if (activeButton != null) {
-            activeMenuItem = activeButton;
-        }
+        if (btnLLMPreference == activeButton) btnLLMPreference.setStyle(originalStyleLLMPreference + "; -fx-font-weight: bold; -fx-text-fill: white;");
+        else if (btnVoixParole == activeButton) btnVoixParole.setStyle(originalStyleVoixParole + "; -fx-font-weight: bold; -fx-text-fill: white;");
+        else if (btnHistoriqueChats == activeButton) btnHistoriqueChats.setStyle(originalStyleHistoriqueChats + "; -fx-font-weight: bold; -fx-text-fill: white;");
+        else if (btnDefaultPrompt == activeButton) btnDefaultPrompt.setStyle(originalStyleDefaultPrompt + "; -fx-font-weight: bold; -fx-text-fill: white;");
+        else if (btnInterface == activeButton) btnInterface.setStyle(originalStyleInterface + "; -fx-font-weight: bold; -fx-text-fill: white;");
     }
 
    @FXML

@@ -1,46 +1,49 @@
+INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< javafx-maven-plugin:0.0.8:run (default-cli) < process-classes @ opencode-gui <<<
 [INFO] 
 [INFO] 
 [INFO] --- javafx-maven-plugin:0.0.8:run (default-cli) @ opencode-gui ---
-avr. 22, 2026 6:18:36 PM ai.opencode.storage.ConfigManager loadConfig
+avr. 22, 2026 8:18:44 PM ai.opencode.storage.ConfigManager loadConfig
 INFOS: Configuration chargée avec succès depuis /home/gilles/.opencode/config.json
 SLF4J: No SLF4J providers were found.
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
-avr. 22, 2026 6:18:36 PM ai.opencode.storage.DatabaseManager initDatabase
+avr. 22, 2026 8:18:44 PM ai.opencode.storage.DatabaseManager initDatabase
 INFOS: Connexion établie à la base de données : /home/gilles/.opencode/opencode-java.db
-avr. 22, 2026 6:18:36 PM ai.opencode.storage.DatabaseManager createTables
+avr. 22, 2026 8:18:44 PM ai.opencode.storage.DatabaseManager createTables
 INFOS: Tables de la base de données initialisées.
-avr. 22, 2026 6:18:36 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 8:18:44 PM ai.opencode.gui.MainController initialize
 INFOS: === MAIN CONTROLLER INITIALIZED ===
-avr. 22, 2026 6:18:36 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 8:18:44 PM ai.opencode.gui.MainController initialize
 INFOS: settingsToggleButton is null: false
-avr. 22, 2026 6:18:36 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 8:18:44 PM ai.opencode.gui.MainController initialize
 INFOS: chatView is null: false
-avr. 22, 2026 6:18:36 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 8:18:44 PM ai.opencode.gui.MainController initialize
 INFOS: settingsViewContainer is null: false
-avr. 22, 2026 6:18:36 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 8:18:44 PM ai.opencode.gui.MainController initialize
 INFOS: settingsToggleButton visible: true
-avr. 22, 2026 6:18:36 PM ai.opencode.gui.MainController initialize
+avr. 22, 2026 8:18:44 PM ai.opencode.gui.MainController initialize
 INFOS: settingsToggleButton text: ⚙
-avr. 22, 2026 6:18:38 PM ai.opencode.gui.MainController toggleSettings
+avr. 22, 2026 8:18:46 PM ai.opencode.gui.MainController toggleSettings
 INFOS: === toggleSettings() called ===
-avr. 22, 2026 6:18:38 PM ai.opencode.gui.MainController toggleSettings
+avr. 22, 2026 8:18:46 PM ai.opencode.gui.MainController toggleSettings
 INFOS: chatView visible=true
-avr. 22, 2026 6:18:38 PM ai.opencode.gui.MainController toggleSettings
+avr. 22, 2026 8:18:46 PM ai.opencode.gui.MainController toggleSettings
 INFOS: settingsViewContainer visible=false
-avr. 22, 2026 6:18:38 PM ai.opencode.gui.MainController loadSettingsView
+avr. 22, 2026 8:18:46 PM ai.opencode.gui.MainController loadSettingsView
 INFOS: loadSettingsView() called
-avr. 22, 2026 6:18:38 PM ai.opencode.storage.ConfigManager loadConfig
+avr. 22, 2026 8:18:46 PM ai.opencode.storage.ConfigManager loadConfig
 INFOS: Configuration chargée avec succès depuis /home/gilles/.opencode/config.json
-avr. 22, 2026 6:18:38 PM ai.opencode.gui.MainController loadSettingsView
+avr. 22, 2026 8:18:46 PM ai.opencode.gui.MainController loadSettingsView
 GRAVE: Erreur lors du chargement de la vue paramètres: 
-/home/gilles/Documents/ProjetJava/JOpencode/opencode-gui/target/classes/fxml/settings_view.fxml:59
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-gui/target/classes/fxml/settings_view.fxml:53
 
 javafx.fxml.LoadException: 
-/home/gilles/Documents/ProjetJava/JOpencode/opencode-gui/target/classes/fxml/settings_view.fxml:59
+/home/gilles/Documents/ProjetJava/JOpencode/opencode-gui/target/classes/fxml/settings_view.fxml:53
 
 	at javafx.fxml@21/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2722)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2700)
+	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2665)
 	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2563)
 	at javafx.fxml@21/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2531)
 	at ai.opencode.gui.MainController.loadSettingsView(MainController.java:653)
@@ -103,22 +106,11 @@ javafx.fxml.LoadException:
 	at javafx.graphics@21/com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
 	at javafx.graphics@21/com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:263)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: java.lang.NumberFormatException: For input string: "100%"
-	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)
-	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:110)
-	at java.base/java.lang.Double.parseDouble(Double.java:792)
-	at java.base/java.lang.Double.valueOf(Double.java:755)
-	at javafx.fxml@21/com.sun.javafx.fxml.BeanAdapter.coerce(BeanAdapter.java:451)
-	at javafx.fxml@21/com.sun.javafx.fxml.BeanAdapter.put(BeanAdapter.java:259)
-	at javafx.fxml@21/com.sun.javafx.fxml.BeanAdapter.put(BeanAdapter.java:54)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader$Element.applyProperty(FXMLLoader.java:525)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader$Element.processValue(FXMLLoader.java:375)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader$Element.processPropertyAttribute(FXMLLoader.java:337)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader$Element.processInstancePropertyAttributes(FXMLLoader.java:248)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:780)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2969)
-	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2654)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[53,25]
+Message: Le type d'élément "VBox" doit être suivi des spécifications d'attribut, ">" ou "/>".
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
+	at javafx.fxml@21/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2635)
 	... 62 more
-avr. 22, 2026 6:18:38 PM ai.opencode.gui.MainController toggleSettings
-INFOS: Settings view activated
+avr. 22, 2026 8:18:46 PM ai.opencode.gui.MainController toggleSettings
 
