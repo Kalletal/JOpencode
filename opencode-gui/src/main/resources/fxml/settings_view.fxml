@@ -46,21 +46,20 @@
                     <Label text=">" fx:id="chevronLLM" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
             </VBox>
-        <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent;">
+        <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 2 0 2 0; -fx-background-color: transparent;">
                 <children>
-                    <Region fx:id="bgLLM" prefWidth="24"/>
-                    <VBox fx:id="vboxLLMChildren" spacing="2">
+                    <VBox fx:id="vboxLLMChildren" spacing="2" HBox.hgrow="ALWAYS" maxWidth="Infinity">
                         <children>
-                            <HBox HBox.hgrow="ALWAYS" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
-                                <Region styleClass="row-bg" style="-fx-background-color: transparent;"/>
+                            <HBox HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
                                 <Label fx:id="btnLLMPreference" text="Préférence LLM"
-                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
+                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 32; -fx-cursor: hand; -fx-max-width: Infinity;"
+                                       maxWidth="Infinity" HBox.hgrow="ALWAYS"
                                        onMouseClicked="#showLLMPreference"/>
                             </HBox>
-                            <HBox HBox.hgrow="ALWAYS" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
-                                <Region styleClass="row-bg" style="-fx-background-color: transparent;"/>
+                            <HBox HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
                                 <Label fx:id="btnVoixParole" text="Voix et parole"
-                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
+                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 32; -fx-cursor: hand; -fx-max-width: Infinity;"
+                                       maxWidth="Infinity" HBox.hgrow="ALWAYS"
                                        onMouseClicked="#showVoixParole"/>
                             </HBox>
                         </children>
@@ -81,21 +80,20 @@
                     <Label text=">" fx:id="chevronAdmin" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
             </VBox>
-            <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent;">
+            <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 2 0 2 0; -fx-background-color: transparent;">
                 <children>
-                <Region fx:id="bgAdmin" prefWidth="24"/>
-                    <VBox fx:id="vboxAdminChildren" spacing="2">
+                    <VBox fx:id="vboxAdminChildren" spacing="2" HBox.hgrow="ALWAYS" maxWidth="Infinity">
                         <children>
-                            <HBox HBox.hgrow="ALWAYS" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
-                                <Region styleClass="row-bg" style="-fx-background-color: transparent;"/>
+                            <HBox HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
                                 <Label fx:id="btnHistoriqueChats" text="Historique des chats"
-                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
+                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 32; -fx-cursor: hand; -fx-max-width: Infinity;"
+                                       maxWidth="Infinity" HBox.hgrow="ALWAYS"
                                        onMouseClicked="#showHistoriqueChats"/>
                             </HBox>
-                            <HBox HBox.hgrow="ALWAYS" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
-                                <Region styleClass="row-bg" style="-fx-background-color: transparent;"/>
+                            <HBox HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
                                 <Label fx:id="btnDefaultPrompt" text="Default system prompt"
-                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
+                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 32; -fx-cursor: hand; -fx-max-width: Infinity;"
+                                       maxWidth="Infinity" HBox.hgrow="ALWAYS"
                                        onMouseClicked="#showDefaultPrompt"/>
                             </HBox>
                         </children>
@@ -127,15 +125,14 @@
                     <Label text=">" fx:id="chevronAppearance" style="-fx-text-fill: #999999; -fx-font-size: 14; -fx-padding: 0 0 0 8;"/>
                 </HBox>
             </VBox>
-    <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8; -fx-background-color: transparent;">
+    <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 2 0 2 0; -fx-background-color: transparent;">
                   <children>
-                      <Region fx:id="bgAppearance" prefWidth="24"/>
-                      <VBox fx:id="vboxAppearanceChildren" spacing="2">
+                      <VBox fx:id="vboxAppearanceChildren" spacing="2" HBox.hgrow="ALWAYS" maxWidth="Infinity">
                           <children>
-                              <HBox HBox.hgrow="ALWAYS" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
-                                  <Region styleClass="row-bg" style="-fx-background-color: transparent;"/>
+                              <HBox HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
                                   <Label fx:id="btnInterface" text="Interface"
-                                         styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
+                                         styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 32; -fx-cursor: hand; -fx-max-width: Infinity;"
+                                         maxWidth="Infinity" HBox.hgrow="ALWAYS"
                                          onMouseClicked="#showInterfaceSettings"/>
                               </HBox>
                           </children>

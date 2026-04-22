@@ -14,9 +14,9 @@ Java refactor of OpenCode. Multi-module Maven project.
 3. L'item "Admin" doit avoir les sous items "Historique des discussions" et "Invite système par défaut". > OK 
 4. "Compétences de l'agent" n'a pas de sous-item pour l'instant.  > OK
 5. Et l'item "Apparence" a le sous-item "Interface"  > OK
-6. La couleur de l'arrière plan des items doit passer au gris clair quand on passe la souris dessus et revenir à sa couleur d'origine quand on sort de son champs. 
-7. Il en est de même pour les sous items de chaque item. 
-8. La largeur de la couleur d'arrière plan doit être précisément la même entre les items et les sous-items.
+6. La couleur de l'arrière plan des items doit passer au gris clair quand on passe la souris dessus et revenir à sa couleur d'origine quand on sort de son champs. > OK
+7. Il en est de même pour les sous items de chaque item. > OK
+8. La largeur de la couleur d'arrière plan doit être précisément la même entre les items et les sous-items. > OK
 9. Une icône représentative de chacun des items doit être affiché devant eux, sur la même ligne.
 10. Pas d'icône pour les sous-items. > OK
 11. Les items et les sous-items doivent être à la même distance du bord gauche de l'interface et donc être aligné verticalement.
@@ -62,10 +62,47 @@ L'`HBox.alignment="CENTER_LEFT"` assure automatiquement le centrage vertical (di
 - Le spacer `<Region prefWidth="24" style="-fx-background-color: transparent;"/>` compense exactement la double couche de padding du header (VBox + HBox imbriqué = 16px) moins l'image (16px). Les subitems n'ont PAS d'ImageView mais ont ce spacer pour aligner leur texte au même niveau X que les textes des headers.
 - Dans FXML, chaque submenu HBox contient en première position un `<Region prefWidth="24">`, suivi d'un VBox qui empile verticalement les Labels des sous-items.
 
-### Directive 8 (complément CSS) : Largeur hover background identique
-- `.subitem` n'a pas de contrainte de largeur fixe dans `settings_menu.css`.
-- La largeur du fond gris clair (`#2a2a2a`) est déterminée par le HBox parent du submenu qui s'étend sur toute la largeur disponible du menuContainer.
-- Le spacer de 24px garantit que le hover background commence au même niveau X que celui des headers.
+### Directive 8 : Hover background plein largeur — Structure HBox cascade
+
+**Problème :** JavaFX VBox ne respecte pas `hgrow`, et un enfant VBox rétrécit à la taille de son contenu. Les Labels subitems restent donc collés au texte, le hover CSS ne couvre qu'eux-mêmes.
+
+**Solution :** Cascade d'HBox avec `hgrow="ALWAYS"` et `maxWidth="Infinity"` à **chaque niveau** :
+
+```xml
+<HBox fx:id="submenuLLM" style="-fx-padding: 2 0;">
+    <children>
+        <!-- Niveau 1 : VBox enfant — étiré dans son parent HBox -->
+        <VBox fx:id="vboxLLMChildren" spacing="2"
+              HBox.hgrow="ALWAYS" maxWidth="Infinity">
+            <children>
+                <!-- Niveau 2 : HBox wrapper — étiré dans VBox -->
+                <HBox HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                      prefHeight="35" styleClass="submenu-row" alignment="CENTER_LEFT">
+                    <!-- Niveau 3 : Label — étiré dans HBox -->
+                    <Label fx:id="btnLLMPreference" text="Préférence LLM"
+                           styleClass="subitem"
+                           style="-fx-text-fill: #cccccc; -fx-font-size: 11;
+                                  -fx-padding: 5 10 5 32; -fx-cursor: hand;
+                                  -fx-max-width: Infinity;"
+                           maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</HBox>
+```
+
+**CSS :** Le hover s'applique sur le wrapper `.submenu-row`, pas sur le Label :
+```css
+.submenu-row { -fx-background-color: transparent; }
+.submenu-row:hover { -fx-background-color: #2a2a2a !important; }
+```
+
+**Points clés :**
+- Chaque niveau doit avoir `HBox.hgrow="ALWAYS"` + `maxWidth="Infinity"` sinon la cascade se brise.
+- Le padding droit `32` du Label compense l'espace vide à droite (équivalent au spacer de header).
+- Les Regions `bgLLM`/`bgAdmin`/`bgAppearance` sont supprimées — inutiles avec cette approche.
+- L'alignement horizontal est conservé via le padding droit du Label (`5 10 5 32`).
 
 ### Directive 5 : Pas d'icône pour les sous-items
 Les Labels `.subitem` n'ont pas d'ImageView. C'est déjà le cas actuellement.
