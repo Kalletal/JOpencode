@@ -48,8 +48,8 @@
             </VBox>
             <HBox fx:id="submenuLLM" id="submenuLLM" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
                 <children>
-                    <Region prefWidth="16" style="-fx-background-color: transparent;"/>
-                    <VBox spacing="2">
+                    <Region fx:id="spacerLLM" prefWidth="16" minWidth="16" maxWidth="16" style="-fx-background-color: transparent;"/>
+                    <VBox HBox.hgrow="ALWAYS" spacing="2">
                         <children>
                             <Label fx:id="btnLLMPreference" prefHeight="35" text="Préférence LLM"
                                    styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
@@ -77,7 +77,7 @@
             </VBox>
             <HBox fx:id="submenuAdmin" id="submenuAdmin" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
                 <children>
-                    <Region prefWidth="16" style="-fx-background-color: transparent;"/>
+                    <Region fx:id="spacerAdmin" prefWidth="16" minWidth="16" maxWidth="16" style="-fx-background-color: transparent;"/>
                     <VBox spacing="2">
                         <children>
                             <Label fx:id="btnHistoriqueChats" prefHeight="35" text="Historique des chats"
@@ -117,8 +117,8 @@
             </VBox>
          <HBox fx:id="submenuAppearance" id="submenuAppearance" minHeight="0" managed="true" spacing="0" style="-fx-padding: 5 8 5 8;">
                  <children>
-                     <Region prefWidth="16" style="-fx-background-color: transparent;"/>
-                     <VBox spacing="2">
+                     <Region prefWidth="16" minWidth="16" maxWidth="16" style="-fx-background-color: transparent;"/>
+                     <VBox HBox.hgrow="ALWAYS" spacing="2">
                          <children>
                              <Label fx:id="btnInterface" prefHeight="35" text="Interface"
                                     styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand; -fx-background-radius: 6;"
