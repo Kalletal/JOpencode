@@ -51,16 +51,16 @@
                     <Region fx:id="bgLLM" prefWidth="24"/>
                     <VBox fx:id="vboxLLMChildren" spacing="2" fillWidth="true" style="-fx-padding: 0 -8 0 -24;">
                         <children>
-                            <StackPane styleClass="subitem-stack" prefHeight="35" >
+                            <StackPane styleClass="subitem-stack" prefHeight="35" maxWidth="Infinity">
                                 <Region styleClass="sub-bg" style="-fx-background-color: #2a2a2a; -fx-opacity: 0;"/>
                                 <Label fx:id="btnLLMPreference" text="Préférence LLM"
-                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-cursor: hand;"
+                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
                                        onMouseClicked="#showLLMPreference"/>
                             </StackPane>
-                            <StackPane styleClass="subitem-stack" prefHeight="35" >
+                            <StackPane styleClass="subitem-stack" prefHeight="35" maxWidth="Infinity">
                                 <Region styleClass="sub-bg" style="-fx-background-color: #2a2a2a; -fx-opacity: 0;"/>
                                 <Label fx:id="btnVoixParole" text="Voix et parole"
-                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-cursor: hand;"
+                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
                                        onMouseClicked="#showVoixParole"/>
                             </StackPane>
                         </children>
@@ -86,16 +86,16 @@
                     <Region fx:id="bgAdmin" prefWidth="24"/>
                     <VBox fx:id="vboxAdminChildren" spacing="2" fillWidth="true" style="-fx-padding: 0 -8 0 -24;">
                         <children>
-                            <StackPane styleClass="subitem-stack" prefHeight="35" >
+                           <StackPane styleClass="subitem-stack" prefHeight="35" maxWidth="Infinity">
                                 <Region styleClass="sub-bg" style="-fx-background-color: #2a2a2a; -fx-opacity: 0;"/>
                                 <Label fx:id="btnHistoriqueChats" text="Historique des chats"
-                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-cursor: hand;"
+                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
                                        onMouseClicked="#showHistoriqueChats"/>
                             </StackPane>
-                            <StackPane styleClass="subitem-stack" prefHeight="35" >
+                            <StackPane styleClass="subitem-stack" prefHeight="35" maxWidth="Infinity">
                                 <Region styleClass="sub-bg" style="-fx-background-color: #2a2a2a; -fx-opacity: 0;"/>
                                 <Label fx:id="btnDefaultPrompt" text="Default system prompt"
-                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-cursor: hand;"
+                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
                                        onMouseClicked="#showDefaultPrompt"/>
                             </StackPane>
                         </children>
@@ -132,12 +132,12 @@
                       <Region fx:id="bgAppearance" prefWidth="24"/>
                       <VBox fx:id="vboxAppearanceChildren" spacing="2" fillWidth="true" style="-fx-padding: 0 -8 0 -24;">
                           <children>
-                              <StackPane styleClass="subitem-stack" prefHeight="35" >
-                                  <Region styleClass="sub-bg" style="-fx-background-color: #2a2a2a; -fx-opacity: 0;"/>
-                                  <Label fx:id="btnInterface" text="Interface"
-                                         styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-cursor: hand;"
-                                         onMouseClicked="#showInterfaceSettings"/>
-                              </StackPane>
+                            <StackPane styleClass="subitem-stack" prefHeight="35" maxWidth="Infinity">
+                                <Region styleClass="sub-bg" style="-fx-background-color: #2a2a2a; -fx-opacity: 0;"/>
+                                <Label fx:id="btnInterface" text="Interface"
+                                       styleClass="subitem" style="-fx-text-fill: #cccccc; -fx-font-size: 11; -fx-padding: 5 10 5 4; -fx-cursor: hand;"
+                                       onMouseClicked="#showInterfaceSettings"/>
+                            </StackPane>
                           </children>
                       </VBox>
                   </children>
