@@ -299,20 +299,22 @@ public class SettingsController {
         activePanel.setManaged(true);
     }
 
-     private void highlightMenuItem(Node activeButton) {
-        if (btnLLMPreference instanceof Label) ((Label) btnLLMPreference).getStyleClass().remove("menu-item-active");
-        if (btnVoixParole instanceof Label) ((Label) btnVoixParole).getStyleClass().remove("menu-item-active");
-        if (btnHistoriqueChats instanceof Label) ((Label) btnHistoriqueChats).getStyleClass().remove("menu-item-active");
-        if (btnDefaultPrompt instanceof Label) ((Label) btnDefaultPrompt).getStyleClass().remove("menu-item-active");
-        if (btnInterface instanceof Label) ((Label) btnInterface).getStyleClass().remove("menu-item-active");
+    private void highlightMenuItem(Node activeButton) {
+         for (Node item : javafx.collections.FXCollections.observableArrayList(
+                 btnLLMPreference, btnVoixParole, btnHistoriqueChats,
+                 btnDefaultPrompt, btnInterface)) {
+             if (item instanceof Label label) {
+                 label.getStyleClass().remove("menu-item-active");
+             }
+         }
 
-        if (activeButton instanceof Label) {
-            ((Label) activeButton).getStyleClass().add("menu-item-active");
-            activeMenuItem = activeButton;
-        } else if (activeButton != null) {
-            activeMenuItem = activeButton;
-        }
-    }
+         if (activeButton instanceof Label label) {
+             label.getStyleClass().add("menu-item-active");
+             activeMenuItem = activeButton;
+         } else if (activeButton != null) {
+             activeMenuItem = activeButton;
+         }
+     }
 
    @FXML
     public void handleMenuHover(MouseEvent event) {
