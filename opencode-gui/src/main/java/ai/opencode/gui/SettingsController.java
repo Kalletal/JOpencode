@@ -38,8 +38,12 @@ public class SettingsController {
     @FXML private Slider fontSizeSlider;
     @FXML private Label fontSizeLabel;
 
- @FXML private Label btnLLMPreference, btnVoixParole, btnHistoriqueChats, btnDefaultPrompt, btnInterface;
-    @FXML private HBox wrapperLLMPreference, wrapperVoixParole, wrapperHistoriqueChats, wrapperDefaultPrompt, wrapperInterface;
+    @FXML private Node btnLLMPreference;
+    @FXML private Node btnVoixParole;
+    @FXML private Node btnHistoriqueChats;
+    @FXML private Node btnDefaultPrompt;
+    @FXML private Node btnAgentSkills;
+    @FXML private Node btnInterface;
     @FXML private VBox panelLLMPreference;
     @FXML private VBox panelHistoriqueChats;
     @FXML private VBox panelDefaultPrompt;
@@ -59,12 +63,10 @@ public class SettingsController {
     @FXML private HBox headerAdmin;
     @FXML private HBox headerAgentSkills;
     @FXML private HBox headerAppearance;
-   @FXML private VBox menuContainer;
-    @FXML private Label lblAgentSkills;
+    @FXML private VBox menuContainer;
 
     private final ConfigManager configManager;
-  private Node activeMenuItem;
-    private HBox lastHoveredWrapper;
+    private Node activeMenuItem;
     private boolean advancedSettingsVisible = false;
     private boolean llmSubmenuVisible = false;
     private boolean adminSubmenuVisible = false;
@@ -76,9 +78,6 @@ public class SettingsController {
     private String originalStyleDefaultPrompt;
     private String originalStyleInterface;
     private boolean hoveringSubItem = false;
-
-    // Liste de tous les wrappers HBox de sous-items pour gestion centralisée du hover
-    private final List<HBox> subitemWrappers = new ArrayList<>();
 
     public SettingsController(ConfigManager configManager) {
         this.configManager = configManager;
@@ -118,20 +117,12 @@ public class SettingsController {
             regionAppearance.setClip(clipAppearance);
             regionAppearance.setMaxHeight(0);
             
-         // Sauvegarder les styles originaux des sous-items menu
+          // Sauvegarder les styles originaux des sous-items menu
             if (btnLLMPreference instanceof Label lbl) originalStyleLLMPreference = lbl.getStyle();
             if (btnVoixParole instanceof Label lbl) originalStyleVoixParole = lbl.getStyle();
             if (btnHistoriqueChats instanceof Label lbl) originalStyleHistoriqueChats = lbl.getStyle();
             if (btnDefaultPrompt instanceof Label lbl) originalStyleDefaultPrompt = lbl.getStyle();
             if (btnInterface instanceof Label lbl) originalStyleInterface = lbl.getStyle();
-
-            // Enregistrer tous les wrappers pour gestion centralisée du hover
-            subitemWrappers.clear();
-            if (wrapperLLMPreference != null) subitemWrappers.add(wrapperLLMPreference);
-            if (wrapperVoixParole != null) subitemWrappers.add(wrapperVoixParole);
-            if (wrapperHistoriqueChats != null) subitemWrappers.add(wrapperHistoriqueChats);
-            if (wrapperDefaultPrompt != null) subitemWrappers.add(wrapperDefaultPrompt);
-            if (wrapperInterface != null) subitemWrappers.add(wrapperInterface);
         });
         
         LOGGER.info("=== SettingsController initialize() done ===");
@@ -289,10 +280,10 @@ public class SettingsController {
         }
     }
 
-  @FXML
+    @FXML
     public void showAgentSkills() {
         showPanel(panelAgentSkills);
-        highlightMenuItem(lblAgentSkills);
+        highlightMenuItem(btnAgentSkills);
     }
 
     @FXML
@@ -338,37 +329,34 @@ public class SettingsController {
         activePanel.setManaged(true);
     }
 
-  private void highlightMenuItem(Node activeButton) {
-        // Retirer gras et fond de TOUS les wrappers + labels
-        for (HBox w : subitemWrappers) {
-            w.setBackground(Background.EMPTY);
-        }
-        for (Label lbl : new Label[]{btnLLMPreference, btnVoixParole, btnHistoriqueChats, btnDefaultPrompt, btnInterface}) {
+private void highlightMenuItem(Node activeButton) {
+        // Retirer gras de TOUS les sous-items en restaurant leurs styles originaux
+        if (btnLLMPreference instanceof Label lbl) {
             lbl.getStyleClass().remove("menu-item-active");
-            lbl.setBackground(Background.EMPTY);
+            lbl.setStyle(originalStyleLLMPreference);
+        }
+        if (btnVoixParole instanceof Label lbl) {
+            lbl.getStyleClass().remove("menu-item-active");
+            lbl.setStyle(originalStyleVoixParole);
+        }
+        if (btnHistoriqueChats instanceof Label lbl) {
+            lbl.getStyleClass().remove("menu-item-active");
+            lbl.setStyle(originalStyleHistoriqueChats);
+        }
+        if (btnDefaultPrompt instanceof Label lbl) {
+            lbl.getStyleClass().remove("menu-item-active");
+            lbl.setStyle(originalStyleDefaultPrompt);
+        }
+        if (btnInterface instanceof Label lbl) {
+            lbl.getStyleClass().remove("menu-item-active");
+            lbl.setStyle(originalStyleInterface);
         }
 
-        // Restaurer styles originaux
-        if (btnLLMPreference instanceof Label lbl) lbl.setStyle(originalStyleLLMPreference);
-        if (btnVoixParole instanceof Label lbl) lbl.setStyle(originalStyleVoixParole);
-        if (btnHistoriqueChats instanceof Label lbl) lbl.setStyle(originalStyleHistoriqueChats);
-        if (btnDefaultPrompt instanceof Label lbl) lbl.setStyle(originalStyleDefaultPrompt);
-        if (btnInterface instanceof Label lbl) lbl.setStyle(originalStyleInterface);
-
-        // Appliquer gras au bouton cliqué + fond gris sur son wrapper
+        // Appliquer gras au bouton cliqué via style inline
         if (activeButton instanceof Label label) {
             String currentStyle = label.getStyle();
             label.setStyle(currentStyle + "; -fx-font-weight: bold; -fx-text-fill: white;");
             activeMenuItem = activeButton;
-            // Trouver le wrapper correspondant et lui mettre le fond
-            for (HBox w : subitemWrappers) {
-                for (Node child : w.getChildrenUnmodifiable()) {
-                    if (child == activeButton) {
-                        w.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-                        break;
-                    }
-                }
-            }
         } else if (activeButton != null) {
             activeMenuItem = activeButton;
         }
@@ -392,25 +380,6 @@ public class SettingsController {
         }
     }
 
-    @FXML
-    public void onSubItemEnter(javafx.scene.input.MouseEvent event) {
-        // Effacer TOUTES les backgrounds d'abord
-        for (HBox w : subitemWrappers) {
-            w.setBackground(Background.EMPTY);
-        }
-        // Appliquer sur le hoveré (sauf si c'est l'item actif)
-        if (event.getSource() instanceof HBox wrapper && wrapper != activeMenuItem) {
-            wrapper.setBackground(new Background(new BackgroundFill(Color.web("#2a2a2a"), CornerRadii.EMPTY, Insets.EMPTY)));
-        }
-    }
-
-    @FXML
-    public void onSubItemExit(javafx.scene.input.MouseEvent event) {
-        // Effacer TOUTES les backgrounds
-        for (HBox w : subitemWrappers) {
-            w.setBackground(Background.EMPTY);
-        }
-    }
 
     // ===== ADVANCED SETTINGS =====
 
