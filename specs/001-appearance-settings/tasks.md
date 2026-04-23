@@ -36,17 +36,17 @@ description: "Task list for Apparence Interface feature"
 
 **⚠️ CRITICAL**: Aucune tâche de traduction UI ne peut commencer avant cette phase.
 
-- [ ] T005 Create directory `opencode-gui/src/main/resources/i18n/`
-- [ ] T006 [P] Create base translation file `opencode-gui/src/main/resources/i18n/messages.properties` (Français - fallback/default) with keys: settings.title, appearance.section.title, appearance.theme.label, appearance.language.label, btn.save, btn.cancel, app.name, sidebar.fournisseurs_llm, sidebar.admin, sidebar.agent_skills, sidebar.appearance, panel.llm_preference.title, panel.llm_preference.description, panel.historique_chats.title, panel.historique_chats.description, panel.default_prompt.title, panel.default_prompt.description, panel.interface.title, panel.interface.description, panel.agent_skills.title, panel.agent_skills.description, panel.voix_parole.title, panel.voix_parole.description, label.context_window, label.api_key, label.model, label.local_ai_url, label.advanced_settings, label.system_prompt, label.conserve_historique, button.init_project, button.send_message, button.new_chat, label.project, label.context, label.tokens, label.usage, label.cost, label.servers, label.navigation, label.history, label.files_in_context, label.support, label.privacy, label.license, error.api_key_required, confirm.save_success, confirm.settings_saved
-- [ ] T007 [P] Create English translations in `opencode-gui/src/main/resources/i18n/messages_en.properties` — translate all 39 keys from French to English using context from existing UI labels (e.g., "Fournisseurs LLM" → "LLM Providers", "Apparence" → "Appearance")
-- [ ] T008 [P] Create Mandarin Chinese translations in `opencode-gui/src/main/resources/i18n/messages_zh.properties` — translate all 39 keys
-- [ ] T009 [P] Create Hindi translations in `opencode-gui/src/main/resources/i18n/messages_hi.properties` — translate all 39 keys
-- [ ] T010 [P] Create Spanish translations in `opencode-gui/src/main/resources/i18n/messages_es.properties` — translate all 39 keys
-- [ ] T011 [P] Create Arabic translations in `opencode-gui/src/main/resources/i18n/messages_ar.properties` — translate all 39 keys (RTL direction support)
-- [ ] T012 [P] Create Bengali translations in `opencode-gui/src/main/resources/i18n/messages_bn.properties` — translate all 39 keys
-- [ ] T013 [P] Create Portuguese translations in `opencode-gui/src/main/resources/i18n/messages_pt.properties` — translate all 39 keys
-- [ ] T014 [P] Create Russian translations in `opencode-gui/src/main/resources/i18n/messages_ru.properties` — translate all 39 keys
-- [ ] T015 [P] Create Urdu translations in `opencode-gui/src/main/resources/i18n/messages_ur.properties` — translate all 39 keys (RTL direction support)
+- [x] T005 Create directory `opencode-gui/src/main/resources/i18n/` — ✅ créé
+- [x] T006 [P] [US2] Create base translation file `opencode-gui/src/main/resources/i18n/messages.properties` (Français - fallback/default with ~48 keys: settings.title, appearance.section.title, appearance.theme.label, appearance.language.label, btn.save, btn.cancel, app.name, sidebar.*, panel.*, label.*, button.*, error.*, confirm.*) — ✅ fichier validé (~48 lignes)
+- [x] T007 [P] [US2] Create English translations in `opencode-gui/src/main/resources/i18n/messages_en.properties` — ✅ fichier validé (~48 lignes), toutes les clés traduites
+- [x] T008 [P] [US2] Create Mandarin Chinese translations in `opencode-gui/src/main/resources/i18n/messages_zh.properties` — ✅ fichier validé (~48 lignes)
+- [x] T009 [P] [US2] Create Hindi translations in `opencode-gui/src/main/resources/i18n/messages_hi.properties` — ✅ fichier validé (~48 lignes)
+- [x] T010 [P] [US2] Create Spanish translations in `opencode-gui/src/main/resources/i18n/messages_es.properties` — ✅ fichier validé (~48 lignes)
+- [x] T011 [P] [US2] Create Arabic translations in `opencode-gui/src/main/resources/i18n/messages_ar.properties` — ✅ fichier validé (~48 lignes), support RTL activé (ar)
+- [x] T012 [P] [US2] Create Bengali translations in `opencode-gui/src/main/resources/i18n/messages_bn.properties` — ✅ fichier validé (~48 lignes)
+- [x] T013 [P] [US2] Create Portuguese translations in `opencode-gui/src/main/resources/i18n/messages_pt.properties` — ✅ fichier validé (~48 lignes)
+- [x] T014 [P] [US2] Create Russian translations in `opencode-gui/src/main/resources/i18n/messages_ru.properties` — ✅ fichier validé (~48 lignes)
+- [x] T015 [P] [US2] Create Urdu translations in `opencode-gui/src/main/resources/i18n/messages_ur.properties` — ✅ fichier validé (~48 lignes), support RTL activé (ur)
 
 **Checkpoint**: Toutes les traductions sont en place. Le système de ResourceBundle est prêt pour l'injection dans les contrôles JavaFX. ✅ Phase 2 terminée — compile vérifié (`mvn clean compile -pl opencode-gui`).
 
