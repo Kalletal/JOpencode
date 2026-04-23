@@ -1,74 +1,133 @@
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< javafx-maven-plugin:0.0.8:run (default-cli) < process-classes @ opencode-gui <<<
+[INFO] 
 [INFO] 
 [INFO] --- javafx-maven-plugin:0.0.8:run (default-cli) @ opencode-gui ---
-avr. 23, 2026 4:59:34 PM ai.opencode.storage.ConfigManager loadConfig
+avr. 23, 2026 5:16:50 PM ai.opencode.storage.ConfigManager loadConfig
 INFOS: Configuration chargée avec succès depuis /home/gilles/.opencode/config.json
 SLF4J: No SLF4J providers were found.
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
-avr. 23, 2026 4:59:34 PM ai.opencode.storage.DatabaseManager initDatabase
+avr. 23, 2026 5:16:50 PM ai.opencode.storage.DatabaseManager initDatabase
 INFOS: Connexion établie à la base de données : /home/gilles/.opencode/opencode-java.db
-avr. 23, 2026 4:59:34 PM ai.opencode.storage.DatabaseManager createTables
+avr. 23, 2026 5:16:50 PM ai.opencode.storage.DatabaseManager createTables
 INFOS: Tables de la base de données initialisées.
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.MainController initialize
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.MainController initialize
 INFOS: === MAIN CONTROLLER INITIALIZED ===
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.MainController initialize
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.MainController initialize
 INFOS: settingsToggleButton is null: false
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.MainController initialize
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.MainController initialize
 INFOS: chatView is null: false
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.MainController initialize
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.MainController initialize
 INFOS: settingsViewContainer is null: false
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.MainController initialize
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.MainController initialize
 INFOS: settingsToggleButton visible: true
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.MainController initialize
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.MainController initialize
 INFOS: settingsToggleButton text: ⚙
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.i18n.LanguageManager loadBundle
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.i18n.LanguageManager loadBundle
 INFOS: Bundle chargé pour la langue : en
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.MainController initMainLanguageManager
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.MainController initMainLanguageManager
 INFOS: MainLanguageManager initialisé avec la langue : English
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.i18n.LanguageManager loadBundle
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.i18n.LanguageManager loadBundle
 INFOS: Bundle chargé pour la langue : en
-avr. 23, 2026 4:59:34 PM ai.opencode.gui.i18n.GlobalLanguageController init
+avr. 23, 2026 5:16:50 PM ai.opencode.gui.i18n.GlobalLanguageController init
 INFOS: GlobalLanguageController initialisé
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.MainController toggleSettings
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.MainController toggleSettings
 INFOS: === toggleSettings() called ===
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.MainController toggleSettings
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.MainController toggleSettings
 INFOS: chatView visible=true
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.MainController toggleSettings
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.MainController toggleSettings
 INFOS: settingsViewContainer visible=false
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.MainController loadSettingsView
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.MainController loadSettingsView
 INFOS: loadSettingsView() called
-avr. 23, 2026 4:59:38 PM ai.opencode.storage.ConfigManager loadConfig
+avr. 23, 2026 5:17:00 PM ai.opencode.storage.ConfigManager loadConfig
 INFOS: Configuration chargée avec succès depuis /home/gilles/.opencode/config.json
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.SettingsController initialize
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.SettingsController initialize
 INFOS: === SettingsController initialize() called ===
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.theme.ThemeManager applyTheme
-INFOS: === applyTheme: 'Clair' (isDark=false) ===
-avr. 23, 2026 4:59:38 PM ai.opencode.storage.ConfigManager saveConfig
-INFOS: Configuration sauvegardée avec succès.
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.SettingsController applyTheme
-INFOS: Thème appliqué immédiatement : Clair
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.i18n.LanguageManager loadBundle
-INFOS: Bundle chargé pour la langue : en
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.SettingsController initialize
-INFOS: === SettingsController initialize() done ===
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.MainController toggleSettings
-INFOS: Settings view activated
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.theme.ThemeManager traverseAndApply
-INFOS: WelcomeTitle updated! isDark=false
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.theme.ThemeManager lambda$applyTheme$0
-INFOS: applyTheme completed: 322 nodes visited, 1 WelcomeTitle found/updated
-avr. 23, 2026 4:59:38 PM ai.opencode.gui.MainController lambda$loadSettingsView$14
-INFOS: Vue paramètres chargée avec succès. Taille conteneur: 900.0x800.0
-avr. 23, 2026 4:59:44 PM ai.opencode.gui.SettingsController animateSubmenu
-INFOS: animateSubmenu: expand=true, width=262.0, targetHeight=39.0, currentMaxHeight=0.0
-avr. 23, 2026 5:00:01 PM ai.opencode.gui.theme.ThemeManager applyTheme
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.theme.ThemeManager applyTheme
 INFOS: === applyTheme: 'Sombre' (isDark=true) ===
-avr. 23, 2026 5:00:01 PM ai.opencode.storage.ConfigManager saveConfig
+avr. 23, 2026 5:17:00 PM ai.opencode.storage.ConfigManager saveConfig
 INFOS: Configuration sauvegardée avec succès.
-avr. 23, 2026 5:00:01 PM ai.opencode.gui.SettingsController applyTheme
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.SettingsController applyTheme
 INFOS: Thème appliqué immédiatement : Sombre
-avr. 23, 2026 5:00:01 PM ai.opencode.gui.theme.ThemeManager traverseAndApply
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.i18n.LanguageManager loadBundle
+INFOS: Bundle chargé pour la langue : en
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.SettingsController initialize
+INFOS: === SettingsController initialize() done ===
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.MainController toggleSettings
+INFOS: Settings view activated
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.theme.ThemeManager traverseAndApply
 INFOS: WelcomeTitle updated! isDark=true
-avr. 23, 2026 5:00:01 PM ai.opencode.gui.theme.ThemeManager lambda$applyTheme$0
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.theme.ThemeManager lambda$applyTheme$0
+INFOS: applyTheme completed: 322 nodes visited, 1 WelcomeTitle found/updated
+avr. 23, 2026 5:17:00 PM ai.opencode.gui.MainController lambda$loadSettingsView$14
+INFOS: Vue paramètres chargée avec succès. Taille conteneur: 900.0x800.0
+avr. 23, 2026 5:17:02 PM ai.opencode.gui.SettingsController animateSubmenu
+INFOS: animateSubmenu: expand=true, width=262.0, targetHeight=39.0, currentMaxHeight=0.0
+avr. 23, 2026 5:17:06 PM ai.opencode.gui.theme.ThemeManager applyTheme
+INFOS: === applyTheme: 'Clair' (isDark=false) ===
+avr. 23, 2026 5:17:06 PM ai.opencode.storage.ConfigManager saveConfig
+INFOS: Configuration sauvegardée avec succès.
+avr. 23, 2026 5:17:06 PM ai.opencode.gui.SettingsController applyTheme
+INFOS: Thème appliqué immédiatement : Clair
+avr. 23, 2026 5:17:06 PM ai.opencode.gui.theme.ThemeManager traverseAndApply
+INFOS: WelcomeTitle updated! isDark=false
+avr. 23, 2026 5:17:06 PM ai.opencode.gui.theme.ThemeManager lambda$applyTheme$0
 INFOS: applyTheme completed: 533 nodes visited, 1 WelcomeTitle found/updated
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  18.734 s
+[INFO] Finished at: 2026-04-23T17:17:08+02:00
+[INFO] ------------------------------------------------------------------------
+gilles@dalmas-X870E-AORUS-ELITE:~/Documents/ProjetJava/JOpencode/opencode-gui$ mvn javafx:run
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< ai.opencode:opencode-gui >----------------------
+[INFO] Building opencode-gui 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> javafx-maven-plugin:0.0.8:run (default-cli) > process-classes @ opencode-gui >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ opencode-gui ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 26 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ opencode-gui ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< javafx-maven-plugin:0.0.8:run (default-cli) < process-classes @ opencode-gui <<<
+[INFO] 
+[INFO] 
+[INFO] --- javafx-maven-plugin:0.0.8:run (default-cli) @ opencode-gui ---
+avr. 23, 2026 5:17:11 PM ai.opencode.storage.ConfigManager loadConfig
+INFOS: Configuration chargée avec succès depuis /home/gilles/.opencode/config.json
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+avr. 23, 2026 5:17:11 PM ai.opencode.storage.DatabaseManager initDatabase
+INFOS: Connexion établie à la base de données : /home/gilles/.opencode/opencode-java.db
+avr. 23, 2026 5:17:11 PM ai.opencode.storage.DatabaseManager createTables
+INFOS: Tables de la base de données initialisées.
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.MainController initialize
+INFOS: === MAIN CONTROLLER INITIALIZED ===
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.MainController initialize
+INFOS: settingsToggleButton is null: false
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.MainController initialize
+INFOS: chatView is null: false
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.MainController initialize
+INFOS: settingsViewContainer is null: false
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.MainController initialize
+INFOS: settingsToggleButton visible: true
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.MainController initialize
+INFOS: settingsToggleButton text: ⚙
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.i18n.LanguageManager loadBundle
+INFOS: Bundle chargé pour la langue : en
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.MainController initMainLanguageManager
+INFOS: MainLanguageManager initialisé avec la langue : English
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.i18n.LanguageManager loadBundle
+INFOS: Bundle chargé pour la langue : en
+avr. 23, 2026 5:17:11 PM ai.opencode.gui.i18n.GlobalLanguageController init
+INFOS: GlobalLanguageController initialisé
 
