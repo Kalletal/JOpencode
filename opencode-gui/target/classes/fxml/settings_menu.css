@@ -1,7 +1,18 @@
+/* Textes des items du menu latéral — s'adaptent automatiquement au thème clair/sombre */
+/* !important nécessaire pour override les styles inline du FXML */
+.sidebar-menu Label {
+    -fx-text-fill: derive(-fx-base, +40%) !important;
+}
+
+/* Sous-item inactif */
+.subitem {
+    -fx-text-fill: derive(-fx-base, +30%) !important;
+}
+
 /* Sous-item actif (sélectionné) */
 .subitem.menu-item-active {
-    -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-text-fill: derive(-fx-base, +80%) !important;
 }
 
 /* Hover plein largeur sur chaque ligne de sous-item — coins arrondis */
@@ -10,12 +21,12 @@
     -fx-background-radius: 6;
 }
 .submenu-row:hover {
-    -fx-background-color: #2a2a2a !important;
+    -fx-background-color: derive(-fx-control-inner-background, -15%) !important;
     -fx-background-radius: 6;
 }
 
 /* Header sections hover — coins arrondis */
 .sidebar-menu > VBox:hover {
-    -fx-background-color: #2a2a2a !important;
+    -fx-background-color: derive(-fx-control-inner-background, -15%) !important;
     -fx-background-radius: 6;
 }
