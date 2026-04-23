@@ -120,3 +120,13 @@
     -fx-border-color: #888888;
     -fx-background-color: #2a2a2a;
 }
+
+/* ComboBox hover states pour le thème sombre */
+.combo-box:hover {
+    -fx-background-color: #3d3d3d !important;
+}
+
+.combo-box:focused {
+    -fx-background-color: #404040 !important;
+    -fx-border-color: #666666 !important;
+}

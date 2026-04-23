@@ -3,6 +3,8 @@ package ai.opencode.gui;
 import ai.opencode.core.orchestrator.AgentOrchestrator;
 import ai.opencode.core.project.ProjectInitializer;
 import ai.opencode.gui.components.WelcomeTitle;
+import ai.opencode.gui.i18n.GlobalLanguageController;
+import ai.opencode.gui.i18n.LanguageManager;
 import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ import javafx.geometry.Side;
 import java.io.File;
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.ResourceBundle;
 
 /**
  * Contrôleur principal de l'interface graphique.
@@ -51,10 +54,11 @@ public class MainController {
 
     private VBox currentThinkingBubble;
 
-    private final List<String> availableAgents = Arrays.asList("plan", "build", "custom");
+   private final List<String> availableAgents = Arrays.asList("plan", "build", "custom");
     private int currentAgentIndex = 1; // Par défaut "build"
     private ai.opencode.storage.ConfigManager configManager;
     private AgentOrchestrator orchestrator;
+    private LanguageManager mainLanguageManager;
 
     @FXML
     public void initialize() {
@@ -225,7 +229,34 @@ public class MainController {
 
     public void setConfigManager(ai.opencode.storage.ConfigManager configManager) {
         this.configManager = configManager;
+        initMainLanguageManager();
         updateAgentUI();
+    }
+
+    /**
+     * Initialise le gestionnaire de langue pour ce contrôleur en lisant la préférence sauvegardée.
+     */
+    private void initMainLanguageManager() {
+        if (configManager == null) return;
+        
+        Map<String, Object> expConfig = configManager.getConfig().experimental();
+        String savedLang = expConfig != null && expConfig.containsKey("language")
+            ? (String) expConfig.get("language")
+            : "Français";
+        
+        mainLanguageManager = new LanguageManager();
+        mainLanguageManager.loadBundleByDisplayName(savedLang);
+        
+        // Appliquer RTL si nécessaire sur le root pane
+        if (mainLanguageManager.isRTL()) {
+            Platform.runLater(() -> {
+                if (rootPane != null) {
+                    rootPane.getScene().setNodeOrientation(javafx.geometry.NodeOrientation.RIGHT_TO_LEFT);
+                }
+            });
+        }
+        
+LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
     }
 
     private void cycleAgent() {
@@ -233,6 +264,48 @@ public class MainController {
         updateAgentUI();
         if (orchestrator != null) {
             orchestrator.switchAgent(availableAgents.get(currentAgentIndex));
+        }
+    }
+
+    /**
+     * Rafraîchit tous les Labels traduisibles de l'interface principale.
+     * Doit être appelé après un changement de langue pour mettre à jour les textes statiques.
+     */
+    public void refreshAllLabels() {
+        ResourceBundle bundle = mainLanguageManager != null ? 
+            mainLanguageManager.getResourceBundle() : null;
+        if (bundle == null) return;
+        
+        try {
+            // Traduire les labels de la sidebar
+            if (projectNameLabel != null && bundle.containsKey("label.project")) {
+                projectNameLabel.setText(bundle.getString("label.project"));
+            }
+            if (tokensLabel != null && bundle.containsKey("label.tokens")) {
+                tokensLabel.setText(bundle.getString("label.tokens"));
+            }
+            if (usageLabel != null && bundle.containsKey("label.usage")) {
+                usageLabel.setText(bundle.getString("label.usage"));
+            }
+            if (costLabel != null && bundle.containsKey("label.cost")) {
+                costLabel.setText(bundle.getString("label.cost"));
+            }
+            
+            // Traduire le placeholder du champ de saisie
+            if (userInput != null && bundle.containsKey("input.ask_prompt")) {
+                userInput.setPromptText(bundle.getString("input.ask_prompt"));
+            }
+            
+            // Traduire le bouton settings
+            if (settingsToggleButton != null && bundle.containsKey("settings.tooltip")) {
+                settingsToggleButton.setTooltip(new Tooltip(bundle.getString("settings.tooltip")));
+            }
+
+            LOGGER.info("Labels principaux rafraîchis pour la langue : " + 
+                (mainLanguageManager.getCurrentLocale() != null ? 
+                 mainLanguageManager.getCurrentLocale().getDisplayName() : "inconnue"));
+        } catch (Exception e) {
+            LOGGER.warning("Erreur lors du rafraîchissement des labels : " + e.getMessage());
         }
     }
 

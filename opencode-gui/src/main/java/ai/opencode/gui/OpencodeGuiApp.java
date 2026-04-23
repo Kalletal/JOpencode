@@ -3,6 +3,8 @@ package ai.opencode.gui;
 import ai.opencode.core.llm.LangChain4jLLMClient;
 import ai.opencode.core.orchestrator.AgentOrchestrator;
 import ai.opencode.core.session.SessionManager;
+import ai.opencode.gui.i18n.GlobalLanguageController;
+import ai.opencode.gui.i18n.LanguageManager;
 import ai.opencode.storage.DatabaseManager;
 import ai.opencode.tools.ToolRegistry;
 import javafx.application.Application;
@@ -12,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Point d'entrée principal de l'application graphique opencode.
@@ -58,6 +61,15 @@ public class OpencodeGuiApp extends Application {
             controller.setConfigManager(configManager);
             controller.setupDragAndDrop();
 
+           // Initialisation du système i18n avant le chargement FXML
+            LanguageManager langMgr = new LanguageManager();
+            Map<String, Object> expConfig = configManager.getConfig().experimental();
+            String savedLang = expConfig != null && expConfig.containsKey("language")
+                ? (String) expConfig.get("language")
+                : "Français";
+            langMgr.loadBundleByDisplayName(savedLang);
+            GlobalLanguageController.getInstance().init(langMgr);
+
             // 3. Configuration de la scène et du style
             Scene scene = new Scene(root);
             
@@ -68,6 +80,11 @@ public class OpencodeGuiApp extends Application {
                 scene.getStylesheets().add(getClass().getResource("/css/style-light.css").toExternalForm());
             } else {
                 scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            }
+
+            // Appliquer RTL si nécessaire dès le démarrage
+            if (langMgr.isRTL()) {
+                scene.setNodeOrientation(javafx.geometry.NodeOrientation.RIGHT_TO_LEFT);
             }
 
             primaryStage.setTitle("opencode - Java Edition");

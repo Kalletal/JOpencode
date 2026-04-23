@@ -79,3 +79,17 @@
     -fx-background-color: #007acc;
     -fx-text-fill: white;
 }
+
+/* ComboBox hover states pour le thème clair */
+.combo-box:hover {
+    -fx-background-color: #e8e8e8 !important;
+}
+
+.combo-box:focused {
+    -fx-background-color: #f0f0f0 !important;
+    -fx-border-color: #999999 !important;
+}
+
+.combo-box .list-cell {
+    -fx-control-inner-background-alt: #f0f0f0;
+}

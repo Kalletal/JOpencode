@@ -2,23 +2,27 @@ package ai.opencode.gui;
 
 import ai.opencode.storage.AppConfig;
 import ai.opencode.storage.ConfigManager;
+import ai.opencode.gui.theme.ThemeManager;
+import ai.opencode.gui.i18n.LanguageManager;
+import ai.opencode.gui.i18n.TranslationHelper;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.control.*;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.geometry.Insets;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import java.time.Instant;
@@ -33,18 +37,28 @@ public class SettingsController {
     @FXML private PasswordField apiKeyField;
     @FXML private ComboBox<String> modelSelector;
     @FXML private TextField baseUrlField;
+    @FXML private Label labelLLMProvider;
+    @FXML private Label labelContextWindow;
+    @FXML private Label labelLocalAIUrl;
+    @FXML private Label labelAdvancedSettings;
     @FXML private Label chevronAdvanced;
     @FXML private VBox advancedSettingsPanel;
     @FXML private TextArea systemPromptArea;
     @FXML private ComboBox<String> themeSelector;
     @FXML private ComboBox<String> languageSelector;
+    @FXML private Label headerTextLLM;
+    @FXML private Label headerTextAdmin;
+    @FXML private Label headerTextAppearance;
+    @FXML private Label chevronLLM;
+    @FXML private Label chevronAdmin;
+    @FXML private Label chevronAppearance;
 
-    @FXML private Node btnLLMPreference;
-    @FXML private Node btnVoixParole;
-    @FXML private Node btnHistoriqueChats;
-    @FXML private Node btnDefaultPrompt;
-    @FXML private Node btnAgentSkills;
-    @FXML private Node btnInterface;
+    @FXML private Label btnLLMPreference;
+    @FXML private Label btnVoixParole;
+    @FXML private Label btnHistoriqueChats;
+    @FXML private Label btnDefaultPrompt;
+    @FXML private Label btnAgentSkills;
+    @FXML private Label btnInterface;
     @FXML private VBox panelLLMPreference;
     @FXML private VBox panelHistoriqueChats;
     @FXML private VBox panelDefaultPrompt;
@@ -54,10 +68,7 @@ public class SettingsController {
     @FXML private VBox panelGeneric;
     @FXML private Label genericPanelTitle;
 
-    @FXML private Label chevronLLM;
-    @FXML private Label chevronAdmin;
-    @FXML private Label chevronAppearance;
-     @FXML private Region bgLLM, bgAdmin, bgAppearance;
+      @FXML private Region bgLLM, bgAdmin, bgAppearance;
     @FXML private HBox submenuLLM, submenuAdmin, submenuAppearance;
     @FXML private VBox vboxLLMChildren, vboxAdminChildren, vboxAppearanceChildren;
     @FXML private HBox headerLLM;
@@ -80,13 +91,17 @@ public class SettingsController {
     private String originalStyleInterface;
     private boolean hoveringSubItem = false;
     private Scene currentScene;
+    private ThemeManager themeManager;
+    private LanguageManager languageManager;
 
     public SettingsController(ConfigManager configManager, Scene scene) {
         this.configManager = configManager;
         this.currentScene = scene;
+        this.themeManager = new ThemeManager();
+        this.languageManager = new LanguageManager();
     }
 
-   @FXML
+  @FXML
     public void initialize() {
         LOGGER.info("=== SettingsController initialize() called ===");
         
@@ -94,7 +109,9 @@ public class SettingsController {
         setupModelSelectors();
         setupThemeSelector();
         setupLanguageSelector();
-      showPanel(panelLLMPreference);
+       initLanguageManager();
+        applyTranslationsToAllPanels();
+       showPanel(panelLLMPreference);
         
         AtomicInteger llmCount = new AtomicInteger(0);
         AtomicInteger adminCount = new AtomicInteger(0);
@@ -172,18 +189,7 @@ public class SettingsController {
     }
 
    private void setupLanguageSelector() {
-        List<String> languages = Arrays.asList(
-            "English",
-            "中文（普通话）",
-            "हिन्दी",
-            "Español",
-            "Français",
-            "العربية",
-            "বাংলা",
-            "Português",
-            "Русский",
-            "اردو"
-        );
+        List<String> languages = LanguageManager.getAvailableDisplayNames();
         languageSelector.getItems().addAll(languages);
         
         String savedLang = configManager.getConfig().experimental() != null 
@@ -196,29 +202,25 @@ public class SettingsController {
         }
     }
 
+    private void initLanguageManager() {
+        String savedLang = configManager.getConfig().experimental() != null 
+            ? (String) configManager.getConfig().experimental().getOrDefault("language", "Français") 
+            : "Français";
+        languageManager.loadBundleByDisplayName(savedLang);
+        
+       // Appliquer RTL si nécessaire via setNodeOrientation de Scene
+        if (currentScene != null && languageManager.isRTL()) {
+            currentScene.setNodeOrientation(javafx.geometry.NodeOrientation.RIGHT_TO_LEFT);
+        }
+    }
+
     // ===== ACCORDION SIDEBAR =====
 
-    @FXML
+   @FXML
     public void applyTheme() {
         String theme = themeSelector.getValue();
         if (currentScene != null) {
-            currentScene.getStylesheets().clear();
-            if ("Clair".equals(theme)) {
-                try {
-                    String lightCssPath = getClass().getResource("/css/style-light.css").toExternalForm();
-                    currentScene.getStylesheets().add(lightCssPath);
-                } catch (Exception e) {
-                    LOGGER.warning("Impossible de charger le thème clair: " + e.getMessage());
-                }
-            } else {
-                try {
-                    String darkCssPath = getClass().getResource("/css/style.css").toExternalForm();
-                    currentScene.getStylesheets().add(darkCssPath);
-                } catch (Exception e) {
-                    LOGGER.warning("Impossible de charger le thème sombre: " + e.getMessage());
-                }
-            }
-            Platform.runLater(() -> applyThemeColors(currentScene.getRoot(), "Sombre".equals(theme)));
+            themeManager.applyTheme(currentScene, theme);
         }
         
         Map<String, Object> expConfig = new HashMap<>(configManager.getConfig().experimental());
@@ -237,82 +239,25 @@ public class SettingsController {
         LOGGER.info("Thème appliqué immédiatement : " + theme);
     }
 
-    private void applyThemeColors(javafx.scene.Node node, boolean isDark) {
-        if (node == null) return;
-        
-        if (node instanceof javafx.scene.layout.Region region) {
-            String bg = region.getStyle().contains("-fx-background-color") 
-                ? region.getStyle() : "";
-            if (!bg.contains("#") || bg.matches(".*-fx-background-color:\\s*#[a-fA-F0-9]+.*")) {
-                if (isDark) {
-                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#ffffff[^;]*", "-fx-background-color: #1a1a1a"));
-                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#f5f5f5[^;]*", "-fx-background-color: #1a1a1a"));
-                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#f0f0f0[^;]*", "-fx-background-color: #1a1a1a"));
-                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#e8e8e8[^;]*", "-fx-background-color: transparent"));
-                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#2d2d2d[^;]*", "-fx-background-color: #2d2d2d"));
-                } else {
-                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#1a1a1a[^;]*", "-fx-background-color: #f0f0f0"));
-                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#2d2d2d[^;]*", "-fx-background-color: #2d2d2d"));
-                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*transparent(?!;)", "-fx-background-color: transparent"));
-                }
-            }
-        }
-        
-        if (node instanceof javafx.scene.control.Label label) {
-            String style = label.getStyle();
-            if (isDark) {
-                style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #cccccc");
-                style = style.replaceAll("-fx-text-fill:\\s*white", "-fx-text-fill: #cccccc");
-                style = style.replaceAll("-fx-text-fill:\\s*#ffffff", "-fx-text-fill: #cccccc");
-            } else {
-                style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #333333");
-                style = style.replaceAll("-fx-text-fill:\\s*black", "-fx-text-fill: #1a1a1a");
-                style = style.replaceAll("-fx-text-fill:\\s*#000000", "-fx-text-fill: #1a1a1a");
-            }
-            label.setStyle(style);
-        }
-        
-        if (node instanceof javafx.scene.control.ComboBox<?> comboBox) {
-            if (isDark) {
-                String cs = comboBox.getStyle();
-                cs = cs.replaceAll("-fx-background-color:\\s*#[a-fA-F0-9]+", "-fx-background-color: #2d2d2d");
-                cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: white");
-                cs = cs.replaceAll("-fx-border-color:\\s*#[a-fA-F0-9]+", "-fx-border-color: #444444");
-                comboBox.setStyle(cs);
-            } else {
-                String cs = comboBox.getStyle();
-                cs = cs.replaceAll("-fx-background-color:\\s*#[a-fA-F0-9]+", "-fx-background-color: #ffffff");
-                cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: #1a1a1a");
-                cs = cs.replaceAll("-fx-border-color:\\s*#[a-fA-F0-9]+", "-fx-border-color: #cccccc");
-                comboBox.setStyle(cs);
-            }
-        }
-        
-        for (javafx.scene.Node child : getAllChildren(node)) {
-            applyThemeColors(child, isDark);
-        }
-    }
-
-    private java.util.List<javafx.scene.Node> getAllChildren(javafx.scene.Node node) {
-        java.util.List<javafx.scene.Node> children = new java.util.ArrayList<>();
-        if (node instanceof javafx.scene.layout.Pane pane) {
-            for (javafx.scene.Node child : pane.getChildren()) {
-                children.add(child);
-            }
-        } else if (node instanceof javafx.scene.control.Labeled labeled && labeled.getContentDisplay() == javafx.scene.control.ContentDisplay.GRAPHIC_ONLY) {
-            if (labeled.getGraphic() != null) children.add(labeled.getGraphic());
-        } else if (node instanceof javafx.scene.Parent parent) {
-            for (javafx.scene.Node child : parent.getChildrenUnmodifiable()) {
-                children.add(child);
-            }
-        }
-        return children;
-    }
-
     @FXML
     public void applyLanguage() {
         String language = languageSelector.getValue();
        if (language != null) {
+            // Charger le bundle de traduction et rafraîchir les labels
+            languageManager.loadBundleByDisplayName(language);
+            
+           // RTL support — changer l'orientation nœud via Scene
+            if (currentScene != null) {
+                if (languageManager.isRTL()) {
+                    currentScene.setNodeOrientation(javafx.geometry.NodeOrientation.RIGHT_TO_LEFT);
+                } else {
+                    currentScene.setNodeOrientation(javafx.geometry.NodeOrientation.LEFT_TO_RIGHT);
+                }
+            }
+            
+            // Rafraîchir tous les Labels traduisibles dans le panneau des paramètres
+            applyTranslationsToAllPanels();
+
             Map<String, Object> expConfig = new HashMap<>(configManager.getConfig().experimental());
             expConfig.put("language", language);
             expConfig.put("lastModified", Instant.now().toString());
@@ -328,6 +273,41 @@ public class SettingsController {
             configManager.setConfig(newConfig);
             LOGGER.info("Langue appliquée : " + language);
         }
+    }
+
+   /**
+     * Applique les traductions à tous les panneaux du contrôleur des paramètres.
+     * Enregistre d'abord les mappages Label->clé i18n, puis traduit tout le panneau.
+     */
+    private void applyTranslationsToAllPanels() {
+        if (languageManager.getResourceBundle() == null) return;
+        
+        ResourceBundle bundle = languageManager.getResourceBundle();
+        
+        // Enregistrer les mappings explicites pour la sidebar
+        TranslationHelper.registerTranslation(headerTextLLM, "sidebar.fournisseurs_llm");
+        TranslationHelper.registerTranslation(headerTextAdmin, "sidebar.admin");
+        TranslationHelper.registerTranslation(headerTextAppearance, "sidebar.appearance");
+        TranslationHelper.registerTranslation(btnLLMPreference, "panel.llm_preference.title");
+        TranslationHelper.registerTranslation(btnVoixParole, "panel.voix_parole.description");
+        TranslationHelper.registerTranslation(btnHistoriqueChats, "panel.historique_chats.title");
+        TranslationHelper.registerTranslation(btnDefaultPrompt, "panel.default_prompt.title");
+     TranslationHelper.registerTranslation(btnInterface, "panel.interface.title");
+        TranslationHelper.registerTranslation(labelLLMProvider, "panel.llm_preference.title");
+        TranslationHelper.registerTranslation(labelContextWindow, "label.context_window");
+        TranslationHelper.registerTranslation(labelLocalAIUrl, "label.local_ai_url");
+        TranslationHelper.registerTranslation(labelAdvancedSettings, "label.advanced_settings");
+        
+        // Traduire la sidebar
+        TranslationHelper.applyTranslations(menuContainer, bundle);
+        
+        // Traduire chaque panneau de contenu
+        TranslationHelper.applyTranslations(panelLLMPreference, bundle);
+        TranslationHelper.applyTranslations(panelHistoriqueChats, bundle);
+        TranslationHelper.applyTranslations(panelDefaultPrompt, bundle);
+        TranslationHelper.applyTranslations(panelInterface, bundle);
+        TranslationHelper.applyTranslations(panelAgentSkills, bundle);
+        TranslationHelper.applyTranslations(panelVoixParole, bundle);
     }
 
     @FXML

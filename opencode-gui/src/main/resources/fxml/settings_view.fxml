@@ -176,7 +176,7 @@
 
                 <!-- Section Fournisseur LLM -->
                 <VBox spacing="15">
-                    <Label text="Fournisseur LLM" style="-fx-text-fill: #cccccc; -fx-font-weight: bold; -fx-font-size: 14;">
+                    <Label fx:id="labelLLMProvider" text="Fournisseur LLM" style="-fx-text-fill: #cccccc; -fx-font-weight: bold; -fx-font-size: 14;">
                         <font>
                             <Font name="System Bold" size="14.0"/>
                         </font>
@@ -199,7 +199,7 @@
                     <!-- 3 champs côte à côte -->
                     <HBox spacing="20">
                         <VBox spacing="8" HBox.hgrow="ALWAYS">
-                            <Label text="Model context window" style="-fx-text-fill: #999999; -fx-font-size: 12;"/>
+                            <Label fx:id="labelContextWindow" text="Model context window" style="-fx-text-fill: #999999; -fx-font-size: 12;"/>
                             <ComboBox fx:id="modelContextWindow" prefHeight="40.0" prefWidth="200.0"
                                       style="-fx-background-color: #2d2d2d; -fx-text-fill: white; -fx-border-color: #444444; -fx-border-radius: 6; -fx-background-radius: 6;"/>
                         </VBox>
@@ -222,7 +222,7 @@
                                    <ImageView fitWidth="24" fitHeight="24" pickOnBounds="true" preserveRatio="false">
                                        <image><Image url="@icons/llm.png"/></image>
                                    </ImageView>
-                                   <Label text="Advanced settings" style="-fx-text-fill: #cccccc; -fx-font-size: 13; -fx-font-weight: bold; -fx-cursor: hand;">
+                                  <Label fx:id="labelAdvancedSettings" text="Advanced settings" style="-fx-text-fill: #cccccc; -fx-font-size: 13; -fx-font-weight: bold; -fx-cursor: hand;">
                                       <font>
                                           <Font name="System Bold" size="13.0"/>
                                       </font>
@@ -233,7 +233,7 @@
                         </HBox>
                         <VBox fx:id="advancedSettingsPanel" spacing="12" style="-fx-padding: 8 0 0 20;" visible="false">
                             <children>
-                                <Label text="Local AI Base URL" style="-fx-text-fill: #999999; -fx-font-size: 12;"/>
+                                <Label fx:id="labelLocalAIUrl" text="Local AI Base URL" style="-fx-text-fill: #999999; -fx-font-size: 12;"/>
                                 <TextField fx:id="baseUrlField" prefHeight="40.0" prefWidth="700.0"
                                            style="-fx-background-color: #2d2d2d; -fx-text-fill: white; -fx-border-color: #444444; -fx-border-radius: 6; -fx-background-radius: 6;"
                                            promptText="http://localhost:8080/v1"/>
