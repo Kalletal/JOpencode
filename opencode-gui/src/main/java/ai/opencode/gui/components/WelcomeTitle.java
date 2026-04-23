@@ -139,26 +139,26 @@ public class WelcomeTitle extends Pane {
         }
     }
 
-/** Applique les couleurs appropriées au thème courant — chaque section a ses propres couleurs */
+/** Applique les couleurs appropriées au thème courant */
     public void updateForTheme(boolean isDark) {
         if (isDark) {
-            // ===== THÈME SOMBRE =====
-            // Section GAUCHE ("OP") : HAUT or clair / BAS noir chaud
-            for (Path p : leftTopPaths)       p.setFill(Color.web("#F5E6C8"));
-            for (Path p : leftBottomPaths)     p.setFill(Color.web("#3B3634"));
+            // ===== THÈME SOMBRE — couleurs originales =====
+            // Section GAUCHE ("OP") : HAUT #656363 / BAS #3B3634
+            for (Path p : leftTopPaths)         p.setFill(Color.web("#656363"));
+            for (Path p : leftBottomPaths)      p.setFill(Color.web("#3B3634"));
             
-            // Section DROITE ("CODE") : HAUT or / BAS noir très chaud
-            for (Path p : rightTopPaths)      p.setFill(Color.web("#D4A843"));
-            for (Path p : rightBottomPaths)   p.setFill(Color.web("#2A2220"));
+            // Section DROITE ("CODE") : HAUT #FFFFFF / BAS #3B3634
+            for (Path p : rightTopPaths)       p.setFill(Color.web("#FFFFFF"));
+            for (Path p : rightBottomPaths)    p.setFill(Color.web("#3B3634"));
         } else {
-            // ===== THÈME CLAIR =====
-            // Section GAUCHE ("OP") : HAUT bleu nuit profond / BAS gris moyen
-            for (Path p : leftTopPaths)       p.setFill(Color.web("#2D3638"));
-            for (Path p : leftBottomPaths)     p.setFill(Color.web("#8C8484"));
+            // ===== THÈME CLAIR — HAUT identiques + BAS gris clair =====
+            // Section GAUCHE ("OP") : HAUT #656363 / BAS gris clair
+            for (Path p : leftTopPaths)         p.setFill(Color.web("#656363"));
+            for (Path p : leftBottomPaths)      p.setFill(Color.web("#C8C0C0"));
             
-            // Section DROITE ("CODE") : HAUT bleu acier profond / BAS bleu-gris
-            for (Path p : rightTopPaths)      p.setFill(Color.web("#1A2836"));
-            for (Path p : rightBottomPaths)   p.setFill(Color.web("#7A8E9E"));
+            // Section DROITE ("CODE") : HAUT #FFFFFF / BAS gris clair
+            for (Path p : rightTopPaths)       p.setFill(Color.web("#FFFFFF"));
+            for (Path p : rightBottomPaths)    p.setFill(Color.web("#C8C0C0"));
         }
     }
 
