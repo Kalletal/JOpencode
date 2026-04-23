@@ -118,9 +118,10 @@ public class ThemeManager {
             try {
                 java.lang.reflect.Method m = node.getClass().getMethod("updateForTheme", boolean.class);
                 m.invoke(node, isDark);
+                LOGGER.info("WelcomeTitle.updateForTheme(isDark=" + isDark + ") appelé par reflection — toutes les couleurs mises à jour");
                 return true;
             } catch (Exception e) {
-                LOGGER.warning("Failed to call updateForTheme on " + className + ": " + e.getMessage());
+                LOGGER.severe("Impossible d'appeler updateForTheme sur WelcomeTitle: " + e.getMessage() + " | Classe: " + className);
             }
         }
         return false;

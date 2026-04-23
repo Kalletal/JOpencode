@@ -16,14 +16,25 @@ import javafx.scene.media.Media;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 public class WelcomeTitle extends Pane {
+    private static final Logger LOGGER = Logger.getLogger(WelcomeTitle.class.getName());
+
     private final Path masterClip = new Path();
     private final Pane rippleContainer = new Pane();
     private final Random random = new Random();
     
-    // Chemins de la partie basse (couleur #3B3634) - stockés explicitement
-    private final List<Path> bottomPaths = new ArrayList<>();
+    // Chemins BAS par section — nécessaires pour updateForTheme()
+    private final List<Path> leftBottomPaths = new ArrayList<>();
+    private final List<Path> rightBottomPaths = new ArrayList<>();
+    
+    // Chemins HAUT par section — nécessaires pour updateForTheme()
+    private final List<Path> leftTopPaths = new ArrayList<>();
+    private final List<Path> rightTopPaths = new ArrayList<>();
     
     private AudioClip[] pulseSounds;
     private MediaPlayer chargePlayer;
@@ -66,39 +77,88 @@ public class WelcomeTitle extends Pane {
             triggerRipple(e.getX(), e.getY());
         });
         
-        // --- "OPEN" part ---
-        addBottomPath("M18 30H6V18H18V30Z");
-        addBottomPath("M48 30H36V18H48V30Z");
-        addBottomPath("M84 24V30H66V24H84Z");
-        addBottomPath("M108 36H96V18H108V36Z");
+        // --- "OP" part (section GAUCHE) ---
+        addBottomPath("M18 30H6V18H18V30Z", "left");
+        addBottomPath("M48 30H36V18H48V30Z", "left");
+        addBottomPath("M84 24V30H66V24H84Z", "left");
+        addBottomPath("M108 36H96V18H108V36Z", "left");
         
-        addPath("M18 12H6V30H18V12ZM24 36H0V6H24V36Z", "#656363", true);
-        addPath("M36 30H48V12H36V30ZM54 36H36V42H30V6H54V36Z", "#656363", true);
-        addPath("M84 24H66V30H84V36H60V6H84V24ZM66 18H78V12H66V18Z", "#656363", true);
-        addPath("M108 12H96V36H90V6H108V12ZM114 36H108V12H114V36Z", "#656363", true);
+        addPath("M18 12H6V30H18V12ZM24 36H0V6H24V36Z", "#656363", true, "left");
+        addPath("M36 30H48V12H36V30ZM54 36H36V42H30V6H54V36Z", "#656363", true, "left");
+        addPath("M84 24H66V30H84V36H60V6H84V24ZM66 18H78V12H66V18Z", "#656363", true, "left");
+        addPath("M108 12H96V36H90V6H108V12ZM114 36H108V12H114V36Z", "#656363", true, "left");
         
-        // --- "code" part ---
-        addBottomPath("M144 30H126V18H144V30Z");
-        addBottomPath("M168 30H156V18H168V30Z");
-        addBottomPath("M198 30H186V18H198V30Z");
-        addBottomPath("M234 24V30H216V24H234Z");
+        // --- "code" part (section DROITE) ---
+        addBottomPath("M144 30H126V18H144V30Z", "right");
+        addBottomPath("M168 30H156V18H168V30Z", "right");
+        addBottomPath("M198 30H186V18H198V30Z", "right");
+        addBottomPath("M234 24V30H216V24H234Z", "right");
         
-        addPath("M144 12H126V30H144V36H120V6H144V12Z", "#FFFFFF", true);
-        addPath("M168 12H156V30H168V12ZM174 36H150V6H174V36Z", "#FFFFFF", true);
-        addPath("M198 12H186V30H198V12ZM204 36H180V6H198V0H204V36Z", "#FFFFFF", true);
-        addPath("M216 12V18H228V12H216ZM234 24H216V30H234V36H210V6H234V24Z", "#FFFFFF", true);
+        addPath("M144 12H126V30H144V36H120V6H144V12Z", "#FFFFFF", true, "right");
+        addPath("M168 12H156V30H168V12ZM174 36H150V6H174V36Z", "#FFFFFF", true, "right");
+        addPath("M198 12H186V30H198V12ZM204 36H180V6H198V0H204V36Z", "#FFFFFF", true, "right");
+        addPath("M216 12V18H228V12H216ZM234 24H216V30H234V36H210V6H234V24Z", "#FFFFFF", true, "right");
         
         this.getChildren().add(rippleContainer);
+
+        // Appliquer les couleurs initiales basées sur le thème sauvegardé
+        applyInitialColors();
     }
 
-/** Applique la couleur appropriée au thème courant — écart maximum pour visibilité */
+    /** Lit config.json pour déterminer le thème initial et applique les couleurs correspondantes */
+    private void applyInitialColors() {
+        try {
+            String home = System.getProperty("user.home");
+            String configPath = Paths.get(home, ".opencode", "config.json").toString();
+            boolean isDark = true; // défaut = sombre
+            
+            BufferedReader reader = new BufferedReader(new FileReader(configPath));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            reader.close();
+            
+            String json = sb.toString();
+            if (json.contains("\"theme\"")) {
+                int themeIdx = json.indexOf("\"theme\"");
+                int colonIdx = json.indexOf(":", themeIdx);
+                int quoteStart = json.indexOf("\"", colonIdx);
+                int quoteEnd = json.indexOf("\"", quoteStart + 1);
+                String themeValue = json.substring(quoteStart + 1, quoteEnd).trim();
+                isDark = !"Clair".equals(themeValue);
+            }
+            
+            LOGGER.info("WelcomeTitle: thème détecté au démarrage = " + (isDark ? "Sombre" : "Clair"));
+            updateForTheme(isDark);
+        } catch (Exception e) {
+            // Si impossible de lire config.json, utiliser le thème sombre par défaut
+            LOGGER.fine("Impossible de lire config.json pour WelcomeTitle, utilisation du thème sombre par défaut. Erreur: " + e.getMessage());
+            updateForTheme(true);
+        }
+    }
+
+/** Applique les couleurs appropriées au thème courant — chaque section a ses propres couleurs */
     public void updateForTheme(boolean isDark) {
-        // Dark: #3B3634 rgb(59,54,52) vs Top(#656363=rgb 101): écart ~42
-        // Light: #8C8484 rgb(140,132,132) vs Top: écart ~39 → reste plus foncé ✓
-        // Diff dark↔light: ~80-86 unités par canal → TRÈS VISIBLE à l'oeil nu
-        Color bottomColor = isDark ? Color.web("#3B3634") : Color.web("#8C8484");
-        for (Path path : bottomPaths) {
-            path.setFill(bottomColor);
+        if (isDark) {
+            // ===== THÈME SOMBRE =====
+            // Section GAUCHE ("OP") : HAUT or clair / BAS noir chaud
+            for (Path p : leftTopPaths)       p.setFill(Color.web("#F5E6C8"));
+            for (Path p : leftBottomPaths)     p.setFill(Color.web("#3B3634"));
+            
+            // Section DROITE ("CODE") : HAUT or / BAS noir très chaud
+            for (Path p : rightTopPaths)      p.setFill(Color.web("#D4A843"));
+            for (Path p : rightBottomPaths)   p.setFill(Color.web("#2A2220"));
+        } else {
+            // ===== THÈME CLAIR =====
+            // Section GAUCHE ("OP") : HAUT bleu nuit profond / BAS gris moyen
+            for (Path p : leftTopPaths)       p.setFill(Color.web("#2D3638"));
+            for (Path p : leftBottomPaths)     p.setFill(Color.web("#8C8484"));
+            
+            // Section DROITE ("CODE") : HAUT bleu acier profond / BAS bleu-gris
+            for (Path p : rightTopPaths)      p.setFill(Color.web("#1A2836"));
+            for (Path p : rightBottomPaths)   p.setFill(Color.web("#7A8E9E"));
         }
     }
 
@@ -147,18 +207,28 @@ public class WelcomeTitle extends Pane {
         timeline.play();
     }
 
-    /** Crée un chemin de la partie basse (#3B3634) et le stocke explicitement */
-    private void addBottomPath(String d) {
+    /** Crée un chemin de la partie basse et le stocke selon la section */
+    private void addBottomPath(String d, String section) {
         Path path = createPath(d);
         path.setFill(Color.web("#3B3634"));
-        bottomPaths.add(path);
+        if ("left".equals(section)) {
+            leftBottomPaths.add(path);
+        } else if ("right".equals(section)) {
+            rightBottomPaths.add(path);
+        }
         this.getChildren().add(path);
     }
 
-    /** Crée un chemin avec une couleur donnée (pas stocké séparément) */
-    private void addPath(String d, String colorHex, boolean addToClip) {
+    /** Crée un chemin avec une couleur donnée et le mémorise par section */
+    private void addPath(String d, String colorHex, boolean addToClip, String section) {
         Path path = createPath(d);
         path.setFill(Color.web(colorHex));
+        // Mémoriser dans la bonne liste selon la section
+        if ("left".equals(section)) {
+            leftTopPaths.add(path);
+        } else if ("right".equals(section)) {
+            rightTopPaths.add(path);
+        }
         if (addToClip) {
             for (javafx.scene.shape.PathElement elem : path.getElements()) {
                 masterClip.getElements().add(elem);
