@@ -12,11 +12,11 @@ import javafx.scene.control.ContentDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 /**
  * Gestionnaire centralisé du thème visuel de l'application.
- * Gère le swap de CSS et la mise à jour des couleurs inline sur tous les nœuds JavaFX.
  */
 public class ThemeManager {
     private static final Logger LOGGER = Logger.getLogger(ThemeManager.class.getName());
@@ -44,22 +44,7 @@ public class ThemeManager {
         }
     }
 
-    /**
-     * Applique un thème à la scène donnée.
-     */
-    public void applyTheme(Scene scene, String themeName) {
-        if (scene == null || scene.getRoot() == null) return;
-        
-        boolean isDark = !"Clair".equals(themeName);
-        swapStylesheets(scene, isDark);
-        
-        javafx.application.Platform.runLater(() -> 
-            applyThemeColorsRecursive(scene.getRoot(), isDark));
-    }
-
-    /**
-     * Swap les feuilles de styles CSS de la scène.
-     */
+    /** Swap les feuilles de styles CSS de la scène. */
     public void swapStylesheets(Scene scene, boolean isDark) {
         if (scene == null) return;
         
@@ -78,44 +63,67 @@ public class ThemeManager {
         }
     }
 
-    private void applyThemeColorsRecursive(Node node, boolean isDark) {
-        if (node == null) return;
+    /** Applique un thème à la scène donnée. */
+    public void applyTheme(Scene scene, String themeName) {
+        if (scene == null || scene.getRoot() == null) return;
         
-        // 1. Région — fond
+        boolean isDark = !"Clair".equals(themeName);
+        LOGGER.info("=== applyTheme: '" + themeName + "' (isDark=" + isDark + ") ===");
+        swapStylesheets(scene, isDark);
+        
+        javafx.application.Platform.runLater(() -> {
+            AtomicInteger counter = new AtomicInteger(0);
+            AtomicInteger wtCounter = new AtomicInteger(0);
+            traverseAndApply(scene.getRoot(), isDark, counter, wtCounter);
+            LOGGER.info("applyTheme completed: " + counter.get() + " nodes visited, " + wtCounter.get() + " WelcomeTitle found/updated");
+        });
+    }
+
+    private void traverseAndApply(Node node, boolean isDark, AtomicInteger totalNodes, AtomicInteger welcomeCount) {
+        if (node == null) return;
+        totalNodes.incrementAndGet();
+        
+        // Région — fond
         if (node instanceof javafx.scene.layout.Region region) {
             updateRegionBackground(region, isDark);
         }
         
-        // 2. Label — couleur texte
+        // Label — couleur texte
         if (node instanceof Label label) {
             updateLabelTextColor(label, isDark);
         }
         
-        // 3. ComboBox — fond, texte, bordure
+        // ComboBox — fond, texte, bordure
         if (node instanceof ComboBox<?> comboBox) {
             updateComboBoxStyle(comboBox, isDark);
         }
         
-        // 4. Pane personnalisé — rafraîchir les couleurs internes (WelcomeTitle logo)
-        refreshCustomPaneColors(node, isDark);
+        // Pane personnalisé — rafraîchir les couleurs internes
+        if (refreshCustomPaneColors(node, isDark)) {
+            welcomeCount.incrementAndGet();
+            LOGGER.info("WelcomeTitle updated! isDark=" + isDark);
+        }
         
-        // 5. Récursion enfants
+        // Récursion enfants
         for (Node child : getAllChildren(node)) {
-            applyThemeColorsRecursive(child, isDark);
+            traverseAndApply(child, isDark, totalNodes, welcomeCount);
         }
     }
 
-    /** Détecte les panes personnalisés et appelle leur méthode de mise à jour thème */
+    /** Retourne true si un WelcomeTitle a été trouvé et mis à jour */
     @SuppressWarnings("unchecked")
-    private void refreshCustomPaneColors(Node node, boolean isDark) {
-        if (node.getClass().getName().contains("WelcomeTitle")) {
+    private boolean refreshCustomPaneColors(Node node, boolean isDark) {
+        String className = node.getClass().getName();
+        if (className.contains("WelcomeTitle")) {
             try {
                 java.lang.reflect.Method m = node.getClass().getMethod("updateForTheme", boolean.class);
                 m.invoke(node, isDark);
+                return true;
             } catch (Exception e) {
-                LOGGER.warning("Failed to call updateForTheme on " + node.getClass().getName() + ": " + e.getMessage());
+                LOGGER.warning("Failed to call updateForTheme on " + className + ": " + e.getMessage());
             }
         }
+        return false;
     }
 
     private void updateRegionBackground(javafx.scene.layout.Region region, boolean isDark) {
