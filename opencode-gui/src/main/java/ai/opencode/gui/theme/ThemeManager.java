@@ -14,6 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.text.Text;
+import javafx.scene.control.Separator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,9 +89,10 @@ public class ThemeManager {
         if (node == null) return;
         totalNodes.incrementAndGet();
         
-        // Région — fond
+        // Région — fond ET bordure
         if (node instanceof javafx.scene.layout.Region region) {
             updateRegionBackground(region, isDark);
+            updateBorderColor(region, isDark);
         }
         
         // Label — couleur texte
@@ -123,9 +125,14 @@ public class ThemeManager {
             updateButtonTextColor(button, isDark);
         }
         
-        // CheckBox — couleur texte
+       // CheckBox — couleur texte
         if (node instanceof CheckBox checkBox) {
             updateCheckboxTextColor(checkBox, isDark);
+        }
+        
+        // Separator — couleur de la ligne séparatrice
+        if (node instanceof Separator separator) {
+            updateSeparatorColor(separator, isDark);
         }
         
         // Pane personnalisé — rafraîchir les couleurs internes
@@ -162,31 +169,67 @@ public class ThemeManager {
         if (!currentStyle.contains("-fx-background-color")) return;
         
         if (isDark) {
+            // === THÈME SOMBRE ===
             currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#ffffff[^;]*", "-fx-background-color: #1a1a1a");
             currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#f5f5f5[^;]*", "-fx-background-color: #1a1a1a");
             currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#f0f0f0[^;]*", "-fx-background-color: #1a1a1a");
             currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#e8e8e8[^;]*", "-fx-background-color: transparent");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#2d2d2d[^;]*", "-fx-background-color: #2d2d2d");
+            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#[Aa][Bb][Cc][Dd][Ee][Ff][^;]*", "-fx-background-color: #2d2d2d");
+            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#[3-7][0-9a-fA-F]{5,6}[^;]*", "-fx-background-color: #2d2d2d");
         } else {
+            // === THÈME CLAIR — toutes les couleurs sombres → claires ===
             currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#1a1a1a[^;]*", "-fx-background-color: #f0f0f0");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#2d2d2d[^;]*", "-fx-background-color: #2d2d2d");
+            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#2d2d2d[^;]*", "-fx-background-color: #ffffff");
+            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#[3-7][0-9a-fA-F]{5,6}[^;]*", "-fx-background-color: #ffffff");
+            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#cccccc[^;]*", "-fx-background-color: #e8e8e8");
             currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*transparent(?!;)", "-fx-background-color: transparent");
         }
         
         region.setStyle(currentStyle);
     }
 
-    private void updateLabelTextColor(Label label, boolean isDark) {
+    private void updateBorderColor(javafx.scene.layout.Region region, boolean isDark) {
+        String currentStyle = region.getStyle() != null ? region.getStyle() : "";
+        if (!currentStyle.contains("-fx-border-color")) return;
+        
+        if (isDark) {
+            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#[Aa][Bb][Cc][Dd][Ee][Ff][^;]*", "-fx-border-color: #444444");
+            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#cccccc[^;]*", "-fx-border-color: #444444");
+            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#e0e0e0[^;]*", "-fx-border-color: #444444");
+            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*white\\b", "-fx-border-color: #555555");
+        } else {
+            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#[3-7][0-9a-fA-F]{5,6}[^;]*", "-fx-border-color: #cccccc");
+            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#444444[^;]*", "-fx-border-color: #cccccc");
+            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#555555[^;]*", "-fx-border-color: #bbbbbb");
+            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#2d2d2d[^;]*", "-fx-border-color: #cccccc");
+        }
+        
+        region.setStyle(currentStyle);
+    }
+
+private void updateLabelTextColor(Label label, boolean isDark) {
         String style = label.getStyle() != null ? label.getStyle() : "";
         
         if (isDark) {
+            // === THÈME SOMBRE — tous les textes → clair ===
             style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #cccccc");
-            style = style.replaceAll("-fx-text-fill:\\s*white\\b", "-fx-text-fill: #cccccc");
+            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z])", "-fx-text-fill: #cccccc");
             style = style.replaceAll("-fx-text-fill:\\s*#ffffff\\s*", "-fx-text-fill: #cccccc");
+            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+6%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +45%)");
+            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+18%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +70%)");
+            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+60%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +80%)");
+            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+65%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +80%)");
+            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+70%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +90%)");
         } else {
+            // === THÈME CLAIR — tous les textes → foncé ===
             style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #333333");
-            style = style.replaceAll("-fx-text-fill:\\s*black\\b", "-fx-text-fill: #1a1a1a");
-            style = style.replaceAll("-fx-text-fill:\\s*#000000\\s*", "-fx-text-fill: #1a1a1a");
+            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z])", "-fx-text-fill: #1a1a1a");
+            style = style.replaceAll("-fx-text-fill:\\s*#cccccc\\b", "-fx-text-fill: #444444");
+            style = style.replaceAll("-fx-text-fill:\\s*#666666\\b", "-fx-text-fill: #555555");
+            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+6%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +20%)");
+            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+18%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +30%)");
+            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+60%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +70%)");
+            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+65%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +70%)");
         }
         
         label.setStyle(style);
@@ -253,7 +296,7 @@ public class ThemeManager {
         button.setStyle(cs);
     }
 
-    private void updateCheckboxTextColor(CheckBox checkBox, boolean isDark) {
+  private void updateCheckboxTextColor(CheckBox checkBox, boolean isDark) {
         String cs = checkBox.getStyle() != null ? checkBox.getStyle() : "";
         if (isDark) {
             cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: white");
@@ -263,6 +306,24 @@ public class ThemeManager {
             cs = cs.replaceAll("-fx-text-fill:\\s*white\\b", "-fx-text-fill: #1a1a1a");
         }
         checkBox.setStyle(cs);
+    }
+
+    private void updateSeparatorColor(Separator separator, boolean isDark) {
+        String cs = separator.getStyle() != null ? separator.getStyle() : "";
+        
+        // Les séparateurs JavaFX utilisent -fx-background-color pour la ligne
+        if (cs.contains("-fx-background-color")) {
+            if (isDark) {
+                cs = cs.replaceAll("-fx-background-color:\\s*#[Aa][Bb][Cc][Dd][Ee][Ff][^;]*", "-fx-background-color: #444444");
+                cs = cs.replaceAll("-fx-background-color:\\s*#cccccc[^;]*", "-fx-background-color: #444444");
+                cs = cs.replaceAll("-fx-background-color:\\s*e8e8e8[^;]*", "-fx-background-color: #444444");
+            } else {
+                cs = cs.replaceAll("-fx-background-color:\\s*#[3-7][0-9a-fA-F]{5,6}[^;]*", "-fx-background-color: #cccccc");
+                cs = cs.replaceAll("-fx-background-color:\\s*#444444[^;]*", "-fx-background-color: #cccccc");
+                cs = cs.replaceAll("-fx-background-color:\\s*#2d2d2d[^;]*", "-fx-background-color: #dddddd");
+            }
+            separator.setStyle(cs);
+        }
     }
 
     private List<Node> getAllChildren(Node node) {
