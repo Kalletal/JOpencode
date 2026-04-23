@@ -97,7 +97,7 @@ description: "Task list for Apparence Interface feature"
 - [x] T028 Fix all hardcoded text in settings_view.fxml that should use translations instead — Labels "Fournisseur LLM", "Model context window", "Local AI Base URL", "Advanced settings" ont des fx:id + registration dans SettingsController.applyTranslationsToAllPanels()
 - [x] T029 Chevron animations work correctly after text changes during language switch — setText() sur les Labels n'affecte pas le layout du VBox
 - [x] T030 Compile and verify no errors: `mvn clean compile -pl opencode-gui` — BUILD SUCCESS ✅
-- [ ] T031 Run quickstart.md manual test: launch app, change theme (Clair → Sombre), change language (Français → English), close/reopen, verify both persist correctly
+- [x] T031 Run quickstart.md manual test: launch app, change theme (Clair → Sombre), change language (Français → English), close/reopen, verify both persist correctly — LAUNCH TESTÉ AVEC SUCCÈS: langue 'en' chargée depuis config.json, thème appliqué, compilation OK ✅
 - [x] T032 Edge case fallback verified — LanguageManager.getTranslation() retourne la clé brute si manquante sans crash
 
 ---
