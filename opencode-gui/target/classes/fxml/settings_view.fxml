@@ -17,7 +17,7 @@
         </padding>
 
         <!-- Logo OPENCODE -->
-        <Label text="OPENCODE" style="-fx-text-fill: derive(-fx-control-inner-background, +90%); -fx-font-size: 14; -fx-font-weight: bold; -fx-padding: 0 0 10 5;">
+        <Label fx:id="logoLabel" text="OPENCODE" styleClass="opencode-logo" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-padding: 0 0 10 5;">
             <font>
                 <Font name="System Bold" size="14.0"/>
             </font>

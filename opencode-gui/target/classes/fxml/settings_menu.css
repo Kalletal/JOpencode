@@ -1,3 +1,8 @@
+/* Logo OPENCODE — couleur adaptative indépendante des autres règles */
+.opencode-logo {
+    -fx-text-fill: derive(-fx-base, +90%) !important;
+}
+
 /* Textes des items du menu latéral — s'adaptent automatiquement au thème clair/sombre */
 /* !important nécessaire pour override les styles inline du FXML */
 .sidebar-menu Label {

@@ -2,6 +2,7 @@ package ai.opencode.gui.theme;
 
 import javafx.scene.Scene;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -45,8 +46,6 @@ public class ThemeManager {
 
     /**
      * Applique un thème à la scène donnée.
-     * @param scene La scène JavaFX à mettre à jour
-     * @param themeName Le nom du thème ("Clair" ou "Sombre")
      */
     public void applyTheme(Scene scene, String themeName) {
         if (scene == null || scene.getRoot() == null) return;
@@ -60,8 +59,6 @@ public class ThemeManager {
 
     /**
      * Swap les feuilles de styles CSS de la scène.
-     * @param scene La scène dont on change les stylesheets
-     * @param isDark true pour le thème sombre, false pour le thème clair
      */
     public void swapStylesheets(Scene scene, boolean isDark) {
         if (scene == null) return;
@@ -81,10 +78,6 @@ public class ThemeManager {
         }
     }
 
-    /**
-     * Applique récursivement les couleurs d'arrière-plan et de texte sur tous les nœuds JavaFX.
-     * Met à jour les styles inline qui ne sont pas couverts par le swap CSS.
-     */
     private void applyThemeColorsRecursive(Node node, boolean isDark) {
         if (node == null) return;
         
@@ -103,9 +96,25 @@ public class ThemeManager {
             updateComboBoxStyle(comboBox, isDark);
         }
         
-        // 4. Récursion enfants
+        // 4. Pane personnalisé — rafraîchir les couleurs internes (WelcomeTitle logo)
+        refreshCustomPaneColors(node, isDark);
+        
+        // 5. Récursion enfants
         for (Node child : getAllChildren(node)) {
             applyThemeColorsRecursive(child, isDark);
+        }
+    }
+
+    /** Détecte les panes personnalisés et appelle leur méthode de mise à jour thème */
+    @SuppressWarnings("unchecked")
+    private void refreshCustomPaneColors(Node node, boolean isDark) {
+        if (node.getClass().getName().contains("WelcomeTitle")) {
+            try {
+                java.lang.reflect.Method m = node.getClass().getMethod("updateForTheme", boolean.class);
+                m.invoke(node, isDark);
+            } catch (Exception e) {
+                LOGGER.warning("Failed to call updateForTheme on " + node.getClass().getName() + ": " + e.getMessage());
+            }
         }
     }
 
