@@ -1,0 +1,4 @@
+ai/opencode/core/context/ContextManagerTest.class
+ai/opencode/core/integration/SessionIntegrationTest.class
+ai/opencode/core/orchestrator/ReasoningLoopTest.class
+ai/opencode/core/integration/OrchestrationIntegrationTest.class

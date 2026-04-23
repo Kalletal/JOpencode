@@ -148,3 +148,10 @@ La classe CSS `.menu-item-active` applique `-fx-font-weight: bold` via `settings
 - Ensure Java 21 is installed and configured.
 - When adding new tools, they must be registered in `opencode-tools` via `ToolRegistry`.
 - The agent's reasoning loop expects specific output formats for tool calling (`Action:` and `Action Input:`).
+
+## Active Technologies
+- Java 21 + JavaFX (GUI), Maven multi-module (001-appearance-settings)
+- Fichier JSON local via `ConfigManager` (`opencode-storage`) — clé `experimental.theme` et `experimental.language` dans `AppConfig.experimental()` (001-appearance-settings)
+
+## Recent Changes
+- 001-appearance-settings: Added Java 21 + JavaFX (GUI), Maven multi-module

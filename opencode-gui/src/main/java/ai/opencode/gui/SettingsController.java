@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.*;
 import java.util.logging.Logger;
@@ -37,8 +38,6 @@ public class SettingsController {
     @FXML private TextArea systemPromptArea;
     @FXML private ComboBox<String> themeSelector;
     @FXML private ComboBox<String> languageSelector;
-    @FXML private Slider fontSizeSlider;
-    @FXML private Label fontSizeLabel;
 
     @FXML private Node btnLLMPreference;
     @FXML private Node btnVoixParole;
@@ -91,10 +90,9 @@ public class SettingsController {
     public void initialize() {
         LOGGER.info("=== SettingsController initialize() called ===");
         
-      loadLLMSettings();
+    loadLLMSettings();
         setupModelSelectors();
         setupThemeSelector();
-        setupFontSizeSlider();
         setupLanguageSelector();
       showPanel(panelLLMPreference);
         
@@ -170,18 +168,10 @@ public class SettingsController {
             ? (String) configManager.getConfig().experimental().getOrDefault("theme", "Sombre") 
             : "Sombre";
         themeSelector.setValue(savedTheme);
-        applyTheme();
+  applyTheme();
     }
 
-   private void setupFontSizeSlider() {
-        fontSizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (fontSizeLabel != null) {
-                fontSizeLabel.setText(String.valueOf(newVal.intValue()));
-            }
-        });
-    }
-
-    private void setupLanguageSelector() {
+   private void setupLanguageSelector() {
         List<String> languages = Arrays.asList(
             "English",
             "中文（普通话）",
@@ -233,6 +223,7 @@ public class SettingsController {
         
         Map<String, Object> expConfig = new HashMap<>(configManager.getConfig().experimental());
         expConfig.put("theme", theme);
+        expConfig.put("lastModified", Instant.now().toString());
         AppConfig oldConfig = configManager.getConfig();
         AppConfig newConfig = new AppConfig(
             oldConfig.username(),
@@ -321,9 +312,10 @@ public class SettingsController {
     @FXML
     public void applyLanguage() {
         String language = languageSelector.getValue();
-        if (language != null) {
+       if (language != null) {
             Map<String, Object> expConfig = new HashMap<>(configManager.getConfig().experimental());
             expConfig.put("language", language);
+            expConfig.put("lastModified", Instant.now().toString());
             AppConfig oldConfig = configManager.getConfig();
             AppConfig newConfig = new AppConfig(
                 oldConfig.username(),
