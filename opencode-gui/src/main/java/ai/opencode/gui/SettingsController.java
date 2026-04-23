@@ -8,6 +8,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.*;
 import javafx.scene.Node;
@@ -35,6 +36,7 @@ public class SettingsController {
     @FXML private VBox advancedSettingsPanel;
     @FXML private TextArea systemPromptArea;
     @FXML private ComboBox<String> themeSelector;
+    @FXML private ComboBox<String> languageSelector;
     @FXML private Slider fontSizeSlider;
     @FXML private Label fontSizeLabel;
 
@@ -78,19 +80,22 @@ public class SettingsController {
     private String originalStyleDefaultPrompt;
     private String originalStyleInterface;
     private boolean hoveringSubItem = false;
+    private Scene currentScene;
 
-    public SettingsController(ConfigManager configManager) {
+    public SettingsController(ConfigManager configManager, Scene scene) {
         this.configManager = configManager;
+        this.currentScene = scene;
     }
 
    @FXML
     public void initialize() {
         LOGGER.info("=== SettingsController initialize() called ===");
         
-        loadLLMSettings();
+      loadLLMSettings();
         setupModelSelectors();
         setupThemeSelector();
         setupFontSizeSlider();
+        setupLanguageSelector();
       showPanel(panelLLMPreference);
         
         AtomicInteger llmCount = new AtomicInteger(0);
@@ -160,11 +165,15 @@ public class SettingsController {
     }
 
     private void setupThemeSelector() {
-        themeSelector.getItems().addAll("Sombre", "Clair", "Système");
-        themeSelector.setValue("Sombre");
+        themeSelector.getItems().addAll("Sombre", "Clair");
+        String savedTheme = configManager.getConfig().experimental() != null 
+            ? (String) configManager.getConfig().experimental().getOrDefault("theme", "Sombre") 
+            : "Sombre";
+        themeSelector.setValue(savedTheme);
+        applyTheme();
     }
 
-    private void setupFontSizeSlider() {
+   private void setupFontSizeSlider() {
         fontSizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (fontSizeLabel != null) {
                 fontSizeLabel.setText(String.valueOf(newVal.intValue()));
@@ -172,7 +181,162 @@ public class SettingsController {
         });
     }
 
+    private void setupLanguageSelector() {
+        List<String> languages = Arrays.asList(
+            "English",
+            "中文（普通话）",
+            "हिन्दी",
+            "Español",
+            "Français",
+            "العربية",
+            "বাংলা",
+            "Português",
+            "Русский",
+            "اردو"
+        );
+        languageSelector.getItems().addAll(languages);
+        
+        String savedLang = configManager.getConfig().experimental() != null 
+            ? (String) configManager.getConfig().experimental().getOrDefault("language", "Français") 
+            : "Français";
+        if (languages.contains(savedLang)) {
+            languageSelector.setValue(savedLang);
+        } else {
+            languageSelector.setValue("Français");
+        }
+    }
+
     // ===== ACCORDION SIDEBAR =====
+
+    @FXML
+    public void applyTheme() {
+        String theme = themeSelector.getValue();
+        if (currentScene != null) {
+            currentScene.getStylesheets().clear();
+            if ("Clair".equals(theme)) {
+                try {
+                    String lightCssPath = getClass().getResource("/css/style-light.css").toExternalForm();
+                    currentScene.getStylesheets().add(lightCssPath);
+                } catch (Exception e) {
+                    LOGGER.warning("Impossible de charger le thème clair: " + e.getMessage());
+                }
+            } else {
+                try {
+                    String darkCssPath = getClass().getResource("/css/style.css").toExternalForm();
+                    currentScene.getStylesheets().add(darkCssPath);
+                } catch (Exception e) {
+                    LOGGER.warning("Impossible de charger le thème sombre: " + e.getMessage());
+                }
+            }
+            Platform.runLater(() -> applyThemeColors(currentScene.getRoot(), "Sombre".equals(theme)));
+        }
+        
+        Map<String, Object> expConfig = new HashMap<>(configManager.getConfig().experimental());
+        expConfig.put("theme", theme);
+        AppConfig oldConfig = configManager.getConfig();
+        AppConfig newConfig = new AppConfig(
+            oldConfig.username(),
+            oldConfig.defaultAgent(),
+            oldConfig.agents(),
+            oldConfig.apiKeys(),
+            expConfig,
+            oldConfig.thinkingShortcut()
+        );
+        configManager.setConfig(newConfig);
+        LOGGER.info("Thème appliqué immédiatement : " + theme);
+    }
+
+    private void applyThemeColors(javafx.scene.Node node, boolean isDark) {
+        if (node == null) return;
+        
+        if (node instanceof javafx.scene.layout.Region region) {
+            String bg = region.getStyle().contains("-fx-background-color") 
+                ? region.getStyle() : "";
+            if (!bg.contains("#") || bg.matches(".*-fx-background-color:\\s*#[a-fA-F0-9]+.*")) {
+                if (isDark) {
+                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#ffffff[^;]*", "-fx-background-color: #1a1a1a"));
+                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#f5f5f5[^;]*", "-fx-background-color: #1a1a1a"));
+                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#f0f0f0[^;]*", "-fx-background-color: #1a1a1a"));
+                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#e8e8e8[^;]*", "-fx-background-color: transparent"));
+                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#2d2d2d[^;]*", "-fx-background-color: #2d2d2d"));
+                } else {
+                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#1a1a1a[^;]*", "-fx-background-color: #f0f0f0"));
+                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*#2d2d2d[^;]*", "-fx-background-color: #2d2d2d"));
+                    region.setStyle(region.getStyle().replaceAll("-fx-background-color:\\s*transparent(?!;)", "-fx-background-color: transparent"));
+                }
+            }
+        }
+        
+        if (node instanceof javafx.scene.control.Label label) {
+            String style = label.getStyle();
+            if (isDark) {
+                style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #cccccc");
+                style = style.replaceAll("-fx-text-fill:\\s*white", "-fx-text-fill: #cccccc");
+                style = style.replaceAll("-fx-text-fill:\\s*#ffffff", "-fx-text-fill: #cccccc");
+            } else {
+                style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #333333");
+                style = style.replaceAll("-fx-text-fill:\\s*black", "-fx-text-fill: #1a1a1a");
+                style = style.replaceAll("-fx-text-fill:\\s*#000000", "-fx-text-fill: #1a1a1a");
+            }
+            label.setStyle(style);
+        }
+        
+        if (node instanceof javafx.scene.control.ComboBox<?> comboBox) {
+            if (isDark) {
+                String cs = comboBox.getStyle();
+                cs = cs.replaceAll("-fx-background-color:\\s*#[a-fA-F0-9]+", "-fx-background-color: #2d2d2d");
+                cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: white");
+                cs = cs.replaceAll("-fx-border-color:\\s*#[a-fA-F0-9]+", "-fx-border-color: #444444");
+                comboBox.setStyle(cs);
+            } else {
+                String cs = comboBox.getStyle();
+                cs = cs.replaceAll("-fx-background-color:\\s*#[a-fA-F0-9]+", "-fx-background-color: #ffffff");
+                cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: #1a1a1a");
+                cs = cs.replaceAll("-fx-border-color:\\s*#[a-fA-F0-9]+", "-fx-border-color: #cccccc");
+                comboBox.setStyle(cs);
+            }
+        }
+        
+        for (javafx.scene.Node child : getAllChildren(node)) {
+            applyThemeColors(child, isDark);
+        }
+    }
+
+    private java.util.List<javafx.scene.Node> getAllChildren(javafx.scene.Node node) {
+        java.util.List<javafx.scene.Node> children = new java.util.ArrayList<>();
+        if (node instanceof javafx.scene.layout.Pane pane) {
+            for (javafx.scene.Node child : pane.getChildren()) {
+                children.add(child);
+            }
+        } else if (node instanceof javafx.scene.control.Labeled labeled && labeled.getContentDisplay() == javafx.scene.control.ContentDisplay.GRAPHIC_ONLY) {
+            if (labeled.getGraphic() != null) children.add(labeled.getGraphic());
+        } else if (node instanceof javafx.scene.Parent parent) {
+            for (javafx.scene.Node child : parent.getChildrenUnmodifiable()) {
+                children.add(child);
+            }
+        }
+        return children;
+    }
+
+    @FXML
+    public void applyLanguage() {
+        String language = languageSelector.getValue();
+        if (language != null) {
+            Map<String, Object> expConfig = new HashMap<>(configManager.getConfig().experimental());
+            expConfig.put("language", language);
+            AppConfig oldConfig = configManager.getConfig();
+            AppConfig newConfig = new AppConfig(
+                oldConfig.username(),
+                oldConfig.defaultAgent(),
+                oldConfig.agents(),
+                oldConfig.apiKeys(),
+                expConfig,
+                oldConfig.thinkingShortcut()
+            );
+            configManager.setConfig(newConfig);
+            LOGGER.info("Langue appliquée : " + language);
+        }
+    }
 
     @FXML
     public void toggleSectionLLM() {

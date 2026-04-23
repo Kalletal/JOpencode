@@ -639,7 +639,8 @@ public class MainController {
             loader.setControllerFactory(controllerClass -> {
                 try {
                     if (controllerClass == SettingsController.class) {
-                        return new SettingsController(configManager);
+                        javafx.scene.Scene scene = rootPane.getScene();
+                        return new SettingsController(configManager, scene);
                     } else {
                         return controllerClass.getDeclaredConstructor().newInstance();
                     }

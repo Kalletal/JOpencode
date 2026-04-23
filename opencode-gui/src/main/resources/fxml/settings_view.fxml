@@ -346,30 +346,19 @@
                             <Font name="System Bold" size="14.0"/>
                         </font>
                     </Label>
-                    <HBox spacing="20">
-                        <VBox spacing="8" HBox.hgrow="ALWAYS">
-                            <Label text="Thème de l'interface" style="-fx-text-fill: #999999; -fx-font-size: 12;"/>
-                            <ComboBox fx:id="themeSelector" prefHeight="40.0" prefWidth="250.0"
-                                      style="-fx-background-color: #2d2d2d; -fx-text-fill: white; -fx-border-color: #444444; -fx-border-radius: 6; -fx-background-radius: 6;"/>
-                        </VBox>
-                        <VBox spacing="8" HBox.hgrow="ALWAYS">
-                            <Label text="Taille de la police" style="-fx-text-fill: #999999; -fx-font-size: 12;"/>
-                            <HBox spacing="10" alignment="CENTER_LEFT">
-                                <Slider fx:id="fontSizeSlider" min="10" max="24" value="13" prefWidth="200.0"
-                                        style="-fx-accent: #007acc;"/>
-                                <Label fx:id="fontSizeLabel" text="13" style="-fx-text-fill: #cccccc; -fx-font-size: 12;"/>
-                            </HBox>
-                        </VBox>
-                    </HBox>
+                    <VBox spacing="8">
+                        <Label text="Thème de l'interface" style="-fx-text-fill: #999999; -fx-font-size: 12;"/>
+                        <ComboBox fx:id="themeSelector" prefHeight="40.0" prefWidth="250.0"
+                                  style="-fx-background-color: #2d2d2d; -fx-text-fill: white; -fx-border-color: #444444; -fx-border-radius: 6; -fx-background-radius: 6;"
+                                  onAction="#applyTheme"/>
+                    </VBox>
+                    <VBox spacing="8">
+                        <Label text="Langue d'affichage" style="-fx-text-fill: #999999; -fx-font-size: 12;"/>
+                        <ComboBox fx:id="languageSelector" prefHeight="40.0" prefWidth="250.0"
+                                  style="-fx-background-color: #2d2d2d; -fx-text-fill: white; -fx-border-color: #444444; -fx-border-radius: 6; -fx-background-radius: 6;"
+                                  onAction="#applyLanguage"/>
+                    </VBox>
                 </VBox>
-                <HBox alignment="CENTER_RIGHT" spacing="15" VBox.vgrow="ALWAYS">
-                    <Button text="Annuler" prefWidth="120.0" prefHeight="35.0"
-                            style="-fx-background-color: #3d3d3d; -fx-text-fill: #cccccc; -fx-border-color: #555555; -fx-border-radius: 6; -fx-background-radius: 6; -fx-font-size: 13; -fx-cursor: hand;"
-                            onMouseClicked="#cancelSettings"/>
-                    <Button text="Sauvegarder" prefWidth="150.0" prefHeight="35.0"
-                            style="-fx-background-color: #007acc; -fx-text-fill: white; -fx-border-radius: 6; -fx-background-radius: 6; -fx-font-size: 13; -fx-font-weight: bold; -fx-cursor: hand;"
-                            onMouseClicked="#saveSettings"/>
-                </HBox>
             </children>
         </VBox>
 

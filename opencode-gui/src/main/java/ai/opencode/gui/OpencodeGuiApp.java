@@ -60,7 +60,15 @@ public class OpencodeGuiApp extends Application {
 
             // 3. Configuration de la scène et du style
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            
+            String initialTheme = configManager.getConfig().experimental() != null 
+                ? (String) configManager.getConfig().experimental().getOrDefault("theme", "Sombre") 
+                : "Sombre";
+            if ("Clair".equals(initialTheme)) {
+                scene.getStylesheets().add(getClass().getResource("/css/style-light.css").toExternalForm());
+            } else {
+                scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            }
 
             primaryStage.setTitle("opencode - Java Edition");
             primaryStage.setScene(scene);
