@@ -94,13 +94,13 @@ public class WelcomeTitle extends Pane {
 /** Applique la couleur appropriée au thème courant — écart maximum pour visibilité */
     public void updateForTheme(boolean isDark) {
         // Dark: #3B3634 rgb(59,54,52) vs Top(#656363=rgb 101): écart ~42
-        // Light: #5F5858 rgb(95,88,88) vs Top: écart ~6 → reste plus foncé mais PERCEPTIBLE
-        // Diff dark↔light: ~36 unités par canal → nettement visible
-        Color bottomColor = isDark ? Color.web("#3B3634") : Color.web("#5F5858");
+        // Light: #8C8484 rgb(140,132,132) vs Top: écart ~39 → reste plus foncé ✓
+        // Diff dark↔light: ~80-86 unités par canal → TRÈS VISIBLE à l'oeil nu
+        Color bottomColor = isDark ? Color.web("#3B3634") : Color.web("#8C8484");
         for (Path path : bottomPaths) {
             path.setFill(bottomColor);
         }
-  }
+    }
 
     private void loadSounds() {
         try {
