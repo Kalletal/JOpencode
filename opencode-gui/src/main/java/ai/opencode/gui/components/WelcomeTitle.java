@@ -91,9 +91,9 @@ public class WelcomeTitle extends Pane {
         this.getChildren().add(rippleContainer);
     }
 
-    /** Applique la couleur appropriée au thème courant */
+      /** Applique la couleur appropriée au thème courant */
     public void updateForTheme(boolean isDark) {
-        Color bottomColor = isDark ? Color.web("#3B3634") : Color.web("#808080");
+        Color bottomColor = isDark ? Color.web("#3B3634") : Color.web("#645C5C");
         for (Path path : bottomPaths) {
             path.setFill(bottomColor);
         }
