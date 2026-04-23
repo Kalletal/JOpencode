@@ -7,8 +7,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +103,31 @@ public class ThemeManager {
             updateComboBoxStyle(comboBox, isDark);
         }
         
+        // Text — couleur du texte
+        if (node instanceof Text textNode) {
+            updateTextTextColor(textNode, isDark);
+        }
+        
+        // TextField / PasswordField — couleur texte
+        if (node instanceof TextField textField) {
+            updateTextFieldColor(textField, isDark);
+        }
+        
+        // TextArea — couleur texte
+        if (node instanceof TextArea textArea) {
+            updateTextAreaColor(textArea, isDark);
+        }
+        
+        // Button — couleur texte
+        if (node instanceof Button button) {
+            updateButtonTextColor(button, isDark);
+        }
+        
+        // CheckBox — couleur texte
+        if (node instanceof CheckBox checkBox) {
+            updateCheckboxTextColor(checkBox, isDark);
+        }
+        
         // Pane personnalisé — rafraîchir les couleurs internes
         if (refreshCustomPaneColors(node, isDark)) {
             welcomeCount.incrementAndGet();
@@ -177,6 +207,62 @@ public class ThemeManager {
         }
         
         comboBox.setStyle(cs);
+    }
+
+    private void updateTextTextColor(Text textNode, boolean isDark) {
+        if (isDark) {
+            textNode.setFill(Color.WHITE);
+        } else {
+            textNode.setFill(Color.web("#1a1a1a"));
+        }
+    }
+
+    private void updateTextFieldColor(TextField field, boolean isDark) {
+        String cs = field.getStyle() != null ? field.getStyle() : "";
+        if (isDark) {
+            cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: white");
+            cs = cs.replaceAll("-fx-text-fill:\\s*black\\b", "-fx-text-fill: white");
+        } else {
+            cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: #1a1a1a");
+            cs = cs.replaceAll("-fx-text-fill:\\s*white\\b", "-fx-text-fill: #1a1a1a");
+        }
+        field.setStyle(cs);
+    }
+
+    private void updateTextAreaColor(TextArea area, boolean isDark) {
+        String cs = area.getStyle() != null ? area.getStyle() : "";
+        if (isDark) {
+            cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: white");
+            cs = cs.replaceAll("-fx-text-fill:\\s*black\\b", "-fx-text-fill: white");
+        } else {
+            cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: #1a1a1a");
+            cs = cs.replaceAll("-fx-text-fill:\\s*white\\b", "-fx-text-fill: #1a1a1a");
+        }
+        area.setStyle(cs);
+    }
+
+    private void updateButtonTextColor(Button button, boolean isDark) {
+        String cs = button.getStyle() != null ? button.getStyle() : "";
+        if (isDark) {
+            cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: white");
+            cs = cs.replaceAll("-fx-text-fill:\\s*black\\b", "-fx-text-fill: white");
+        } else {
+            cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: #ffffff");
+            cs = cs.replaceAll("-fx-text-fill:\\s*white\\b", "-fx-text-fill: #ffffff");
+        }
+        button.setStyle(cs);
+    }
+
+    private void updateCheckboxTextColor(CheckBox checkBox, boolean isDark) {
+        String cs = checkBox.getStyle() != null ? checkBox.getStyle() : "";
+        if (isDark) {
+            cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: white");
+            cs = cs.replaceAll("-fx-text-fill:\\s*black\\b", "-fx-text-fill: white");
+        } else {
+            cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: #1a1a1a");
+            cs = cs.replaceAll("-fx-text-fill:\\s*white\\b", "-fx-text-fill: #1a1a1a");
+        }
+        checkBox.setStyle(cs);
     }
 
     private List<Node> getAllChildren(Node node) {

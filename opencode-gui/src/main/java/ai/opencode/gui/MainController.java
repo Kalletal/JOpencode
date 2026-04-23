@@ -131,7 +131,7 @@ public class MainController {
 
         Text message = new Text("Veuillez créer un nouveau chat via le bouton '+ New Chat' dans le panneau latéral pour commencer.");
         message.setFont(Font.font("Arial", 13));
-        message.setFill(Color.web("#888"));
+        message.setFill(Color.web("#666666"));
         message.setWrappingWidth(400);
 	VBox.setMargin(message, new javafx.geometry.Insets(-60, 0, 0, 0));
 
