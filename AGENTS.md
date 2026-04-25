@@ -152,6 +152,8 @@ La classe CSS `.menu-item-active` applique `-fx-font-weight: bold` via `settings
 ## Active Technologies
 - Java 21 + JavaFX (GUI), Maven multi-module (001-appearance-settings)
 - Fichier JSON local via `ConfigManager` (`opencode-storage`) — clé `experimental.theme` et `experimental.language` dans `AppConfig.experimental()` (001-appearance-settings)
+- Java 21 + JavaFX 21 (GUI framework), FXML (UI definition), Maven multi-module build (001-appearance-settings)
+- SQLite (via opencode-storage module) — non concerné par cette feature (001-appearance-settings)
 
 ## Recent Changes
 - 001-appearance-settings: Added Java 21 + JavaFX (GUI), Maven multi-module

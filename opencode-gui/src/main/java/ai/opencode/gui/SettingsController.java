@@ -59,6 +59,7 @@ public class SettingsController {
     @FXML private Label btnDefaultPrompt;
     @FXML private Label btnAgentSkills;
     @FXML private Label btnInterface;
+    @FXML private Button backButton;
     @FXML private VBox panelLLMPreference;
     @FXML private VBox panelHistoriqueChats;
     @FXML private VBox panelDefaultPrompt;
@@ -112,8 +113,9 @@ public class SettingsController {
         setupThemeSelector();
         setupLanguageSelector();
        initLanguageManager();
-        applyTranslationsToAllPanels();
-       showPanel(panelLLMPreference);
+     applyTranslationsToAllPanels();
+        showPanel(panelLLMPreference);
+        Platform.runLater(() -> { if (themeSelector.getValue() != null) updateBackButtonColor(themeSelector.getValue()); });
         
         AtomicInteger llmCount = new AtomicInteger(0);
         AtomicInteger adminCount = new AtomicInteger(0);
@@ -224,6 +226,7 @@ public class SettingsController {
         if (currentScene != null) {
             themeManager.applyTheme(currentScene, theme);
         }
+        updateBackButtonColor(theme);
         
         Map<String, Object> expConfig = new HashMap<>(configManager.getConfig().experimental());
         expConfig.put("theme", theme);
@@ -272,13 +275,23 @@ public class SettingsController {
                 expConfig,
                 oldConfig.thinkingShortcut()
             );
-            configManager.setConfig(newConfig);
+           configManager.setConfig(newConfig);
             LOGGER.info("Langue appliquée : " + language);
         }
     }
 
+    private void updateBackButtonColor(String theme) {
+        if (backButton == null) return;
+        boolean isDark = "Sombre".equals(theme);
+        String textColor = isDark ? "#bbbbbb" : "#555555";
+        backButton.setStyle(backButton.getStyle() != null && backButton.getStyle().contains("-fx-text-fill:")
+            ? backButton.getStyle().replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: " + textColor)
+            : "-fx-text-fill: " + textColor + "; -fx-font-size: 22; -fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 6; -fx-cursor: hand;");
+        LOGGER.info("Couleur bouton retour mise à jour : " + textColor);
+    }
+
    /**
-     * Applique les traductions à tous les panneaux du contrôleur des paramètres.
+      * Applique les traductions à tous les panneaux du contrôleur des paramètres.
      * Enregistre d'abord les mappages Label->clé i18n, puis traduit tout le panneau.
      */
     private void applyTranslationsToAllPanels() {

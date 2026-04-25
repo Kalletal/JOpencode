@@ -160,7 +160,7 @@
 
         <!-- Bouton Retour -->
         <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 10 0;">
-            <Button text="←" onAction="#returnToChat" styleClass="settings-toggle-btn">
+            <Button fx:id="backButton" text="←" onAction="#returnToChat" styleClass="settings-toggle-btn settings-back-btn" style="-fx-text-fill: #bbbbbb; -fx-font-size: 22; -fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 6; -fx-cursor: hand;">
                 <tooltip>
                     <Tooltip text="Retour"/>
                 </tooltip>

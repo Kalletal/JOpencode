@@ -106,7 +106,7 @@
 
 .settings-toggle-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: #888;
+    -fx-text-fill: #bbbbbb;
     -fx-font-size: 20;
     -fx-cursor: hand;
     -fx-border-color: transparent;
@@ -119,6 +119,7 @@
 .settings-toggle-btn:hover {
     -fx-border-color: #888888;
     -fx-background-color: #2a2a2a;
+    -fx-text-fill: white;
 }
 
 /* ComboBox hover states pour le thème sombre */

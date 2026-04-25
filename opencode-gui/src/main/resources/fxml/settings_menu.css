@@ -30,8 +30,23 @@
     -fx-background-radius: 6;
 }
 
-/* Header sections hover — coins arrondis */
+   /* Header sections hover — coins arrondis */
 .sidebar-menu > VBox:hover {
     -fx-background-color: derive(-fx-control-inner-background, -25%) !important;
     -fx-background-radius: 6;
+}
+
+/* Bouton retour dans les paramètres — feedback visuel clair au survol */
+.settings-back-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #aaaaaa;
+    -fx-font-size: 22;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-padding: 6;
+}
+
+.settings-back-btn:hover {
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: white;
 }

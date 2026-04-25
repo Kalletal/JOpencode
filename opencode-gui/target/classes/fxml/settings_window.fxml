@@ -14,21 +14,21 @@
     
     <VBox spacing="25" VBox.vgrow="ALWAYS">
         <GridPane vgap="20" hgap="15">
-            <Label text="Clé API OpenAI :" textFill="#cccccc" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-size: 14px;"/>
+            <Label text="Clé API OpenAI :" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
             <PasswordField fx:id="apiKeyField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="400.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5; -fx-padding: 5;"/>
             
-            <Label text="Modèle LLM :" textFill="#cccccc" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size: 14px;"/>
+            <Label text="Modèle LLM :" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
             <ComboBox fx:id="modelComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="400.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5;"/>
             
-            <Label text="Nom d'utilisateur :" textFill="#cccccc" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-size: 14px;"/>
+            <Label text="Nom d'utilisateur :" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
             <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="400.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5; -fx-padding: 5;"/>
             
-            <Label text="Raccourci Thinking :" textFill="#cccccc" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-size: 14px;"/>
+            <Label text="Raccourci Thinking :" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
             <TextField fx:id="thinkingShortcutField" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="400.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5; -fx-padding: 5;"/>
         </GridPane>
 
         <VBox fx:id="localModelContainer" spacing="15" visible="false" managed="false" style="-fx-padding: 0 0 0 10;">
-            <Label text="Sélection du modèle local :" textFill="#cccccc" style="-fx-font-size: 14px;"/>
+            <Label text="Sélection du modèle local :" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <ComboBox fx:id="localModelComboBox" prefWidth="300.0" style="-fx-background-color: #2d2d2d; -fx-text-fill: #ffffff; -fx-border-color: #3f3f3f; -fx-border-radius: 5;"/>
                 <Button text="⚙ Options" onAction="#openLocalOptions" style="-fx-background-color: #3d3d3d; -fx-text-fill: #cccccc; -fx-border-color: #555555; -fx-border-radius: 5; -fx-cursor: hand;"/>
