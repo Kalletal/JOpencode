@@ -401,8 +401,8 @@
             </children>
         </VBox>
 
-            <!-- Spacer hauteur limitée — aligne le bouton ← sur la même ligne Y que ⚙ dans chatView -->
-        <Region VBox.vgrow="ALWAYS" prefHeight="80" maxHeight="130" style="-fx-background-color: transparent;"/>
+             <!-- Spacer hauteur limitée — ajuste position Y du bouton ← pour être aligné avec ⚙ -->
+        <Region VBox.vgrow="ALWAYS" prefHeight="120" maxHeight="187" style="-fx-background-color: transparent;"/>
 
         <!-- Bouton Retour (bas à droite, même hauteur verticale que ⚙) -->
         <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 0 0 15 0;">
