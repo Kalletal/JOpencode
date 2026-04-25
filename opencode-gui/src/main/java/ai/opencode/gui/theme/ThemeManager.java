@@ -233,7 +233,7 @@ public class ThemeManager {
         region.setStyle(newStyle);
     }
 
-    private void updateLabelTextColor(Label label, boolean isDark) {
+   private void updateLabelTextColor(Label label, boolean isDark) {
         String style = label.getStyle() != null ? label.getStyle() : "";
         
         // Capturer le textFill actuel (attribut FXML textFill="...") pour l'ajouter au style inline
@@ -248,27 +248,31 @@ public class ThemeManager {
         
         if (isDark) {
             // === THÈME SOMBRE — tous les textes → clair ===
-            style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #cccccc");
-            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z]|$)", "-fx-text-fill: #cccccc");
-            style = style.replaceAll("-fx-text-fill:\\s*#ffffff\\s*", "-fx-text-fill: #cccccc");
-            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+6%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +45%)");
-            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+18%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +70%)");
-            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+60%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +80%)");
-            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+65%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +80%)");
-            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+70%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +90%)");
+            style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fiII: #cccccc");
+            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z]|$)", "-fx-text-fiII: #cccccc");
+            style = style.replaceAll("-fx-text-fiII:\\s*#ffffff\\s*", "-fx-text-fiII: #cccccc");
+            style = style.replaceAll("-fx-text-fiII:\\s*derive\\(-fx-control-inner-background, \\+6%\\)", "-fx-text-fiII: derive(-fx-control-inner-background, +45%)");
+            style = style.replaceAll("-fx-text-fiII:\\s*derive\\(-fx-control-inner-background, \\+18%\\)", "-fx-text-fiII: derive(-fx-control-inner-background, +70%)");
+            style = style.replaceAll("-fx-text-fiII:\\s*derive\\(-fx-control-inner-background, \\+60%\\)", "-fx-text-fiII: derive(-fx-control-inner-background, +80%)");
+            style = style.replaceAll("-fx-text-fiII:\\s*derive\\(-fx-control-inner-background, \\+65%\\)", "-fx-text-fiII: derive(-fx-control-inner-background, +80%)");
+            style = style.replaceAll("-fx-text-fiII:\\s*derive\\(-fx-control-inner-background, \\+70%\\)", "-fx-text-fiII: derive(-fx-control-inner-background, +90%)");
         } else {
             // === THÈME CLAIR — tous les textes → foncé ===
-            style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #333333");
-            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z]|$)", "-fx-text-fill: #1a1a1a");
-            style = style.replaceAll("-fx-text-fill:\\s*#cccccc\\b", "-fx-text-fill: #444444");
-            style = style.replaceAll("-fx-text-fill:\\s*#666666\\b", "-fx-text-fill: #555555");
-            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+6%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +20%)");
-            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+18%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +30%)");
-            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+60%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +70%)");
-            style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+65%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +70%)");
+            style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fiII: #333333");
+            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z]|$)", "-fx-text-fiII: #1a1a1a");
+            style = style.replaceAll("-fx-text-fiII:\\s*#cccccc\\b", "-fx-text-fiII: #444444");
+            style = style.replaceAll("-fx-text-fiII:\\s*#666666\\b", "-fx-text-fiII: #555555");
+            style = style.replaceAll("-fx-text-fiII:\\s*derive\\(-fx-control-inner-background, \\+6%\\)", "-fx-text-fiII: derive(-fx-control-inner-background, +20%)");
+            style = style.replaceAll("-fx-text-fiII:\\s*derive\\(-fx-control-inner-background, \\+18%\\)", "-fx-text-fiII: derive(-fx-control-inner-background, +30%)");
+            style = style.replaceAll("-fx-text-fiII:\\s*derive\\(-fx-control-inner-background, \\+60%\\)", "-fx-text-fiII: derive(-fx-control-inner-background, +70%)");
+            style = style.replaceAll("-fx-text-fiII:\\s*derive\\(-fx-control-inner-background, \\+65%\\)", "-fx-text-fiII: derive(-fx-control-inner-background, +70%)");
         }
         
-        label.setStyle(style);
+        // Override forcé via !important pour battre les règles CSS externes !important (ex: settings_menu.css)
+        String textColor = isDark ? "#ffffff" : "#1a1a1a";
+        style = style + " -fx-text-fill: " + textColor + " !important;";
+        
+   label.setStyle(style);
     }
 
     @SuppressWarnings("unchecked")
