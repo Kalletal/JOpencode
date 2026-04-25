@@ -284,9 +284,12 @@ public class SettingsController {
         if (backButton == null) return;
         boolean isDark = "Sombre".equals(theme);
         String textColor = isDark ? "#bbbbbb" : "#555555";
-        backButton.setStyle(backButton.getStyle() != null && backButton.getStyle().contains("-fx-text-fill:")
-            ? backButton.getStyle().replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: " + textColor)
-            : "-fx-text-fill: " + textColor + "; -fx-font-size: 22; -fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 6; -fx-cursor: hand;");
+        String currentStyle = backButton.getStyle();
+        if (currentStyle != null && currentStyle.contains("-fx-text-fill:")) {
+            backButton.setStyle(currentStyle.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: " + textColor));
+        } else {
+            backButton.setStyle("-fx-text-fill: " + textColor + ";" + (currentStyle != null ? currentStyle : ""));
+        }
         LOGGER.info("Couleur bouton retour mise à jour : " + textColor);
     }
 

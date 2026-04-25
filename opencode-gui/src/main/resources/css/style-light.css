@@ -70,22 +70,8 @@
     -fx-padding: 3;
 }
 
-.settings-toggle-btn:hover {
+  .settings-toggle-btn:hover {
     -fx-border-color: #999999;
-    -fx-background-color: #d8d8d8;
-    -fx-text-fill: black;
-}
-
-.settings-back-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: #555555;
-    -fx-font-size: 22;
-    -fx-cursor: hand;
-    -fx-border-color: transparent;
-    -fx-padding: 6;
-}
-
-.settings-back-btn:hover {
     -fx-background-color: #d8d8d8;
     -fx-text-fill: black;
 }
