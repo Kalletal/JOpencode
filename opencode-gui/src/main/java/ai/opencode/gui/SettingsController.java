@@ -94,7 +94,8 @@ public class SettingsController {
     private Scene currentScene;
     private ThemeManager themeManager;
     private LanguageManager languageManager;
-    private final MainController mainController;
+   private final MainController mainController;
+    private javafx.scene.shape.Path backArrowPath;
 
     public SettingsController(ConfigManager configManager, Scene scene, MainController mainController) {
         this.configManager = configManager;
@@ -102,13 +103,39 @@ public class SettingsController {
         this.mainController = mainController;
         this.themeManager = new ThemeManager();
         this.languageManager = new LanguageManager();
-    }
+}
 
-  @FXML
-    public void initialize() {
+private void setupBackButtonIcon() {
+    if (backButton == null) return;
+    
+    javafx.scene.shape.Path path = new javafx.scene.shape.Path();
+    path.setFill(javafx.scene.paint.Color.TRANSPARENT);
+    path.setStrokeWidth(2.2);
+    path.setStrokeLineCap(javafx.scene.shape.StrokeLineCap.ROUND);
+    path.setStrokeLineJoin(javafx.scene.shape.StrokeLineJoin.ROUND);
+    
+    // Arc courbe de retour + pointe triangulaire
+    path.getElements().add(new javafx.scene.shape.MoveTo(13, 7));
+    path.getElements().add(new javafx.scene.shape.QuadCurveTo(9, 12, 13, 12));
+    path.getElements().add(new javafx.scene.shape.LineTo(4, 12));
+    path.getElements().add(new javafx.scene.shape.MoveTo(9, 9));
+    path.getElements().add(new javafx.scene.shape.LineTo(4, 12));
+    path.getElements().add(new javafx.scene.shape.LineTo(9, 15));
+    path.getElements().add(new javafx.scene.shape.MoveTo(13, 12));
+    path.getElements().add(new javafx.scene.shape.LineTo(13, 16));
+    path.getElements().add(new javafx.scene.shape.LineTo(13, 8));
+    
+    backArrowPath = path;
+    backButton.setGraphic(path);
+    updateBackButtonColor("Sombre");
+}
+
+@FXML
+public void initialize() {
         LOGGER.info("=== SettingsController initialize() called ===");
         
-    loadLLMSettings();
+    setupBackButtonIcon();
+        loadLLMSettings();
         setupModelSelectors();
         setupThemeSelector();
         setupLanguageSelector();
@@ -281,30 +308,18 @@ public class SettingsController {
     }
 
   private void updateBackButtonColor(String theme) {
-        if (backButton == null) return;
         boolean isDark = "Sombre".equals(theme);
         String strokeColor = isDark ? "#bbbbbb" : "#555555";
-        for (javafx.scene.Node child : backButton.getChildrenUnmodifiable()) {
-            if (child instanceof javafx.scene.shape.Path path) {
-                path.getStrokeDashArray().clear();
-                path.setStyle(path.getStyle() != null && path.getStyle().contains("-fx-stroke:")
-                    ? path.getStyle().replaceAll("-fx-stroke:\\s*#[a-fA-F0-9]+", "-fx-stroke: " + strokeColor)
-                    : "-fx-fill: none; -fx-stroke: " + strokeColor + "; -fx-stroke-width: 2.2; -fx-stroke-line-cap: round; -fx-stroke-line-join: round;");
-                LOGGER.info("Couleur icône bouton retour mise à jour : " + strokeColor);
-            }
+        if (backArrowPath != null) {
+            backArrowPath.setStroke(javafx.scene.paint.Color.web(strokeColor));
+            LOGGER.info("Couleur icône bouton retour mise à jour : " + strokeColor);
         }
     }
 
     @FXML
     public void handleBackHoverEnter() {
-        if (backButton == null) return;
-        for (javafx.scene.Node child : backButton.getChildrenUnmodifiable()) {
-            if (child instanceof javafx.scene.shape.Path path) {
-                String s = path.getStyle();
-                if (s != null) {
-                    path.setStyle(s.replaceAll("-fx-stroke:\\s*#[a-fA-F0-9]+", "-fx-stroke: white"));
-                }
-            }
+        if (backArrowPath != null) {
+            backArrowPath.setStroke(javafx.scene.paint.Color.WHITE);
         }
     }
 
