@@ -106,11 +106,18 @@ public class ThemeManager {
             updateComboBoxStyle(comboBox, isDark);
         }
         
-        // Text — couleur du texte
+     // Text — mise à jour sécurisé avec try/catch + setStyle() au lieu de .setFill() 
+        // Les nœuds Text internes aux Labels ont leur fill lié par CSS cascade, .setFill() lève "bound value"
         if (node instanceof Text textNode) {
-            updateTextTextColor(textNode, isDark);
+            try {
+                updateTextTextColor(textNode, isDark);
+            } catch (RuntimeException ex) {
+                LOGGER.fine("Text node bound to Label parent, skipped: " + ex.getMessage());
+            }
         }
         
+
+     
         // TextField / PasswordField — couleur texte
         if (node instanceof TextField textField) {
             updateTextFieldColor(textField, isDark);
@@ -284,10 +291,12 @@ public class ThemeManager {
     }
 
     private void updateTextTextColor(Text textNode, boolean isDark) {
-        if (isDark) {
-            textNode.setFill(Color.WHITE);
-        } else {
-            textNode.setFill(Color.web("#1a1a1a"));
+        String color = isDark ? "#ffffff" : "#1a1a1a";
+        try {
+            textNode.setStyle("-fx-text-fill: " + color + ";");
+        } catch (RuntimeException ex) {
+            // Fallback: essayer setFill si setStyle échoue
+            textNode.setFill(isDark ? Color.WHITE : Color.web("#1a1a1a"));
         }
     }
 
