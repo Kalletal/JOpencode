@@ -401,7 +401,10 @@
             </children>
         </VBox>
 
-       <!-- Bouton Retour (bas à droite — dernier enfant du VBox) -->
+      <!-- Spacer pousse le bouton en bas -->
+        <Region VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;"/>
+
+        <!-- Bouton Retour (bas à droite) -->
         <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 0 0 15 0;">
             <Button fx:id="backButton" text="←" onAction="#returnToChat" styleClass="settings-toggle-btn">
                 <tooltip>
