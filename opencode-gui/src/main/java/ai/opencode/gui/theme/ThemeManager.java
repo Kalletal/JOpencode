@@ -10,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ContentDisplay;
@@ -114,6 +115,9 @@ public class ThemeManager {
         if (node instanceof TextField textField) {
             updateTextFieldColor(textField, isDark);
         }
+        if (node instanceof PasswordField passwordField) {
+            updateTextFieldColor(passwordField, isDark);
+        }
         
         // TextArea — couleur texte
         if (node instanceof TextArea textArea) {
@@ -164,56 +168,81 @@ public class ThemeManager {
         return false;
     }
 
-    private void updateRegionBackground(javafx.scene.layout.Region region, boolean isDark) {
+   private void updateRegionBackground(javafx.scene.layout.Region region, boolean isDark) {
         String currentStyle = region.getStyle() != null ? region.getStyle() : "";
         if (!currentStyle.contains("-fx-background-color")) return;
         
+      // Déterminer la nouvelle couleur de fond en fonction du thème
+        Color newBgColor;
         if (isDark) {
-            // === THÈME SOMBRE ===
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#ffffff[^;]*", "-fx-background-color: #1a1a1a");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#f5f5f5[^;]*", "-fx-background-color: #1a1a1a");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#f0f0f0[^;]*", "-fx-background-color: #1a1a1a");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#e8e8e8[^;]*", "-fx-background-color: transparent");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#[Aa][Bb][Cc][Dd][Ee][Ff][^;]*", "-fx-background-color: #2d2d2d");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#[3-7][0-9a-fA-F]{5,6}[^;]*", "-fx-background-color: #2d2d2d");
+            if (currentStyle.contains("#ffffff") || currentStyle.contains("#f5f5f5") || 
+                currentStyle.contains("#f0f0f0") || currentStyle.contains("transparent")) {
+                newBgColor = Color.web("#1a1a1a");
+            } else if (currentStyle.matches("(?i).*#[3-7][0-9a-fA-F]{5,6}.*") ||
+                       currentStyle.contains("#2d2d2d")) {
+                newBgColor = Color.web("#2d2d2d");
+            } else {
+                LOGGER.fine("updateRegionBackground: no dark color to convert for " + region.getClass().getSimpleName());
+                return;
+            }
         } else {
-            // === THÈME CLAIR — toutes les couleurs sombres → claires ===
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#1a1a1a[^;]*", "-fx-background-color: #f0f0f0");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#2d2d2d[^;]*", "-fx-background-color: #ffffff");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#[3-7][0-9a-fA-F]{5,6}[^;]*", "-fx-background-color: #ffffff");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*#cccccc[^;]*", "-fx-background-color: #e8e8e8");
-            currentStyle = currentStyle.replaceAll("-fx-background-color:\\s*transparent(?!;)", "-fx-background-color: transparent");
+            if (currentStyle.contains("#1a1a1a") || currentStyle.contains("#2d2d2d") ||
+                currentStyle.contains("#3c3c3c") || currentStyle.contains("#444444")) {
+                newBgColor = Color.WHITE;
+            } else if (currentStyle.contains("#cccccc") || currentStyle.contains("#e8e8e8")) {
+                newBgColor = Color.web("#e8e8e8");
+            } else {
+                LOGGER.fine("updateRegionBackground: no dark color to convert for " + region.getClass().getSimpleName());
+                return;
+            }
         }
         
-        region.setStyle(currentStyle);
+        region.setBackground(new javafx.scene.layout.Background(
+            new javafx.scene.layout.BackgroundFill(newBgColor, 
+                javafx.scene.layout.CornerRadii.EMPTY, 
+                javafx.geometry.Insets.EMPTY)));
+        // Forcer la mise à jour visuelle IMMÉDIATE
+        region.applyCss();
     }
 
-    private void updateBorderColor(javafx.scene.layout.Region region, boolean isDark) {
-        String currentStyle = region.getStyle() != null ? region.getStyle() : "";
-        if (!currentStyle.contains("-fx-border-color")) return;
+   private void updateBorderColor(javafx.scene.layout.Region region, boolean isDark) {
+        String cs = region.getStyle() != null ? region.getStyle() : "";
+        if (!cs.contains("-fx-border-color")) return;
         
-        if (isDark) {
-            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#[Aa][Bb][Cc][Dd][Ee][Ff][^;]*", "-fx-border-color: #444444");
-            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#cccccc[^;]*", "-fx-border-color: #444444");
-            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#e0e0e0[^;]*", "-fx-border-color: #444444");
-            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*white\\b", "-fx-border-color: #555555");
+        Color bc;
+        if (isDark && (cs.contains("white") || cs.contains("#444444") || cs.contains("#555555") || cs.contains("#cccccc"))) {
+            bc = Color.web("#444444");
+        } else if (!isDark && (cs.contains("#2d2d2d") || cs.contains("#3c3c3c") || cs.contains("#444444") || cs.contains("#555555"))) {
+            bc = Color.web("#cccccc");
         } else {
-            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#[3-7][0-9a-fA-F]{5,6}[^;]*", "-fx-border-color: #cccccc");
-            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#444444[^;]*", "-fx-border-color: #cccccc");
-            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#555555[^;]*", "-fx-border-color: #bbbbbb");
-            currentStyle = currentStyle.replaceAll("-fx-border-color:\\s*#2d2d2d[^;]*", "-fx-border-color: #cccccc");
+            return;
         }
         
-        region.setStyle(currentStyle);
+        // Utiliser setStyle pour les bordures — plus simple et fiable que Border API
+        String newStyle = cs.replaceAll("-fx-border-color:\\s*#[a-fA-F0-9]+", "-fx-border-color: " + 
+                (isDark ? "#444444" : "#cccccc"));
+        newStyle = newStyle.replaceAll("-fx-border-color:\\s*white\\b", "-fx-border-color: " + 
+                (isDark ? "#555555" : "#bbbbbb"));
+        region.setStyle(newStyle);
     }
 
-private void updateLabelTextColor(Label label, boolean isDark) {
+    private void updateLabelTextColor(Label label, boolean isDark) {
         String style = label.getStyle() != null ? label.getStyle() : "";
+        
+        // Capturer le textFill actuel (attribut FXML textFill="...") pour l'ajouter au style inline
+        javafx.scene.paint.Paint currentTextFill = label.getTextFill();
+        if (currentTextFill instanceof Color colorFill && !style.contains("-fx-text-fill")) {
+            String hex = String.format("%06x", 
+                (int)(colorFill.getRed() * 255),
+                (int)(colorFill.getGreen() * 255),
+                (int)(colorFill.getBlue() * 255));
+            style = "-fx-text-fill: #" + hex + "; " + style;
+        }
         
         if (isDark) {
             // === THÈME SOMBRE — tous les textes → clair ===
             style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #cccccc");
-            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z])", "-fx-text-fill: #cccccc");
+            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z]|$)", "-fx-text-fill: #cccccc");
             style = style.replaceAll("-fx-text-fill:\\s*#ffffff\\s*", "-fx-text-fill: #cccccc");
             style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+6%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +45%)");
             style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+18%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +70%)");
@@ -223,7 +252,7 @@ private void updateLabelTextColor(Label label, boolean isDark) {
         } else {
             // === THÈME CLAIR — tous les textes → foncé ===
             style = style.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]{6}", "-fx-text-fill: #333333");
-            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z])", "-fx-text-fill: #1a1a1a");
+            style = style.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z]|$)", "-fx-text-fill: #1a1a1a");
             style = style.replaceAll("-fx-text-fill:\\s*#cccccc\\b", "-fx-text-fill: #444444");
             style = style.replaceAll("-fx-text-fill:\\s*#666666\\b", "-fx-text-fill: #555555");
             style = style.replaceAll("-fx-text-fill:\\s*derive\\(-fx-control-inner-background, \\+6%\\)", "-fx-text-fill: derive(-fx-control-inner-background, +20%)");
@@ -242,10 +271,12 @@ private void updateLabelTextColor(Label label, boolean isDark) {
         if (isDark) {
             cs = cs.replaceAll("-fx-background-color:\\s*#[a-fA-F0-9]+", "-fx-background-color: #2d2d2d");
             cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: white");
+            cs = cs.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z]|$)", "-fx-text-fill: white");
             cs = cs.replaceAll("-fx-border-color:\\s*#[a-fA-F0-9]+", "-fx-border-color: #444444");
         } else {
             cs = cs.replaceAll("-fx-background-color:\\s*#[a-fA-F0-9]+", "-fx-background-color: #ffffff");
             cs = cs.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: #1a1a1a");
+            cs = cs.replaceAll("-fx-text-fill:\\s*white(?=[^;]*[^a-z]|$)", "-fx-text-fill: #1a1a1a");
             cs = cs.replaceAll("-fx-border-color:\\s*#[a-fA-F0-9]+", "-fx-border-color: #cccccc");
         }
         

@@ -26,12 +26,12 @@
     -fx-background-radius: 6;
 }
 .submenu-row:hover {
-    -fx-background-color: derive(-fx-control-inner-background, -15%) !important;
+    -fx-background-color: derive(-fx-control-inner-background, -25%) !important;
     -fx-background-radius: 6;
 }
 
 /* Header sections hover — coins arrondis */
 .sidebar-menu > VBox:hover {
-    -fx-background-color: derive(-fx-control-inner-background, -15%) !important;
+    -fx-background-color: derive(-fx-control-inner-background, -25%) !important;
     -fx-background-radius: 6;
 }
