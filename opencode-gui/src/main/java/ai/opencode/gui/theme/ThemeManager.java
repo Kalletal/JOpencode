@@ -175,40 +175,59 @@ public class ThemeManager {
         return false;
     }
 
-   private void updateRegionBackground(javafx.scene.layout.Region region, boolean isDark) {
+  private void updateRegionBackground(javafx.scene.layout.Region region, boolean isDark) {
         String currentStyle = region.getStyle() != null ? region.getStyle() : "";
         if (!currentStyle.contains("-fx-background-color")) return;
         
-      // Déterminer la nouvelle couleur de fond en fonction du thème
+        // Extraire la couleur actuelle du background via regex pour supporter tous les formats hexadécimaux (#RGB, #RRGGBB, #AARRGGBB)
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("(?i)-fx-background-color\\s*:\\s*(#[0-9a-f]{3,8})").matcher(currentStyle);
+        String foundHex = null;
+        while (m.find()) {
+            foundHex = m.group(1);
+            break;
+        }
+        
+        if (foundHex == null) return;
+        
+        Color parsed;
+        try {
+            parsed = Color.web(foundHex);
+        } catch (Exception e) {
+            LOGGER.fine("updateRegionBackground: cannot parse color " + foundHex + " for " + region.getClass().getSimpleName());
+            return;
+        }
+        
+        double luminance = parsed.getRed() * 0.299 + parsed.getGreen() * 0.587 + parsed.getBlue() * 0.114;
         Color newBgColor;
+        
         if (isDark) {
-            if (currentStyle.contains("#ffffff") || currentStyle.contains("#f5f5f5") || 
-                currentStyle.contains("#f0f0f0") || currentStyle.contains("transparent")) {
+            // Si la couleur est claire (luminance > 50%), on la rend sombre
+            if (luminance > 128) {
                 newBgColor = Color.web("#1a1a1a");
-            } else if (currentStyle.matches("(?i).*#[3-7][0-9a-fA-F]{5,6}.*") ||
-                       currentStyle.contains("#2d2d2d")) {
+            } else if (luminance < 60 && parsed.getOpacity() == 1.0) {
+                // Déjà sombre et opaque → convertir en #2d2d2d
                 newBgColor = Color.web("#2d2d2d");
             } else {
-                LOGGER.fine("updateRegionBackground: no dark color to convert for " + region.getClass().getSimpleName());
-                return;
+                newBgColor = Color.web("#2d2d2d");
             }
         } else {
-            if (currentStyle.contains("#1a1a1a") || currentStyle.contains("#2d2d2d") ||
-                currentStyle.contains("#3c3c3c") || currentStyle.contains("#444444")) {
+            // === THÈME CLAIR : toutes les couleurs sombres → blanc ou gris clair ===
+            if (luminance < 128) {
                 newBgColor = Color.WHITE;
-            } else if (currentStyle.contains("#cccccc") || currentStyle.contains("#e8e8e8")) {
+            } else if (luminance >= 128 && luminance < 200) {
                 newBgColor = Color.web("#e8e8e8");
             } else {
-                LOGGER.fine("updateRegionBackground: no dark color to convert for " + region.getClass().getSimpleName());
-                return;
+                newBgColor = Color.WHITE;
             }
         }
         
-        region.setBackground(new javafx.scene.layout.Background(
-            new javafx.scene.layout.BackgroundFill(newBgColor, 
-                javafx.scene.layout.CornerRadii.EMPTY, 
-                javafx.geometry.Insets.EMPTY)));
-        // Forcer la mise à jour visuelle IMMÉDIATE
+        // Mettre à jour le style inline via setStyle au lieu de setBackground() pour préserver les autres propriétés CSS
+        String updatedStyle = currentStyle.replaceAll("(?i)-fx-background-color\\s*:\\s*(#[0-9a-f]{3,8})", 
+                                                      "-fx-background-color: " + String.format("#%02x%02x%02x", 
+                                                        (int)(newBgColor.getRed()*255),
+                                                        (int)(newBgColor.getGreen()*255),
+                                                        (int)(newBgColor.getBlue()*255)));
+        region.setStyle(updatedStyle);
         region.applyCss();
     }
 
