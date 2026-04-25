@@ -280,17 +280,32 @@ public class SettingsController {
         }
     }
 
-    private void updateBackButtonColor(String theme) {
+   private void updateBackButtonColor(String theme) {
         if (backButton == null) return;
         boolean isDark = "Sombre".equals(theme);
-        String textColor = isDark ? "#bbbbbb" : "#555555";
-        String currentStyle = backButton.getStyle();
-        if (currentStyle != null && currentStyle.contains("-fx-text-fill:")) {
-            backButton.setStyle(currentStyle.replaceAll("-fx-text-fill:\\s*#[a-fA-F0-9]+", "-fx-text-fill: " + textColor));
-        } else {
-            backButton.setStyle("-fx-text-fill: " + textColor + ";" + (currentStyle != null ? currentStyle : ""));
+        String strokeColor = isDark ? "#bbbbbb" : "#555555";
+        for (javafx.scene.Node child : backButton.getChildrenUnmodifiable()) {
+            if (child instanceof javafx.scene.shape.Path path) {
+                path.setStroke(javafx.scene.paint.Color.web(strokeColor));
+      LOGGER.info("Couleur icône bouton retour mise à jour : " + strokeColor);
+            }
         }
-        LOGGER.info("Couleur bouton retour mise à jour : " + textColor);
+    }
+
+    @FXML
+    public void handleBackHoverEnter() {
+        if (backButton == null) return;
+        for (javafx.scene.Node child : backButton.getChildrenUnmodifiable()) {
+            if (child instanceof javafx.scene.shape.Path path) {
+                path.setStroke(javafx.scene.paint.Color.WHITE);
+            }
+        }
+    }
+
+    @FXML
+    public void handleBackHoverExit() {
+        String theme = themeSelector.getValue();
+        updateBackButtonColor(theme != null ? theme : "Sombre");
     }
 
    /**
