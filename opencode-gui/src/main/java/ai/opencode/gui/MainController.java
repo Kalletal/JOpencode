@@ -713,7 +713,7 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
                 try {
                     if (controllerClass == SettingsController.class) {
                         javafx.scene.Scene scene = rootPane.getScene();
-                        return new SettingsController(configManager, scene);
+                        return new SettingsController(configManager, scene, MainController.this);
                     } else {
                         return controllerClass.getDeclaredConstructor().newInstance();
                     }

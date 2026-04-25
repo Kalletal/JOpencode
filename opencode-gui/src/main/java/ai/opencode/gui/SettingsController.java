@@ -93,10 +93,12 @@ public class SettingsController {
     private Scene currentScene;
     private ThemeManager themeManager;
     private LanguageManager languageManager;
+    private final MainController mainController;
 
-    public SettingsController(ConfigManager configManager, Scene scene) {
+    public SettingsController(ConfigManager configManager, Scene scene, MainController mainController) {
         this.configManager = configManager;
         this.currentScene = scene;
+        this.mainController = mainController;
         this.themeManager = new ThemeManager();
         this.languageManager = new LanguageManager();
     }
@@ -594,6 +596,14 @@ private void highlightMenuItem(Node activeButton) {
     @FXML
     public void openLicense() {
         LOGGER.info("Ouverture de la licence...");
+    }
+
+    @FXML
+    public void returnToChat() {
+        LOGGER.info("Retour vers chat depuis settings");
+        if (mainController != null) {
+            mainController.toggleSettings();
+        }
     }
 
     // ===== UTILITY =====

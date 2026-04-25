@@ -158,6 +158,16 @@
     <!-- ==================== ZONE DE CONTENU PRINCIPALE ==================== -->
     <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: #1a1a1a; -fx-padding: 18 18 18 18;">
 
+        <!-- Bouton Retour -->
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 10 0;">
+            <Button text="←" onAction="#returnToChat" styleClass="settings-toggle-btn">
+                <tooltip>
+                    <Tooltip text="Retour"/>
+                </tooltip>
+            </Button>
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+
         <!-- ===== Panneau: Préférence LLM ===== -->
         <VBox fx:id="panelLLMPreference" spacing="20" style="-fx-padding: 10 0 0 0;" visible="true">
             <children>
