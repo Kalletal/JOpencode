@@ -108,33 +108,8 @@ public class SettingsController {
 private void setupBackButtonIcon() {
         if (backButton == null) return;
         
-        // Créer le Path avec coordonnées dans un référentiel 24x24
-        javafx.scene.shape.Path path = new javafx.scene.shape.Path();
-        path.setFill(javafx.scene.paint.Color.TRANSPARENT);
-        path.setStrokeWidth(2.0);
-        path.setStrokeLineCap(javafx.scene.shape.StrokeLineCap.ROUND);
-        path.setStrokeLineJoin(javafx.scene.shape.StrokeLineJoin.ROUND);
-        
-        // Arc courbe de retour + pointe triangulaire — canvas 24x24
-        path.getElements().add(new javafx.scene.shape.MoveTo(16, 8));
-        path.getElements().add(new javafx.scene.shape.QuadCurveTo(11, 13, 16, 13));
-        path.getElements().add(new javafx.scene.shape.LineTo(4, 13));
-        path.getElements().add(new javafx.scene.shape.MoveTo(11, 9));
-        path.getElements().add(new javafx.scene.shape.LineTo(4, 13));
-        path.getElements().add(new javafx.scene.shape.LineTo(11, 17));
-        path.getElements().add(new javafx.scene.shape.MoveTo(16, 13));
-        path.getElements().add(new javafx.scene.shape.LineTo(16, 22));
-        path.getElements().add(new javafx.scene.shape.LineTo(16, 4));
-        
-        // Envelopper dans un StackPane pour contraindre les dimensions du graphic
-        javafx.scene.layout.StackPane graphic = new javafx.scene.layout.StackPane();
-        graphic.getChildren().add(path);
-        graphic.setPrefSize(32, 32);
-        graphic.setMinSize(32, 32);
-        graphic.setMaxSize(32, 32);
-        
-        backArrowPath = path;
-        backButton.setGraphic(graphic);
+        // Utiliser le texte "←" comme dans le bouton Settings (⚙)
+        backButton.setText("←");
         updateBackButtonColor("Sombre");
     }
 
