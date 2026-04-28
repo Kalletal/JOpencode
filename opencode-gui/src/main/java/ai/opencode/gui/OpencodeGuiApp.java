@@ -87,7 +87,7 @@ public class OpencodeGuiApp extends Application {
                 scene.setNodeOrientation(javafx.geometry.NodeOrientation.RIGHT_TO_LEFT);
             }
 
-            primaryStage.setTitle("opencode - Java Edition");
+            primaryStage.setTitle(langMgr.getTranslation("app.name"));
             primaryStage.setScene(scene);
             primaryStage.show();
 

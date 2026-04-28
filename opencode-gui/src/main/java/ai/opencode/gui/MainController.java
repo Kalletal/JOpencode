@@ -322,6 +322,13 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
         } catch (Exception e) {
             LOGGER.warning("Erreur lors du rafraîchissement des labels : " + e.getMessage());
         }
+        
+        // Rafraîchir les serveurs MCP/LSP
+        updateServers();
+        
+        // Rafraîchir le message d'accueil
+        setupWelcomeLabel();
+        
     }
 
     /**
