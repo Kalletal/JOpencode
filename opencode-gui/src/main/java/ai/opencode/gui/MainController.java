@@ -699,6 +699,8 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
                         r.setManaged(true);
                     }
                 }
+                chatView.applyCss();
+                chatView.requestLayout();
             }
             settingsToggleButton.setText("⚙");
             updateInputAvailability();
