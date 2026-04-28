@@ -63,6 +63,10 @@ public class MainController {
     private AgentOrchestrator orchestrator;
     private LanguageManager mainLanguageManager;
 
+    public LanguageManager getMainLanguageManager() {
+        return mainLanguageManager;
+    }
+
     @FXML
     public void initialize() {
         if (welcomeLabel != null) {
@@ -132,7 +136,15 @@ public class MainController {
         titleBox.setAlignment(Pos.CENTER);
 	titleBox.setTranslateY(-80);
 
-        Text message = new Text("Veuillez créer un nouveau chat via le bouton '+ New Chat' dans le panneau latéral pour commencer.");
+        String welcomeText = "Veuillez créer un nouveau chat via le bouton '+ New Chat' dans le panneau latéral pour commencer.";
+        if (mainLanguageManager != null && mainLanguageManager.getResourceBundle() != null) {
+            try {
+                welcomeText = mainLanguageManager.getResourceBundle().getString("welcome.message");
+            } catch (Exception e) {
+                // Fallback to hardcoded text
+            }
+        }
+        Text message = new Text(welcomeText);
         message.setFont(Font.font("Arial", 13));
         message.setFill(Color.web("#666666"));
         message.setWrappingWidth(400);
@@ -312,6 +324,31 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
         }
     }
 
+    /**
+     * Applique une nouvelle langue et rafraîchit tous les labels.
+     * Appelée par SettingsController après un changement de langue.
+     */
+    public synchronized void setLanguage(LanguageManager languageManager) {
+        this.mainLanguageManager = languageManager;
+        
+        // Appliquer RTL si nécessaire sur le root pane
+        if (languageManager.isRTL() && rootPane != null) {
+            Platform.runLater(() -> {
+                if (rootPane.getScene() != null) {
+                    rootPane.getScene().setNodeOrientation(javafx.geometry.NodeOrientation.RIGHT_TO_LEFT);
+                }
+            });
+        } else if (rootPane != null) {
+            Platform.runLater(() -> {
+                if (rootPane.getScene() != null) {
+                    rootPane.getScene().setNodeOrientation(javafx.geometry.NodeOrientation.LEFT_TO_RIGHT);
+                }
+            });
+        }
+        
+        refreshAllLabels();
+    }
+
     private boolean isThinkingShortcutPressed(KeyEvent event) {
         if (configManager == null) return event.isControlDown() && event.getCode() == KeyCode.T;
         
@@ -356,15 +393,26 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
     }
 
     public void updateServers() {
+        String noneMcp = "Aucun serveur MCP";
+        String noneLsp = "Aucun serveur LSP";
+        if (mainLanguageManager != null && mainLanguageManager.getResourceBundle() != null) {
+            try {
+                ResourceBundle bundle = mainLanguageManager.getResourceBundle();
+                noneMcp = bundle.getString("server.none_mcp");
+                noneLsp = bundle.getString("server.none_lsp");
+            } catch (Exception e) {
+                // Fallback to hardcoded text
+            }
+        }
         if (mcpServersList != null) {
             mcpServersList.getChildren().clear();
-            Label l = new Label("Aucun serveur MCP");
+            Label l = new Label(noneMcp);
             l.setStyle("-fx-text-fill: #666; -fx-font-size: 11;");
             mcpServersList.getChildren().add(l);
         }
         if (lspServersList != null) {
             lspServersList.getChildren().clear();
-            Label l = new Label("Aucun serveur LSP");
+            Label l = new Label(noneLsp);
             l.setStyle("-fx-text-fill: #666; -fx-font-size: 11;");
             lspServersList.getChildren().add(l);
         }
@@ -490,7 +538,15 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
     @FXML
     public void startNewSession() {
         if (orchestrator == null) return;
-        orchestrator.createNewSession("Nouvelle Session");
+        String newSessionText = "Nouvelle Session";
+        if (mainLanguageManager != null && mainLanguageManager.getResourceBundle() != null) {
+            try {
+                newSessionText = mainLanguageManager.getResourceBundle().getString("session.new_session");
+            } catch (Exception e) {
+                // Fallback to hardcoded text
+            }
+        }
+        orchestrator.createNewSession(newSessionText);
         chatMessages.getChildren().clear();
         updateProjectName(orchestrator.getSessionTitle());
         updateSessionHistory();

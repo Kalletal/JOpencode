@@ -273,6 +273,11 @@ public void initialize() {
             // Rafraîchir tous les Labels traduisibles dans le panneau des paramètres
             applyTranslationsToAllPanels();
 
+            // Propager la langue au MainController pour traduire l'interface de discussion
+            if (mainController != null && mainController.getMainLanguageManager() != null) {
+                mainController.setLanguage(languageManager);
+            }
+
             Map<String, Object> expConfig = new HashMap<>(configManager.getConfig().experimental());
             expConfig.put("language", language);
             expConfig.put("lastModified", Instant.now().toString());
