@@ -32,6 +32,7 @@ public class MainController {
 
     @FXML private VBox chatMessages;
     @FXML private VBox chatView;
+    @FXML private VBox inputArea;
     @FXML private ScrollPane chatScrollPane;
     @FXML private TextArea userInput;
     @FXML private Label agentLabel;
@@ -689,8 +690,16 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
         } else {
             settingsViewContainer.setVisible(false);
             settingsViewContainer.setManaged(false);
-            chatView.setVisible(true);
-            chatView.setManaged(true);
+            if (chatView != null) {
+                chatView.setVisible(true);
+                chatView.setManaged(true);
+                for (var child : chatView.getChildrenUnmodifiable()) {
+                    if (child instanceof Region r) {
+                        r.setVisible(true);
+                        r.setManaged(true);
+                    }
+                }
+            }
             settingsToggleButton.setText("⚙");
             updateInputAvailability();
             LOGGER.info("Chat view restored");
