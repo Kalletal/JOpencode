@@ -214,6 +214,13 @@ public void initialize() {
         } else {
             languageSelector.setValue("Français");
         }
+        
+        // ChangeListener pour déclencher applyLanguage immédiatement au clic
+        languageSelector.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null && !newVal.equals(oldVal)) {
+                Platform.runLater(() -> applyLanguage());
+            }
+        });
     }
 
     private void initLanguageManager() {

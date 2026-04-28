@@ -333,9 +333,8 @@
                     </VBox>
                     <VBox spacing="8">
                         <Label text="Langue d'affichage" style="-fx-text-fill: derive(-fx-control-inner-background, +18%); -fx-font-size: 12;"/>
-                        <ComboBox fx:id="languageSelector" prefHeight="40.0" prefWidth="250.0"
-                                  style="-fx-background-color: #2d2d2d; -fx-text-fill: white; -fx-border-color: #444444; -fx-border-radius: 6; -fx-background-radius: 6;"
-                                  onAction="#applyLanguage"/>
+                       <ComboBox fx:id="languageSelector" prefHeight="40.0" prefWidth="250.0"
+                                  style="-fx-background-color: #2d2d3d; -fx-text-fill: white; -fx-border-color: #444444; -fx-border-radius: 6; -fx-background-radius: 6;"/>
                     </VBox>
                 </VBox>
             </children>

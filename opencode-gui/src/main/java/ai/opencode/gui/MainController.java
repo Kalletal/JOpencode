@@ -353,7 +353,11 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
             });
         }
         
-        refreshAllLabels();
+        Platform.runLater(() -> {
+            if (mainLanguageManager != null && mainLanguageManager.getResourceBundle() != null) {
+                refreshAllLabels();
+            }
+        });
     }
 
     private boolean isThinkingShortcutPressed(KeyEvent event) {
