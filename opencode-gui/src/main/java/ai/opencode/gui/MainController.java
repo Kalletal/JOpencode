@@ -51,6 +51,8 @@ public class MainController {
     @FXML private HBox settingsButtonLayer;
     @FXML private BorderPane rootPane;
     @FXML private Button settingsToggleButton;
+    @FXML private Button initBtn;
+    @FXML private Button sendBtn;
     @FXML private TextField sessionRestoreCommand;
 
     private VBox currentThinkingBubble;
@@ -702,20 +704,13 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
                 chatView.applyCss();
                 chatView.requestLayout();
                 
-               // Restaurer explicitement les styles des boutons Init et Send
-                Platform.runLater(() -> {
-                    var buttons = inputArea.lookupAll(".button");
-                    for (var btnNode : buttons) {
-                        if (btnNode instanceof javafx.scene.control.Button btn) {
-                            String text = btn.getText();
-                            if ("Init".equals(text)) {
-                                btn.setStyle("-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-padding: 10 20; -fx-cursor: hand; -fx-background-radius: 6;");
-                            } else if ("Send".equals(text)) {
-                                btn.setStyle("-fx-background-color: #007acc; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 6;");
-                            }
-                        }
-                    }
-                });
+              // Restaurer explicitement les styles des boutons Init et Send
+                if (initBtn != null) {
+                    initBtn.setStyle("-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-padding: 10 20; -fx-cursor: hand; -fx-background-radius: 6;");
+                }
+                if (sendBtn != null) {
+                    sendBtn.setStyle("-fx-background-color: #007acc; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 6;");
+                }
             }
             settingsToggleButton.setText("⚙");
             updateInputAvailability();

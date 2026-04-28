@@ -34,12 +34,12 @@
                                   styleClass="input-field" 
                                   prefHeight="120.0" 
                                   wrapText="true"/>
-                        <Button text="Init" onAction="#initProject" style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-padding: 10 20; -fx-cursor: hand;">
+                        <Button fx:id="initBtn" text="Init" onAction="#initProject" style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-padding: 10 20; -fx-cursor: hand;">
                             <tooltip>
                                 <Tooltip text="Analyse le projet et synchronise le contexte des agents via AGENTS.md"/>
                             </tooltip>
                         </Button>
-                        <Button text="Send" onAction="#sendRequest" style="-fx-background-color: #007acc; -fx-text-fill: white; -fx-padding: 10 20;"/>
+                        <Button fx:id="sendBtn" text="Send" onAction="#sendRequest" style="-fx-background-color: #007acc; -fx-text-fill: white; -fx-padding: 10 20;"/>
                     </HBox>
           </VBox>
             </VBox>
