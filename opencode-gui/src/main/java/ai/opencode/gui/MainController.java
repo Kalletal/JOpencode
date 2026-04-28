@@ -687,7 +687,7 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
             settingsViewContainer.setManaged(true);
             settingsToggleButton.setText("←");
             LOGGER.info("Settings view activated");
-        } else {
+       } else {
             settingsViewContainer.setVisible(false);
             settingsViewContainer.setManaged(false);
             if (chatView != null) {
@@ -701,6 +701,21 @@ LOGGER.info("MainLanguageManager initialisé avec la langue : " + savedLang);
                 }
                 chatView.applyCss();
                 chatView.requestLayout();
+                
+               // Restaurer explicitement les styles des boutons Init et Send
+                Platform.runLater(() -> {
+                    var buttons = inputArea.lookupAll(".button");
+                    for (var btnNode : buttons) {
+                        if (btnNode instanceof javafx.scene.control.Button btn) {
+                            String text = btn.getText();
+                            if ("Init".equals(text)) {
+                                btn.setStyle("-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-padding: 10 20; -fx-cursor: hand; -fx-background-radius: 6;");
+                            } else if ("Send".equals(text)) {
+                                btn.setStyle("-fx-background-color: #007acc; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 6;");
+                            }
+                        }
+                    }
+                });
             }
             settingsToggleButton.setText("⚙");
             updateInputAvailability();
